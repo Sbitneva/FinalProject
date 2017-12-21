@@ -1,0 +1,22 @@
+---
+sudo: false
+language: java
+
+cache:
+  directories:
+    - $HOME/.m2
+
+jdk:
+  - oraclejdk8
+
+install: true
+script:
+  - mvn clean install
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+branches:
+  only:
+    - master
+    - dev
