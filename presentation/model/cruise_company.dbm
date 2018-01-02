@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="user"
+      login="true"
+      encrypted="true"
+      password="user">
+</role>
+
+<database name="cruise_company" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="users">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="0" y="68"/>
+	<column name="user_id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="login" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="password" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<constraint name="users_pk" type="pk-constr" table="public.users">
+		<columns names="user_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tickets">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="348"/>
+	<column name="ticket_id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="discount">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="price">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="ability">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="owner" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="tickets_pk" type="pk-constr" table="public.tickets">
+		<columns names="ticket_id,owner" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="comfort_level_id_comfort_levels" index="5"/>
+		<object name="ship_id_ships" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="comfort_levels_fk" index="1"/>
+		<object name="ships_fk" index="2"/>
+	</customidxs>
+</table>
+
+<table name="comfort_levels">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="548"/>
+	<column name="comfort_level_id" not-null="true">
+		<type name="smallserial" length="0"/>
+	</column>
+	<column name="comfort_level_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="pool" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="gym" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="beaty_salon" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="spa" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="unlimited_alcohol" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="unlimited_food" not-null="true" default-value="true">
+		<type name="bool" length="0"/>
+	</column>
+	<constraint name="comfort_levels_pk" type="pk-constr" table="public.comfort_levels">
+		<columns names="comfort_level_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="comfort_levels_has_many_tickets" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#768587"
+	 src-table="public.comfort_levels"
+	 dst-table="public.tickets"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-99.1197" y="-9.26066"/>
+	</label>
+</relationship>
+
+<table name="ships">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="560" y="68"/>
+	<column name="ship_id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="ship_name">
+		<type name="character" length="20"/>
+	</column>
+	<column name="cruise_duration_days" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="ships_pk" type="pk-constr" table="public.ships">
+		<columns names="ship_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="staff_id_staff" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="ships_uq" index="2"/>
+		<object name="staff_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="ships_has_many_tickets" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b63ade"
+	 src-table="public.ships"
+	 dst-table="public.tickets"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="11.6484" y="65.7864"/>
+	</label>
+</relationship>
+
+<table name="staff">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1220" y="68"/>
+	<column name="staff_id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="position" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<constraint name="staff_pk" type="pk-constr" table="public.staff">
+		<columns names="staff_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="excursions">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1280" y="468"/>
+	<column name="excursion_id" not-null="true">
+		<type name="smallserial" length="0"/>
+	</column>
+	<column name="excursion_name" not-null="true">
+		<type name="character" length="20"/>
+	</column>
+	<column name="price" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<constraint name="excursions_pk" type="pk-constr" table="public.excursions">
+		<columns names="excursion_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="port_id_ports" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="ports_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="ports">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1320" y="248"/>
+	<column name="port_id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="port_name" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="ports_pk" type="pk-constr" table="public.ports">
+		<columns names="port_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="ports_has_many_excursions" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#bb0e46"
+	 src-table="public.ports"
+	 dst-table="public.excursions"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="users_has_one_ships" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#dd1b56"
+	 src-table="public.ships"
+	 dst-table="public.users"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="one_staff_has_one_ship" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#4be589"
+	 src-table="public.staff"
+	 dst-table="public.ships"
+	 src-required="false" dst-required="false">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="users_has_many_tickets" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e68946"
+	 src-table="public.users"
+	 dst-table="public.tickets"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="many_ports_has_many_ships" type="relnn"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#c890e0"
+	 src-table="public.ports"
+	 dst-table="public.ships"
+	 src-required="false" dst-required="false"
+	 table-name="many_ports_has_many_ships"/>
+
+</dbmodel>
