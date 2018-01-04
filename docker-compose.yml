@@ -15,11 +15,15 @@ services:
       - back-end
       - db
     volumes:
-      - ${POSTGRES_DATA}:/var/lib/postgresql/data
+      - db:/var/lib/postgresql/data
       - ${POSTGRES_INIT}:/docker-entrypoint-initdb.d
 
 networks:
   back-end:
     external: true
+  db:
+    external: true
+
+volumes:
   db:
     external: true
