@@ -1,23 +1,16 @@
 ---
 sudo: true
-language: java
 
 services:
   - docker
-
-cache:
-  directories:
-    - $HOME/.m2
-
-jdk:
-  - oraclejdk8
 
 before_install:
   - docker-compose up -d postgres
 
 install: true
-script:
-  - mvn clean install
+script: 
+  - docker run -it --rm --name ci-buid -v "$PWD":/usr/src/app -w /usr/src/app maven:3.5.2-jdk-8-alpine mvn clean install
+  - sudo chown -R $UID:$UID "$PWD/target"
 
 after_success:
   - docker-compose logs postgres
