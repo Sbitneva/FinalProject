@@ -19,8 +19,9 @@ services:
 
   webapp:
     container_name: webapp
+    depends_on: postgres
     image: webapp
-    build: ..
+    build: .
     ports:
       - 80:8080
     networks:
