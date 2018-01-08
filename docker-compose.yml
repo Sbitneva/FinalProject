@@ -19,7 +19,8 @@ services:
 
   webapp:
     container_name: webapp
-    depends_on: postgres
+    depends_on:
+      - postgres
     image: webapp
     build: .
     ports:
