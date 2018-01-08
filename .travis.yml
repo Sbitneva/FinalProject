@@ -8,6 +8,8 @@ install: true
 script: 
   - docker run -it --rm --name ci-buid -v "$PWD":/usr/src/app -w /usr/src/app maven:3.5.2-jdk-8-alpine mvn clean install
   - sudo chown -R $UID:$UID "$PWD/target"
+  - docker volume create db
+  - docker network create back-end
   - docker-compose build
   - docker-compose up -d
   - curl -I -s localhost/index.jsp | grep "HTTP\/1\.1 200"
