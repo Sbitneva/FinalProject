@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <tomcat.version>9.0.2</tomcat.version>
+        <tomcat.version>8.5.2</tomcat.version>
         <checkstyle-plugin.version>2.17</checkstyle-plugin.version>
         <checkstyle.version>8.7</checkstyle.version>
         <postgresql.version>42.1.4.jre7</postgresql.version>
