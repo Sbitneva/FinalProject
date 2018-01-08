@@ -4,18 +4,20 @@ sudo: true
 services:
   - docker
 
-before_install:
-  - docker-compose up -d postgres
-
 install: true
 script: 
   - docker run -it --rm --name ci-buid -v "$PWD":/usr/src/app -w /usr/src/app maven:3.5.2-jdk-8-alpine mvn clean install
   - sudo chown -R $UID:$UID "$PWD/target"
+  - docker-compose build
+  - docker-compose up -d
+  - curl -I -s localhost/index.jsp | grep "HTTP\/1\.1 200"
 
 after_success:
-  - docker-compose logs postgres
-  - docker-compose down
   - bash <(curl -s https://codecov.io/bash)
+
+after_script:
+  - docker-compose logs
+  - docker-compose down
 
 branches:
   only:
