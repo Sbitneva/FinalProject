@@ -1,20 +1,29 @@
 ---
-sudo: false
-language: java
+sudo: true
 
-cache:
-  directories:
-    - $HOME/.m2
+services:
+  - docker
 
-jdk:
-  - oraclejdk8
+before_install:
+  - sudo /etc/init.d/postgresql stop
 
 install: true
-script:
-  - mvn clean install
+script: 
+  - docker run -it --rm --name ci-buid -v "$PWD":/usr/src/app -w /usr/src/app maven:3.5.2-jdk-8-alpine mvn clean install
+  - sudo chown -R $UID:$UID "$PWD/target"
+  - docker volume create db
+  - docker network create back-end
+  - docker-compose build
+  - docker-compose up -d
+  - sleep 5s
+  - curl -Is localhost/index.jsp | grep -q "^HTTP\/1\.1 200"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+after_script:
+  - docker-compose logs
+  - docker-compose down
 
 branches:
   only:

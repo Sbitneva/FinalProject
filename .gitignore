@@ -1,5 +1,7 @@
 .idea/
 target/
+tomcat*/
+checkstyle-*
 *.class
 *.iml
 *.log
