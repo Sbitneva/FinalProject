@@ -4,6 +4,9 @@ sudo: true
 services:
   - docker
 
+before_install:
+  - sudo /etc/init.d/postgresql stop
+
 install: true
 script: 
   - docker run -it --rm --name ci-buid -v "$PWD":/usr/src/app -w /usr/src/app maven:3.5.2-jdk-8-alpine mvn clean install
@@ -12,7 +15,8 @@ script:
   - docker network create back-end
   - docker-compose build
   - docker-compose up -d
-  - curl -I -s localhost/index.jsp | grep "HTTP\/1\.1 200"
+  - sleep 5s
+  - curl -Is localhost/index.jsp | grep -q "^HTTP\/1\.1 200"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
