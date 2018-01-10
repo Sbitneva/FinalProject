@@ -1,3 +1,7 @@
+| | ci | coverage |
+|---|---|---|
+| **dev** | [![Travis CI Build Status](https://img.shields.io/travis/Sbitneva/FinalProject/dev.svg?style=for-the-badge)](https://travis-ci.org/Sbitneva/UniverEpamJava) | [![Codecov.io Coverage Status](https://img.shields.io/codecov/c/github/Sbitneva/UniverEpamJava/dev.svg?style=for-the-badge)](https://codecov.io/gh/Sbitneva/FinalProject) |
+
 # Final Project
 
 ## Ship cruise company management system
