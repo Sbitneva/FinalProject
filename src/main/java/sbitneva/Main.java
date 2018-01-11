@@ -1,25 +1,28 @@
 package sbitneva;
 
-import java.io.File;
-
 import org.apache.catalina.WebResourceRoot;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.webresources.DirResourceSet;
 import org.apache.catalina.webresources.StandardRoot;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        
-        String webappDirLocation = "src/main/webapp/";
+
+        String webappDirLocation = "src/main/webapp";
         Tomcat tomcat = new Tomcat();
 
         tomcat.setPort(8080);
 
         StandardContext ctx = (StandardContext) tomcat.addWebapp(
-            "/", new File(webappDirLocation).getAbsolutePath()
-            );
+                "",
+                new File(webappDirLocation).getAbsolutePath()
+        );
+
+        ctx.setParentClassLoader(Main.class.getClassLoader());
 
         File additionWebInfClasses = new File("target/classes");
         WebResourceRoot resources = new StandardRoot(ctx);
