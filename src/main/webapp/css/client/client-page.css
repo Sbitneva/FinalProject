@@ -1,0 +1,65 @@
+#tickets_table {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#tickets_table td, #tickets_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tickets_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#tickets_table tr:hover {
+    background-color: #ddd;
+}
+
+#tickets_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#excursions_table {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#excursions_table td, #excursions_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#excursions_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#excursions_table tr:hover {
+    background-color: #ddd;
+}
+
+#excursions_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#buy_ticket_form, #buy_excursion_form {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#buy_ticket_button, #buy_excursion_button {
+    font-size: 16px;
+    color: #696969;
+    border-radius: 4px;
+}
+
