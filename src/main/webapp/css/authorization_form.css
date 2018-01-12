@@ -1,0 +1,45 @@
+* {
+    color: #FFF;
+    font-size: 24px;
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+
+}
+
+input {
+    color: #000;
+    text-align: left;
+    border-radius: 4px;
+}
+
+#login_table {
+    border: #333 1px solid;
+    border-radius: 4px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: -150px;
+    opacity: 0.9;
+}
+
+.auth_cell_titles {
+    color: #696969;
+    font-size: 13pt;
+}
+
+.auth_title {
+    padding-bottom: 20px;
+}
+
+.auth_submit a {
+    font-size: 13pt;
+    margin-left: 30px;
+    color: #696969;
+}
+
+#auth_submit_button {
+    font-size: 16px;
+    color: #696969;
+    border-radius: 4px;
+}

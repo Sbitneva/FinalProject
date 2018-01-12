@@ -5,7 +5,7 @@ services:
 
   postgres:
     container_name: postgres
-    image: postgres:${POSTGRES_VERSION}-alpine
+    image: postgres:9.6.6-alpine
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ${DB}
