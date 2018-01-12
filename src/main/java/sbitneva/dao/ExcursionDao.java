@@ -19,6 +19,10 @@ public class ExcursionDao {
 
     private final String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
 
+    private final String GET_ALL_EXCURSIONS_BY_PORT_ID =
+            "select * from  excursions inner join ports on " +
+                    "(excursions.port_id_ports = ? and excursions.port_id_ports = ports.port_id)";
+
     public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DAOException {
         ArrayList<Excursion> excursions = new ArrayList<>();
         ConnectionWrapper con = TransactionManager.getConnection();
@@ -40,7 +44,7 @@ public class ExcursionDao {
         return excursions;
     }
 
-    public String getExcursionNameById(int id) throws SQLException, DAOException {
+    public String getExcursionNameById(int id) throws SQLException {
         String name = "";
 
         ConnectionWrapper connection = TransactionManager.getConnection();
@@ -59,5 +63,31 @@ public class ExcursionDao {
         }
         connection.close();
         return name;
+    }
+
+    public ArrayList<Excursion> getAllExcursionsForPort(int portId) throws SQLException {
+        ArrayList<Excursion> excursions = new ArrayList<>();
+
+        ConnectionWrapper connection = TransactionManager.getConnection();
+        try {
+            PreparedStatement statement = connection.preparedStatement(GET_ALL_EXCURSIONS_BY_PORT_ID);
+            statement.setInt(1, portId);
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Excursion excursion = new Excursion();
+                excursion.setExcursionId(resultSet.getInt(1));
+                excursion.setExcursionName(resultSet.getString(2));
+                excursion.setPrice(resultSet.getInt(3));
+                excursion.setPortName(resultSet.getString(6));
+                excursions.add(excursion);
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+
+        }
+        connection.close();
+
+        return excursions;
     }
 }

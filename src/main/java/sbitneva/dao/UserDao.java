@@ -24,6 +24,7 @@ public class UserDao {
     public User getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
 
         ConnectionWrapper con = TransactionManager.getConnection();
+        User user = new User();
 
         try {
             PreparedStatement statement = con.preparedStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
@@ -33,26 +34,25 @@ public class UserDao {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                User user = new User();
                 user.setUserId(resultSet.getInt(1));
                 user.setFirstName(resultSet.getString(2));
                 user.setLastName(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setPassword(resultSet.getString(5));
                 user.setShipId(resultSet.getString(6));
-                System.out.println(user.toString());
-                return user;
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
         }
         con.close();
-        return null;
+        return user;
     }
 
     public User getUserById(int userId) throws SQLException, DAOException {
+
         ConnectionWrapper con = TransactionManager.getConnection();
+        User user = new User();
         try {
             PreparedStatement statement = con.preparedStatement(GET_CLIENT_BY_ID);
             statement.setInt(1, userId);
@@ -60,7 +60,6 @@ public class UserDao {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                User user = new User();
                 user.setUserId(resultSet.getInt(1));
                 user.setFirstName(resultSet.getString(2));
                 user.setLastName(resultSet.getString(3));
@@ -68,20 +67,13 @@ public class UserDao {
                 user.setPassword(resultSet.getString(5));
                 user.setShipId(resultSet.getString(6));
                 user.setTickets(getUserTickets(userId));
-                return user;
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
         }
         con.close();
-        return null;
-    }
-
-    public void register(String name, String login, String password) {
-    }
-
-    public void insert(User user) {
+        return user;
     }
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DAOException {

@@ -23,7 +23,7 @@ public class PortDao {
     private final String GET_ALL_PORTS = "select * from ports";
 
     public String getPortNameById(int id) throws SQLException, DAOException {
-        String portName = "";
+        String portName = new String();
         ConnectionWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.preparedStatement(GET_PORTNAME_BY_ID);
@@ -41,7 +41,6 @@ public class PortDao {
     }
 
     public int getPortIdByExcursionId(int excursionId) throws SQLException {
-
         int portId = 0;
         ConnectionWrapper con = TransactionManager.getConnection();
         try {

@@ -7,9 +7,9 @@ public class DaoFactory {
     private static ShipDao shipDao = new ShipDao();
     private static PortDao portDao = new PortDao();
     private static StaffDao staffDao = new StaffDao();
-    private static SharedDao sharedDao = new SharedDao();
     private static TicketDao ticketDao = new TicketDao();
     private static DaoFactory daoFactory = new DaoFactory();
+    private static TicketsExcursionsDao ticketsExcursionsDao = new TicketsExcursionsDao();
 
     private DaoFactory() {
     }
@@ -38,11 +38,11 @@ public class DaoFactory {
         return staffDao;
     }
 
-    public static SharedDao getSharedtDao() {
-        return sharedDao;
-    }
-
     public static TicketDao getTicketDao() {
         return ticketDao;
+    }
+
+    public static TicketsExcursionsDao getTicketsExcursionsDao() {
+        return ticketsExcursionsDao;
     }
 }

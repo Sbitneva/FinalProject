@@ -34,7 +34,7 @@ public class FactoryCommand {
 
     public Command getCommand(HttpServletRequest request) {
         String requestCommand = request.getParameter(PARAM_NAME_COMMAND);
-        log.debug(request.getRequestURI());
+        log.debug(requestCommand);
         if (requestCommand == null) {
             return null;
         }

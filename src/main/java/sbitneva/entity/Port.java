@@ -1,8 +1,11 @@
 package sbitneva.entity;
 
+import java.util.ArrayList;
+
 public class Port {
     private int portId;
     private String portName;
+    private ArrayList<Excursion> excursions = new ArrayList<>();
 
     public int getPortId() {
         return portId;
@@ -18,6 +21,14 @@ public class Port {
 
     public void setPortName(String portName) {
         this.portName = portName;
+    }
+
+    public ArrayList<Excursion> getExcursions() {
+        return excursions;
+    }
+
+    public void setExcursions(ArrayList<Excursion> excursions) {
+        this.excursions = excursions;
     }
 
     @Override
