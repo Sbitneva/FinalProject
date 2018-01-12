@@ -42,7 +42,8 @@ public class LoginCommand implements Command {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", loginService.getUserId());
                 log.debug(request.getContextPath());
-                request.getRequestDispatcher("CruiseServlet?command=users&userId=" + loginService.getUserId()).forward(request, response);
+                request.getRequestDispatcher(
+                        "CruiseServlet?command=users&userId=" + loginService.getUserId()).forward(request, response);
 
             } else {
                 throw new LoginException("Email or Password error");
@@ -52,7 +53,6 @@ public class LoginCommand implements Command {
         } catch (SQLException e1) {
             log.error(e1.getMessage());
         }
-        //request.setAttribute("errorMessageLogin", "Login incorrect");
-        //request.getRequestDispatcher(FactoryCommand.LOGIN).forward(request, response);
+
     }
 }

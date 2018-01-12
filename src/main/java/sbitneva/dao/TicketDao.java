@@ -17,6 +17,9 @@ public class TicketDao {
 
     private final String GET_ALL_FREE_TICKETS = "select * from tickets where (ship_id_ships = ? and ability = true)";
     private final String BUY_TICKET = "update tickets set user_id_users=?, ability=false where ticket_id = ?";
+    private final String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
+    private final String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
+
 
     public ArrayList<Ticket> getAllFreeTickets(int shipId) throws SQLException {
         ArrayList<Ticket> freeTickets = new ArrayList<>();
@@ -43,17 +46,49 @@ public class TicketDao {
     }
 
     public void buySelectedItem(int userId, int ticketId) throws SQLException {
-        Connection con = ConnectionPool.getConnection();
+        ConnectionWrapper con = TransactionManager.getConnection();
         try {
-            PreparedStatement statement = con.prepareStatement(BUY_TICKET);
+            PreparedStatement statement = con.preparedStatement(BUY_TICKET);
             statement.setInt(1, userId);
             statement.setInt(2, ticketId);
-            int i = statement.executeUpdate();
-            con.commit();
-            con.close();
+            statement.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
+        con.close();
+    }
 
+    public int getUserIdByTicketId(int ticketId) throws SQLException {
+        int userId = 0;
+        ConnectionWrapper con = TransactionManager.getConnection();
+        try{
+            PreparedStatement statement = con.preparedStatement(GET_USER_ID_BY_TICKET_ID);
+            statement.setInt(1, ticketId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+               userId =  resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            log.error(e.getMessage());
+        }
+        con.close();
+        return userId;
+    }
+
+    public int getShipByTicketId(int ticketId) throws SQLException {
+        int shipId = 0;
+        ConnectionWrapper con = TransactionManager.getConnection();
+        try{
+            PreparedStatement statement = con.preparedStatement(GET_SHIP_ID_BY_TICKET_ID);
+            statement.setInt(1, ticketId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                shipId =  resultSet.getInt(1);
+            }
+        }catch (SQLException e){
+            log.error(e.getMessage());
+        }
+        con.close();
+        return shipId;
     }
 }

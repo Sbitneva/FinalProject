@@ -19,15 +19,19 @@
                 <th>Ship Name</th>
                 <th>Cruise Duration</th>
                 <th>Comfort Level</th>
+                <th>Additional properties</th>
             </tr>
             <c:forEach items="${user.tickets}" var="ticket">
                 <tr>
                     <td>${ticket.ticketId}</td>
                     <td>${ticket.shipName}</td>
                     <td>${ticket.cruiseDuration}</td>
-                    <form action="CruiseServlet?command=comfortInfo&comfort_id=${ticket.comfortLevel}" method="post">
-                        <td>${ticket.comfortLevel}</td>
+                    <td>${ticket.comfortLevel}</td>
+                    <td>
+                        <form id="buy_excursion_form" action="/CruiseServlet?command=buyExcursion&action=select&ticketId=${ticket.ticketId}" method="post">
+                        <button id="buy_excursion_button" type="submit"> Buy new Excursion</button>
                     </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
@@ -52,8 +56,5 @@
             </c:forEach>
         </table>
 
-        <form id="buy_excursion_form" action="/CruiseServlet?command=buyExcursion" method="post">
-            <button id="buy_excursion_button" type="submit"> Buy new Excursion</button>
-        </form>
     </body>
 </html>

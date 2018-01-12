@@ -3,6 +3,7 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Ship;
+import sbitneva.entity.Ticket;
 import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
@@ -15,7 +16,7 @@ public class BuyTicketService {
     static Logger log = Logger.getLogger(BuyTicketService.class.getName());
     private static BuyTicketService buyTicketService = new BuyTicketService();
 
-    public BuyTicketService() {
+    private BuyTicketService() {
 
     }
 
@@ -71,4 +72,6 @@ public class BuyTicketService {
             log.error(e.getMessage());
         }
     }
+
+
 }

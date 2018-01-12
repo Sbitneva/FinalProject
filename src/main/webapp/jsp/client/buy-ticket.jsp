@@ -37,7 +37,7 @@
                     <td>${ticket.discount}</td>
                     <td>${ticket.price}</td>
                     <td>
-                        <form id="buy_excursion_form" action="CruiseServlet?command=buyTicket&ticketId=${ticket.ticketId}" method="post">
+                        <form id="buy_excursion_form" action="CruiseServlet?command=buyTicket&action=select&ticketId=${ticket.ticketId}" method="post">
                             <button id="buy_excursion_button" type="submit">Buy</button>
                         </form>
                     </td>
