@@ -12,19 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/CruiseServlet")
+
 public class ServletDispatcher extends HttpServlet {
     static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("doGet ");
-        if (req.getRequestURI().equals("/")) {
-            resp.sendRedirect("/index.jsp");
-
-        } else {
-            processRequest(req, resp);
-            System.out.println("Get");
-        }
+        processRequest(req, resp);
+        log.debug("Get");
     }
 
     @Override

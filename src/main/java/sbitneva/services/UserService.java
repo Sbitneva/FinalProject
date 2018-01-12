@@ -47,7 +47,7 @@ public class UserService {
                 userExcursions = excursionDao.getExcursionsByUser(user.getUserId());
             }
 
-            for(int i = 0; i < userExcursions.size(); i++) {
+            for (int i = 0; i < userExcursions.size(); i++) {
                 userExcursions.get(i).setExcursionName(excursionDao.getExcursionNameById(userExcursions.get(i).getExcursionId()));
                 userExcursions.get(i).setShipName(shipDao.getShipNameById(userExcursions.get(i).getShipId()));
                 int portId = portDao.getPortIdByExcursionId(userExcursions.get(i).getExcursionId());
@@ -56,7 +56,7 @@ public class UserService {
 
             user.setExcursions(userExcursions);
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
 

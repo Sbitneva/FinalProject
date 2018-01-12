@@ -1,4 +1,4 @@
-| **dev** | [![Travis CI Build Status](https://img.shields.io/travis/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://travis-ci.org/Sbitneva/FinalProject) [![Codecov.io Coverage Status](https://img.shields.io/codecov/c/github/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://codecov.io/gh/Sbitneva/FinalProject) [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/5a568d180fb24f7b161657e1/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a568d180fb24f7b161657e1) |
+| **dev** | [![Travis CI Build Status](https://img.shields.io/travis/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://travis-ci.org/Sbitneva/FinalProject) [![Codecov.io Coverage Status](https://img.shields.io/codecov/c/github/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://codecov.io/gh/Sbitneva/FinalProject) [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e) |
 |---|---|
 
 # Final Project

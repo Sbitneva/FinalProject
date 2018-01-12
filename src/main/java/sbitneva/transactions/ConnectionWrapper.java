@@ -16,6 +16,7 @@ public class ConnectionWrapper {
     public void close() throws SQLException {
         if (!isTransaction) {
             connection.close();
+
         }
     }
 

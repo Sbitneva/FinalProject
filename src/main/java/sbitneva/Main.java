@@ -29,7 +29,14 @@ public class Main {
         resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
                 additionWebInfClasses.getAbsolutePath(), "/"));
         ctx.setResources(resources);
-
+        /*
+        Wrapper defaultServlet = ctx.createWrapper();
+        defaultServlet.setName("CruiseServlet");
+        defaultServlet.setServletClass("sbitneva.servlets.ServletDispatcher");
+        defaultServlet.addInitParameter("debug", "0");
+        defaultServlet.addInitParameter("listings", "false");
+        defaultServlet.setLoadOnStartup(1);
+        */
         tomcat.start();
         tomcat.getServer().await();
     }
