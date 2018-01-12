@@ -3,11 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Excursion;
 import sbitneva.exception.DAOException;
-import sbitneva.transactions.ConnectionPool;
 import sbitneva.transactions.ConnectionWrapper;
 import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,7 +26,7 @@ public class ExcursionDao {
             PreparedStatement statement = con.preparedStatement(GET_EXCURSIONS_BY_USER_ID);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 Excursion excursion = new Excursion();
                 excursion.setExcursionId(resultSet.getInt(2));
                 excursion.setShipId(resultSet.getInt(8));
@@ -42,7 +40,7 @@ public class ExcursionDao {
         return excursions;
     }
 
-    public String getExcursionNameById(int id) throws SQLException, DAOException{
+    public String getExcursionNameById(int id) throws SQLException, DAOException {
         String name = "";
 
         ConnectionWrapper connection = TransactionManager.getConnection();
@@ -51,11 +49,11 @@ public class ExcursionDao {
             statement.setInt(1, id);
 
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 name = resultSet.getString(1);
                 log.debug(name);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
 
         }

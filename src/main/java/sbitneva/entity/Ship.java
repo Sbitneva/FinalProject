@@ -1,13 +1,14 @@
 package sbitneva.entity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ship {
     private int shipId;
     private String shipName;
+    private int cruiseDuration;
     private ArrayList<Staff> shipStaff = new ArrayList<>();
     private ArrayList<Port> ports = new ArrayList<>();
+    private ArrayList<Ticket> tickets = new ArrayList<>();
 
     public int getShipId() {
         return shipId;
@@ -39,5 +40,21 @@ public class Ship {
 
     public void setPorts(ArrayList<Port> ports) {
         this.ports = ports;
+    }
+
+    public ArrayList<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(ArrayList<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public int getCruiseDuration() {
+        return cruiseDuration;
+    }
+
+    public void setCruiseDuration(int cruiseDuration) {
+        this.cruiseDuration = cruiseDuration;
     }
 }

@@ -3,7 +3,6 @@ package sbitneva.transactions;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
-import sbitneva.dao.PortDao;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -11,17 +10,16 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ConnectionPool {
-    private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
     private static final String DB_DRIVER = "org.postgresql.Driver";
     private static final String DB_PATH = "jdbc:postgresql://localhost:5432/cruise_company";
     private static final String DB_LOGIN = "postgres";
     private static final String DB_PASSWORD = "postgres";
+    private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
+    private static BasicDataSource connectionPool = initDataSource();
 
-    private ConnectionPool(){
+    private ConnectionPool() {
 
     }
-
-    private static BasicDataSource connectionPool = initDataSource();
 
     public static Connection getConnection() throws SQLException {
         return connectionPool.getConnection();
@@ -48,7 +46,7 @@ public class ConnectionPool {
             connectionPool.setMaxOpenPreparedStatements(100);
             try {
                 connectionPool.getConnection().setAutoCommit(false);
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 log.error(e.getMessage());
             }
         }

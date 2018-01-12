@@ -33,7 +33,9 @@
                             <button type="submit" id="auth_submit_button" action="../jsp/client/client-page.jsp">Sign
                                 in
                             </button>
-                            <a href="../jsp/registration/registration.jsp">Registration</a>
+                            <form name="registration" method="post">
+                                <a href="../jsp/registration/registration.jsp">Registration</a>
+                            </form>
                         </td>
                     </tr>
                     </tbody>
