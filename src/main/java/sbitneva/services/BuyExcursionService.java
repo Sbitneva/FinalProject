@@ -2,11 +2,7 @@ package sbitneva.services;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
-import sbitneva.entity.Excursion;
 import sbitneva.entity.Port;
-import sbitneva.entity.Ship;
-import sbitneva.entity.Ticket;
-import sbitneva.exception.DAOException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -23,18 +19,18 @@ public class BuyExcursionService {
         return buyExcursionService;
     }
 
-    public ArrayList<Port> getExcursionsForPurchase(int ticketId){
+    public ArrayList<Port> getExcursionsForPurchase(int ticketId) {
         TicketDao ticketDao = DaoFactory.getTicketDao();
         PortDao portDao = DaoFactory.getPortDao();
         ExcursionDao excursionDao = DaoFactory.getExcursionDao();
         ArrayList<Port> ports = new ArrayList<>();
 
-        try{
+        try {
             int userIdFromDao = ticketDao.getUserIdByTicketId(ticketId);
-            if( userIdFromDao > 0){
+            if (userIdFromDao > 0) {
                 ports = (portDao.getPortsByShipId(ticketDao.getShipByTicketId(ticketId)));
 
-                for(int i = 0; i < ports.size(); i++ ){
+                for (int i = 0; i < ports.size(); i++) {
                     ports.get(i).setExcursions(
                             excursionDao.getAllExcursionsForPort(ports.get(i).getPortId()));
                 }
@@ -46,7 +42,7 @@ public class BuyExcursionService {
         return ports;
     }
 
-    public void buyExcursionForTicket(int ticketId, int excursionId){
+    public void buyExcursionForTicket(int ticketId, int excursionId) {
         TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
         try {
             ticketsExcursionsDao.getAllFreeTickets(ticketId, excursionId);

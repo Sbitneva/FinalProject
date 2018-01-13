@@ -2,11 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ticket;
-import sbitneva.transactions.ConnectionPool;
 import sbitneva.transactions.ConnectionWrapper;
 import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -61,14 +59,14 @@ public class TicketDao {
     public int getUserIdByTicketId(int ticketId) throws SQLException {
         int userId = 0;
         ConnectionWrapper con = TransactionManager.getConnection();
-        try{
+        try {
             PreparedStatement statement = con.preparedStatement(GET_USER_ID_BY_TICKET_ID);
             statement.setInt(1, ticketId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-               userId =  resultSet.getInt(1);
+            if (resultSet.next()) {
+                userId = resultSet.getInt(1);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
         con.close();
@@ -78,14 +76,14 @@ public class TicketDao {
     public int getShipByTicketId(int ticketId) throws SQLException {
         int shipId = 0;
         ConnectionWrapper con = TransactionManager.getConnection();
-        try{
+        try {
             PreparedStatement statement = con.preparedStatement(GET_SHIP_ID_BY_TICKET_ID);
             statement.setInt(1, ticketId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
-                shipId =  resultSet.getInt(1);
+            if (resultSet.next()) {
+                shipId = resultSet.getInt(1);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
         con.close();

@@ -1,12 +1,17 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Registration</title>
     <link href="../../css/all-backgrounds.css" rel="stylesheet">
     <link href="../../css/registration/registration.css" rel="stylesheet">
 </head>
 <body>
 <div id="wrapper">
-    <form action="../CruiseServlet?command=registration" method="post">
+    <form action="/CruiseServlet?command=registration" method="post">
         <fieldset>
             <legend>Registration</legend>
             <div>
