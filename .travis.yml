@@ -16,7 +16,7 @@ script:
   - docker-compose build
   - docker-compose up -d
   - sleep 5s
-  - curl -Is localhost/index.jsp | grep -q "^HTTP\/1\.1 200"
+  - curl -Is http://localhost/ | grep -q "^HTTP\/1\.1 200"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
