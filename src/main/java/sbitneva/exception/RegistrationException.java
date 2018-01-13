@@ -1,9 +1,8 @@
 package sbitneva.exception;
 
 public class RegistrationException extends Exception {
-    public RegistrationException(String mess) {
+    public RegistrationException(String message) {
+        super(message);
     }
 
-    public RegistrationException(DAOException e) {
-    }
 }

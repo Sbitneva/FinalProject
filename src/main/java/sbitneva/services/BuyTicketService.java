@@ -3,7 +3,6 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Ship;
-import sbitneva.entity.Ticket;
 import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
