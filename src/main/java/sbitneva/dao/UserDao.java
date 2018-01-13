@@ -14,12 +14,14 @@ import java.util.ArrayList;
 
 public class UserDao {
 
+    private static Logger log = Logger.getLogger(UserDao.class.getName());
+
     private static final String GET_CLIENT_BY_ID = "select * from users where (user_id = ? and ship_id_ships is null);";
     private static final String GET_CLIENT_BY_EMAIL_AND_PASS = "select * from users where email = ? and password = ?";
     private static final String GET_ALL_CLIENT_TICKETS =
             "select * from tickets inner join ships on (tickets.user_id_users=? " +
                     "and tickets.ship_id_ships = ships.ship_id);";
-    private static Logger log = Logger.getLogger(UserDao.class.getName());
+    private static final String ADD_USER = "insert into users values ( default, ?, ?, ?, ?, default )";
 
     public User getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
 
@@ -103,5 +105,26 @@ public class UserDao {
         }
         con.close();
         return tickets;
+    }
+
+    public int addNewUser(String firstName, String lastName, String email, String password) throws SQLException {
+        int result = 0;
+
+        ConnectionWrapper con = TransactionManager.getConnection();
+        try {
+            PreparedStatement statement = con.preparedStatement(ADD_USER);
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, email);
+            statement.setString(4, password);
+
+            result = statement.executeUpdate();
+
+        } catch (SQLException e) {
+            log.error(e.getStackTrace());
+        }
+        con.close();
+
+        return result;
     }
 }
