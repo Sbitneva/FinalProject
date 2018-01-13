@@ -1,14 +1,11 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
-import sbitneva.entity.Ticket;
 import sbitneva.transactions.ConnectionWrapper;
 import sbitneva.transactions.TransactionManager;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class TicketsExcursionsDao {
     private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
