@@ -1,0 +1,52 @@
+* {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+
+}
+#tickets_table {
+    font-size: 18px;
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+#tickets_table td, #tickets_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#tickets_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#tickets_table tr:hover {
+    background-color: #ddd;
+}
+
+#tickets_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#staff {
+    font-size: 14px;
+    color: #4f5957;
+    border-radius: 4px;
+}
+
+#show{
+    font-size: 14px;
+    color: #4f5957;
+    border-radius: 4px;
+}
+
+#apply {
+    font-size: 14px;
+    color: #4f5957;
+    border-radius: 4px;
+}
+
+

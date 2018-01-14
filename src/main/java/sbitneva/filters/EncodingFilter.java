@@ -10,9 +10,10 @@ import java.io.IOException;
         urlPatterns = {"/*"}
 )
 
-public class EncodingFilter implements Filter{
+public class EncodingFilter implements Filter {
 
     private static Logger log = Logger.getLogger(EncodingFilter.class.getName());
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 

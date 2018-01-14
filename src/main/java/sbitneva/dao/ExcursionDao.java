@@ -14,12 +14,13 @@ import java.util.ArrayList;
 public class ExcursionDao {
     private static Logger log = Logger.getLogger(ExcursionDao.class.getName());
 
-    private final String GET_EXCURSIONS_BY_USER_ID = "select * from many_tickets_has_many_excursions inner join tickets " +
+    private final static String GET_EXCURSIONS_BY_USER_ID = "select * from many_tickets_has_many_excursions " +
+            "inner join tickets " +
             "on (tickets.user_id_users=? and tickets.ticket_id= many_tickets_has_many_excursions.ticket_id_tickets)";
 
-    private final String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
+    private final static String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
 
-    private final String GET_ALL_EXCURSIONS_BY_PORT_ID =
+    private final static String GET_ALL_EXCURSIONS_BY_PORT_ID =
             "select * from  excursions inner join ports on " +
                     "(excursions.port_id_ports = ? and excursions.port_id_ports = ports.port_id)";
 

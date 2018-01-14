@@ -16,11 +16,11 @@ import java.util.Map;
 public class PortDao {
     private static Logger log = Logger.getLogger(PortDao.class.getName());
 
-    private final String GET_PORTNAME_BY_ID = "select port_name from ports where port_id = ?";
-    private final String GET_PORT_ID_BY_EXCURSION_ID = "select port_id_ports from excursions where excursion_id=?";
-    private final String GET_PORTS_IDS_BY_SHIP_ID =
+    private final static String GET_PORTNAME_BY_ID = "select port_name from ports where port_id = ?";
+    private final static String GET_PORT_ID_BY_EXCURSION_ID = "select port_id_ports from excursions where excursion_id=?";
+    private final static String GET_PORTS_IDS_BY_SHIP_ID =
             "select port_id_ports from many_ports_has_many_ships where ship_id_ships = ?";
-    private final String GET_ALL_PORTS = "select * from ports";
+    private final static String GET_ALL_PORTS = "select * from ports";
 
     public String getPortNameById(int id) throws SQLException, DAOException {
         String portName = new String();

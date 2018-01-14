@@ -1,7 +1,6 @@
 package sbitneva.command;
 
 import org.apache.log4j.Logger;
-import sbitneva.exception.TransactionException;
 import sbitneva.services.RegistrationService;
 
 import javax.servlet.ServletException;
@@ -11,16 +10,13 @@ import java.io.IOException;
 
 public class RegistrationCommand implements Command {
 
-    static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
-
     private final static String REGISTRATION_COMMAND_PATH = "jsp/registration/registration.jsp";
     private final static String AFTER_REGISTRATION_COMMAND_PATH = "/CruiseServlet?command=users&userId=";
-
     private final static String FIRST_NAME_PARAMETER = "first_name";
     private final static String LAST_NAME_PARAMETER = "last_name";
     private final static String EMAIL_PARAMETER = "email";
     private final static String PASSWORD_PARAMETER = "password";
-
+    static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +29,7 @@ public class RegistrationCommand implements Command {
         RegistrationService registrationService = RegistrationService.getRegistrationService();
         try {
             int userId = registrationService.register(firstName, lastName, email, password);
-            if(userId > 0) {
+            if (userId > 0) {
                 request.setAttribute("userId", userId);
                 request.getSession().setAttribute("userId", userId);
                 request.getRequestDispatcher(AFTER_REGISTRATION_COMMAND_PATH + userId).forward(request, response);

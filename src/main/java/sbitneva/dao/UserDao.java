@@ -14,14 +14,13 @@ import java.util.ArrayList;
 
 public class UserDao {
 
-    private static Logger log = Logger.getLogger(UserDao.class.getName());
-
     private static final String GET_CLIENT_BY_ID = "select * from users where (user_id = ? and ship_id_ships is null);";
     private static final String GET_CLIENT_BY_EMAIL_AND_PASS = "select * from users where email = ? and password = ?";
     private static final String GET_ALL_CLIENT_TICKETS =
             "select * from tickets inner join ships on (tickets.user_id_users=? " +
                     "and tickets.ship_id_ships = ships.ship_id);";
     private static final String ADD_USER = "insert into users values ( default, ?, ?, ?, ?, default )";
+    private static Logger log = Logger.getLogger(UserDao.class.getName());
 
     public User getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
 
@@ -41,7 +40,7 @@ public class UserDao {
                 user.setLastName(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setPassword(resultSet.getString(5));
-                user.setShipId(resultSet.getString(6));
+                user.setShipId(resultSet.getInt(6));
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
@@ -67,7 +66,7 @@ public class UserDao {
                 user.setLastName(resultSet.getString(3));
                 user.setEmail(resultSet.getString(4));
                 user.setPassword(resultSet.getString(5));
-                user.setShipId(resultSet.getString(6));
+                user.setShipId(resultSet.getInt(6));
                 user.setTickets(getUserTickets(userId));
             }
         } catch (SQLException e) {

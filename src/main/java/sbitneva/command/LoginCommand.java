@@ -1,26 +1,24 @@
 package sbitneva.command;
 
 import org.apache.log4j.Logger;
-import sbitneva.exception.DAOException;
+import sbitneva.entity.User;
 import sbitneva.exception.LoginException;
 import sbitneva.services.LoginService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class LoginCommand implements Command {
 
+    private final static String USER_COMMAND_PATH = "CruiseServlet?command=users&userId=";
+    private final static String SHIP_ADMIN_COMMAND_PATH = "CruiseServlet?command=shipAdmin&action=show&userId=";
     static Logger log = Logger.getLogger(LoginCommand.class.getName());
     private final String EMAIL_PARAMETER = "email";
     private final String PASSWORD_PARAMETER = "password";
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, LoginException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
 
         log.debug("execution");
 
@@ -29,29 +27,28 @@ public class LoginCommand implements Command {
 
         log.debug("email = " + email + " password = " + password);
 
-        if (email.equals("") || password.equals("")) {
-            response.sendRedirect("/index.jsp");
-            log.debug("Empty email or password from user");
-            return;
-        }
-
         LoginService loginService = LoginService.getLoginService();
-
         try {
-            if (loginService.verify(email, password)) {
+            User user = loginService.verify(email, password);
+            if (user == null) {
+                log.debug("redirect to index.jsp because of wrong user input data");
+                response.sendRedirect("/index.jsp");
+            } else if (user.getShipId() > 0) {
+                log.debug("user is admin of ship with id = " + user.getShipId());
                 HttpSession session = request.getSession();
-                session.setAttribute("userId", loginService.getUserId());
-                log.debug(request.getContextPath());
+                session.setAttribute("userId", user.getUserId());
                 request.getRequestDispatcher(
-                        "CruiseServlet?command=users&userId=" + loginService.getUserId()).forward(request, response);
-
+                        SHIP_ADMIN_COMMAND_PATH + user.getUserId() + "&shipId=" + user.getShipId())
+                        .forward(request, response);
             } else {
-                throw new LoginException("Email or Password error");
+                log.debug("user is service client");
+                HttpSession session = request.getSession();
+                session.setAttribute("userId", user.getUserId());
+                request.getRequestDispatcher(
+                        USER_COMMAND_PATH + user.getUserId()).forward(request, response);
             }
-        } catch (DAOException e) {
+        } catch (Exception e) {
             log.error(e.getMessage());
-        } catch (SQLException e1) {
-            log.error(e1.getMessage());
         }
 
     }
