@@ -7,13 +7,11 @@ import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
 import java.sql.SQLException;
-import java.util.Objects;
 
 public class LoginService {
-    static Logger log = Logger.getLogger(LoginService.class.getName());
+    private static Logger log = Logger.getLogger(LoginService.class.getName());
 
     private static LoginService loginService = new LoginService();
-    private int userId;
 
     private LoginService() {
 
@@ -23,26 +21,20 @@ public class LoginService {
         return loginService;
     }
 
-    public boolean verify(String email, String password) throws SQLException, DAOException {
+    public User verify(String email, String password) {
+        User user = null;
 
-        if ((email == null) || password == null) {
-            return false;
+        if ((email.isEmpty()) || password.isEmpty()) {
+            return user;
         }
 
         UserDao userDao = DaoFactory.getUserDao();
-        User user = userDao.getClientByEmailAndPassword(email, password);
-
-        log.debug(user.toString());
-
-        if (Objects.nonNull(user)) {
-            this.userId = user.getUserId();
-            return true;
+        try {
+            user = userDao.getClientByEmailAndPassword(email, password);
+        } catch (DAOException | SQLException e) {
+            log.error(e.getMessage());
         }
-
-        return false;
+        return user;
     }
 
-    public int getUserId() {
-        return this.userId;
-    }
 }

@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BuyTicketService {
-    static Logger log = Logger.getLogger(BuyTicketService.class.getName());
+    private static Logger log = Logger.getLogger(BuyTicketService.class.getName());
     private static BuyTicketService buyTicketService = new BuyTicketService();
 
     private BuyTicketService() {

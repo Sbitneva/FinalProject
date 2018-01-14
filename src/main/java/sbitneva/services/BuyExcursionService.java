@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class BuyExcursionService {
-    static Logger log = Logger.getLogger(BuyExcursionService.class.getName());
+    private static Logger log = Logger.getLogger(BuyExcursionService.class.getName());
     private static BuyExcursionService buyExcursionService = new BuyExcursionService();
 
     private BuyExcursionService() {

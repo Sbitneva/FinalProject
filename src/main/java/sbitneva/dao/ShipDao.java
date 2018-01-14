@@ -2,6 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ship;
+import sbitneva.entity.Ticket;
 import sbitneva.transactions.ConnectionWrapper;
 import sbitneva.transactions.TransactionManager;
 
@@ -17,9 +18,10 @@ public class ShipDao {
     private final String GET_SHIP_BY_ID = "select ship_name from ships where ship_id = ?";
     private final String GET_ALL_SHIPS = "select * from ships";
 
+
+
     public String getShipNameById(int shipId) throws SQLException {
         String name = "";
-
         ConnectionWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.preparedStatement(GET_SHIP_BY_ID);
@@ -57,4 +59,6 @@ public class ShipDao {
         con.close();
         return ships;
     }
+
+
 }
