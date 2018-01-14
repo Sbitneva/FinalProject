@@ -1,7 +1,7 @@
 #services_table {
     font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 50%;
 }
 
 #services_table td, #ship_table th {
@@ -30,8 +30,3 @@
     padding-bottom: 12px;
 }
 
-#auth_submit_button {
-    font-size: 16px;
-    color: #696969;
-    border-radius: 4px;
-}

@@ -10,12 +10,13 @@
     <link href="../../css/ship-administrator/ship-info.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <h2>${ship.shipName}</h2>
-    <form id="show_staff"
-          action=""
-          method="post">
-        <button id="staff" type="submit">Show ships staff</button>
-    </form>
+    <h1>${ship.shipName}</h1>
+        <form id="staff_button" action="CruiseServlet?command=shipAdmin&action=staff&shipId=${ship.shipId}" type="submit" method="post">
+            <button id="staff" type="submit">
+                Show ships staff
+            </button>
+        </form>
+
 
     <table id="tickets_table">
         <tr>

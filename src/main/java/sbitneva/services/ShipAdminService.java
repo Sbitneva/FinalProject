@@ -1,14 +1,13 @@
 package sbitneva.services;
 
 import org.apache.log4j.Logger;
-import sbitneva.dao.ComfortLevelDao;
-import sbitneva.dao.DaoFactory;
-import sbitneva.dao.ShipDao;
-import sbitneva.dao.TicketDao;
+import sbitneva.dao.*;
 import sbitneva.entity.ComfortLevel;
 import sbitneva.entity.Ship;
+import sbitneva.entity.Staff;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ShipAdminService {
     private static Logger log = Logger.getLogger(ShipAdminService.class.getName());
@@ -66,5 +65,16 @@ public class ShipAdminService {
             log.error(e.getMessage());
         }
         return comfortLevel;
+    }
+
+    public ArrayList<Staff> getStaff(int shipId) {
+        ArrayList<Staff> staff = new ArrayList<>();
+        try{
+            StaffDao staffDao = DaoFactory.getStaffDao();
+            staff = staffDao.getStaff(shipId);
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        return staff;
     }
 }
