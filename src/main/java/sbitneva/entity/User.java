@@ -8,7 +8,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private String shipId = null;
+    private int shipId = 0;
     private ArrayList<Ticket> tickets = new ArrayList<>();
     private ArrayList<Excursion> excursions = new ArrayList<>();
 
@@ -60,11 +60,11 @@ public class User {
         this.password = password;
     }
 
-    public String getShipId() {
+    public int getShipId() {
         return shipId;
     }
 
-    public void setShipId(String shipId) {
+    public void setShipId(int shipId) {
         this.shipId = shipId;
     }
 

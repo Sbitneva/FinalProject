@@ -1,5 +1,7 @@
+<!--
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+-->
 
 <html>
 <head>
@@ -8,7 +10,8 @@
     <link href="css/authorization_form.css" type="text/css" rel="stylesheet">
 </head>
 <body onload="document.authorization.login.focus();">
-<form name="authorization" action="CruiseServlet?command=login" method="post">
+<script src="../js/check_empty_field.js"></script>
+<form name="authorization" action="CruiseServlet?command=login" onsubmit="required()" method="post">
     <table id="login_table">
         <tbody>
         <tr>
@@ -45,5 +48,6 @@
         </tbody>
     </table>
 </form>
+
 </body>
 </html>

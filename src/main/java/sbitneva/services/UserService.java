@@ -10,8 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class UserService {
-    static Logger log = Logger.getLogger(UserService.class.getName());
-
+    private static Logger log = Logger.getLogger(UserService.class.getName());
     private static UserService userService = new UserService();
     private User user = new User();
 

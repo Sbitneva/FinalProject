@@ -6,6 +6,7 @@ public class Ticket {
     private String shipName;
     private int price;
     private int comfortLevel;
+    private String comfortLevelName;
     private int discount;
     private int cruiseDuration;
 
@@ -63,6 +64,14 @@ public class Ticket {
 
     public void setCruiseDuration(int cruiseDuration) {
         this.cruiseDuration = cruiseDuration;
+    }
+
+    public String getComfortLevelName() {
+        return comfortLevelName;
+    }
+
+    public void setComfortLevelName(String comfortLevelName) {
+        this.comfortLevelName = comfortLevelName;
     }
 
     @Override

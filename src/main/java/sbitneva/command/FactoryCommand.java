@@ -11,6 +11,7 @@ public class FactoryCommand {
     public static final String REGISTRATION = "registration";
     public static final String LOGOUT = "logout";
     public static final String USERS = "users";
+    public static final String SHIP_ADMIN = "shipAdmin";
     public static final String COMFORT = "comfortInfo";
     private static final String PARAM_NAME_COMMAND = "command";
     private static final String BUY_TICKET = "buyTicket";
@@ -26,6 +27,7 @@ public class FactoryCommand {
         commandMap.put(BUY_TICKET, new BuyTicketCommand());
         commandMap.put(COMFORT, new ComfortCommand());
         commandMap.put(BUY_EXCURSION, new BuyExcursionCommand());
+        commandMap.put(SHIP_ADMIN, new ShipAdminCommand());
     }
 
     public static FactoryCommand getInstance() {
