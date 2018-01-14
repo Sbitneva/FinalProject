@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 public class LoginCommand implements Command {
 
     private final static String USER_COMMAND_PATH = "CruiseServlet?command=users&userId=";
-    private final static String SHIP_ADMIN_COMMAND_PATH = "CruiseServlet?command=shipAdmin&userId=";
+    private final static String SHIP_ADMIN_COMMAND_PATH = "CruiseServlet?command=shipAdmin&action=show&userId=";
     static Logger log = Logger.getLogger(LoginCommand.class.getName());
     private final String EMAIL_PARAMETER = "email";
     private final String PASSWORD_PARAMETER = "password";
@@ -38,7 +38,7 @@ public class LoginCommand implements Command {
                 HttpSession session = request.getSession();
                 session.setAttribute("userId", user.getUserId());
                 request.getRequestDispatcher(
-                        SHIP_ADMIN_COMMAND_PATH + user.getUserId() + "&shipId=" + user.getShipId() + "action=showTickets")
+                        SHIP_ADMIN_COMMAND_PATH + user.getUserId() + "&shipId=" + user.getShipId())
                         .forward(request, response);
             } else {
                 log.debug("user is service client");

@@ -1,30 +1,23 @@
-* {
-    color: #FFF;
-    font-size: 24px;
-    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
-
-}
-#tickets_table {
+#services_table {
     font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
     border-collapse: collapse;
     width: 100%;
-    padding-bottom: 20px;
 }
 
-#tickets_table td, #tickets_table th {
+#services_table td, #ship_table th {
     border: 1px solid #ddd;
     padding: 8px;
 }
 
-#tickets_table tr:nth-child(even) {
+#services_table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-#tickets_table tr:hover {
+#services_table tr:hover {
     background-color: #ddd;
 }
 
-#tickets_table th {
+#services_table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -32,9 +25,13 @@
     color: white;
 }
 
-#staff, #show, #apply {
-    font-size: 40px;
+#services_table {
+    font-size: 20px;
+    padding-bottom: 12px;
+}
+
+#auth_submit_button {
+    font-size: 16px;
     color: #696969;
     border-radius: 4px;
 }
-

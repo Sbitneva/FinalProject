@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class TicketsExcursionsDao {
     private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
 
-    private final String ADD_EXCURSION_AND_TICKET = "insert into many_tickets_has_many_excursions values (?, ?)";
+    private final static String ADD_EXCURSION_AND_TICKET = "insert into many_tickets_has_many_excursions values (?, ?)";
 
     public void getAllFreeTickets(int ticketId, int excursionId) throws SQLException {
         ConnectionWrapper con = TransactionManager.getConnection();
