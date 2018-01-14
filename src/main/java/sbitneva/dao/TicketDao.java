@@ -13,8 +13,8 @@ import java.util.ArrayList;
 public class TicketDao {
     private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
-    private final static String GET_ALL_FREE_TICKETS = "select * from tickets where (ship_id_ships = ? and ability = true)";
-    private final static String BUY_TICKET = "update tickets set user_id_users=?, ability=false where ticket_id = ?";
+    private final static String GET_ALL_FREE_TICKETS = "select * from tickets where (ship_id_ships = ? and user_id_users is null)";
+    private final static String BUY_TICKET = "update tickets set user_id_users=? where ticket_id = ?";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
     private final static String GET_ALL_AVAILABLE_TICKETS =
