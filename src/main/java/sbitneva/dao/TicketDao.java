@@ -21,6 +21,7 @@ public class TicketDao {
             "select * from tickets inner join comfort_levels on " +
                     "(tickets.ship_id_ships = ? and tickets.user_id_users is null " +
                     "and tickets.comfort_level_id_comfort_levels = comfort_levels.comfort_level_id);";
+    private final static String UPDATE_TICKET_DISCOUNT = "update tickets set discount = ? where ticket_id = ?";
 
 
     public ArrayList<Ticket> getAllFreeTickets(int shipId) throws SQLException {
@@ -117,5 +118,19 @@ public class TicketDao {
         }
         con.close();
         return shipId;
+    }
+
+    public int updateDiscount(int ticketId, int discount) throws SQLException {
+        ConnectionWrapper con = TransactionManager.getConnection();
+        int result = 0;
+        try{
+            PreparedStatement statement = con.preparedStatement(UPDATE_TICKET_DISCOUNT);
+            statement.setInt(1, discount);
+            statement.setInt(2, ticketId);
+            result = statement.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+        return result;
     }
 }
