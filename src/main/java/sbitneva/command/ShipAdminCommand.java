@@ -3,6 +3,7 @@ package sbitneva.command;
 import org.apache.log4j.Logger;
 import sbitneva.entity.ComfortLevel;
 import sbitneva.entity.Ship;
+import sbitneva.entity.Staff;
 import sbitneva.services.ShipAdminService;
 
 import javax.servlet.ServletException;
@@ -18,16 +19,17 @@ public class ShipAdminCommand implements Command {
 
     private static final String SHIP_ADMIN_PAGE = "jsp/ship-administrator/ship-info.jsp";
     private static final String COMFORT_LEVEL_SERVICES_PAGE = "comfort-level-services.jsp";
+    private static final String STAFF_PAGE = "jsp/ship-administrator/staff.jsp";
 
     private static final String SHOW_ACTION = "show";
     private static final String APPLY_DISCOUNT = "apply";
     private static final String SHOW_SERVICES = "services";
+    private static final String SHOW_STAFF = "staff";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("execution " + request.getQueryString());
         int shipId = 0;
-        int userId = 0;
         String action = new String();
         if (request.getParameter("action") == null) {
             log.debug("request data not full");
@@ -49,6 +51,12 @@ public class ShipAdminCommand implements Command {
                     break;
                 case SHOW_SERVICES :
                     showServices(request, response);
+                    break;
+                case SHOW_STAFF :
+                    if(request.getParameter("shipId") != null) {
+                        shipId = Integer.parseInt(request.getParameter("shipId"));
+                        showStaff(shipId, request, response);
+                    }
                     break;
                     default:
                         break;
@@ -108,9 +116,19 @@ public class ShipAdminCommand implements Command {
                 }
             }
         } catch (Exception e) {
-
+            log.error(e.getMessage());
         }
+    }
 
-
+    private void showStaff(int shipId, HttpServletRequest request, HttpServletResponse response){
+        log.debug("show ship's staff");
+        try{
+            ShipAdminService shipAdminService = ShipAdminService.getShipAdminService();
+            ArrayList<Staff> staff = shipAdminService.getStaff(shipId);
+            request.setAttribute("staff", staff);
+            request.getRequestDispatcher(STAFF_PAGE).forward(request, response);
+        } catch (Exception e){
+            log.error(e.getMessage());
+        }
     }
 }

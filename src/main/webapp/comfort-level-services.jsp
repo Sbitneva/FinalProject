@@ -10,7 +10,7 @@
     <link href="css/comfort-levels-services.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <h2>${comfortLevel.comfortLevelName}</h2>
+    <h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
 
     <table id="services_table">
         <tr>
@@ -22,7 +22,5 @@
             </tr>
 
         </c:forEach>
-
-
     </table>
 </body>

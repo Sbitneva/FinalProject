@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FactoryCommand {
+    static Logger log = Logger.getLogger(FactoryCommand.class.getName());
     public static final String LOGIN = "login";
     public static final String REGISTRATION = "registration";
     public static final String LOGOUT = "logout";
@@ -17,7 +18,7 @@ public class FactoryCommand {
     private static final String BUY_TICKET = "buyTicket";
     private static final String BUY_EXCURSION = "buyExcursion";
     private static final FactoryCommand factoryCommand = new FactoryCommand();
-    static Logger log = Logger.getLogger(FactoryCommand.class.getName());
+
     private Map<String, Command> commandMap = new HashMap<>();
 
     private FactoryCommand() {
