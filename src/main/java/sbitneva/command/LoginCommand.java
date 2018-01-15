@@ -13,9 +13,9 @@ public class LoginCommand implements Command {
 
     private final static String USER_COMMAND_PATH = "CruiseServlet?command=users&userId=";
     private final static String SHIP_ADMIN_COMMAND_PATH = "CruiseServlet?command=shipAdmin&action=show&userId=";
+    private final static String EMAIL_PARAMETER = "email";
+    private final static String PASSWORD_PARAMETER = "password";
     static Logger log = Logger.getLogger(LoginCommand.class.getName());
-    private final String EMAIL_PARAMETER = "email";
-    private final String PASSWORD_PARAMETER = "password";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {

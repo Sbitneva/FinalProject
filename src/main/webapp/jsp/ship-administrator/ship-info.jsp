@@ -45,7 +45,7 @@
                 </form>
             </td>
             <td>
-                ${ticket.price}
+                    ${ticket.price}
             <td>
         </tr>
     </c:forEach>
