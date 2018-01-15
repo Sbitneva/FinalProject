@@ -1,0 +1,32 @@
+#ships_table {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#ships_table td, #ships_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#ships_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#ships_table tr:hover {
+    background-color: #ddd;
+}
+
+#ships_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+#show_tickets_form {
+    font-size: 20px;
+    padding-bottom: 12px;
+}
+

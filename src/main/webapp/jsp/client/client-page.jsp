@@ -37,7 +37,7 @@
         </tr>
     </c:forEach>
 </table>
-<form id="buy_ticket_form" action="/CruiseServlet?command=buyTicket" method="post">
+<form id="buy_ticket_form" action="/CruiseServlet?command=buyTicket&action=showShips" method="post">
     <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
 </form>
 
