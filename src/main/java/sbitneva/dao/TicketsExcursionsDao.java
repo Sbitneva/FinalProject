@@ -1,21 +1,20 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
-import sbitneva.transactions.ConnectionWrapper;
-import sbitneva.transactions.TransactionManager;
+import sbitneva.transactions.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TicketsExcursionsDao {
+    private final static String ADD_EXCURSION_AND_TICKET = "insert into many_tickets_has_many_excursions values (?, ?)";
     private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
 
-    private final static String ADD_EXCURSION_AND_TICKET = "insert into many_tickets_has_many_excursions values (?, ?)";
-
     public void getAllFreeTickets(int ticketId, int excursionId) throws SQLException {
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(ADD_EXCURSION_AND_TICKET);
+            PreparedStatement statement = connection.prepareStatement(ADD_EXCURSION_AND_TICKET);
             statement.setInt(1, ticketId);
             statement.setInt(2, excursionId);
             statement.executeUpdate();
@@ -23,6 +22,6 @@ public class TicketsExcursionsDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
     }
 }

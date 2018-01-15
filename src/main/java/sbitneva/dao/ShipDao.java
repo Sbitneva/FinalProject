@@ -2,9 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ship;
-import sbitneva.transactions.ConnectionWrapper;
-import sbitneva.transactions.TransactionManager;
+import sbitneva.transactions.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,16 +12,15 @@ import java.util.ArrayList;
 
 public class ShipDao {
 
-    private static Logger log = Logger.getLogger(ShipDao.class.getName());
-
     private final static String GET_SHIP_BY_ID = "select ship_name from ships where ship_id = ?";
     private final static String GET_ALL_SHIPS = "select * from ships";
+    private static Logger log = Logger.getLogger(ShipDao.class.getName());
 
     public String getShipNameById(int shipId) throws SQLException {
         String name = "";
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_SHIP_BY_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_SHIP_BY_ID);
             statement.setInt(1, shipId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -31,16 +30,16 @@ public class ShipDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
         return name;
     }
 
     public ArrayList<Ship> getAllShips() throws SQLException {
 
         ArrayList<Ship> ships = new ArrayList<>();
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_ALL_SHIPS);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_SHIPS);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -53,7 +52,7 @@ public class ShipDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
         return ships;
     }
 
