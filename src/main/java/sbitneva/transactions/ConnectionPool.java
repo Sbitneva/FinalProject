@@ -32,11 +32,11 @@ public class ConnectionPool {
             String environmentVar = System.getenv("DATABASE_URL");
             String dbUrl;
             URI dbUri = null;
-            if(environmentVar != null) {
+            if (environmentVar != null) {
                 dbUri = new URI(environmentVar);
                 dbUrl = DB_PATH + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath();
                 log.debug("Using database uri from environment :" + dbUrl);
-            } else{
+            } else {
                 dbUri = new URI(DB_LOCAL_PATH);
                 dbUrl = DB_PATH + DB_LOCAL_PATH;
                 log.debug("Using database uri from localhost :" + dbUrl);
@@ -60,6 +60,14 @@ public class ConnectionPool {
 
         }
         return connectionPool;
+    }
+
+    public void close() {
+        try {
+            connectionPool.close();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
     }
 
 }

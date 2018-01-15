@@ -1,16 +1,14 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
-import sbitneva.entity.Ticket;
 import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
-import sbitneva.transactions.ConnectionWrapper;
-import sbitneva.transactions.TransactionManager;
+import sbitneva.transactions.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class UserDao {
 
@@ -21,11 +19,11 @@ public class UserDao {
 
     public User getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
 
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         User user = new User();
 
         try {
-            PreparedStatement statement = con.preparedStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
+            PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
             statement.setString(1, email);
             statement.setString(2, password);
 
@@ -43,16 +41,16 @@ public class UserDao {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
         }
-        con.close();
+        connection.close();
         return user;
     }
 
     public User getUserById(int userId) throws SQLException, DAOException {
 
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         User user = new User();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_CLIENT_BY_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_ID);
             statement.setInt(1, userId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -70,18 +68,16 @@ public class UserDao {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
         }
-        con.close();
+        connection.close();
         return user;
     }
-
-
 
     public int addNewUser(String firstName, String lastName, String email, String password) throws SQLException {
         int result = 0;
 
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(ADD_USER);
+            PreparedStatement statement = connection.prepareStatement(ADD_USER);
             statement.setString(1, firstName);
             statement.setString(2, lastName);
             statement.setString(3, email);
@@ -92,7 +88,7 @@ public class UserDao {
         } catch (SQLException e) {
             log.error(e.getStackTrace());
         }
-        con.close();
+        connection.close();
 
         return result;
     }
