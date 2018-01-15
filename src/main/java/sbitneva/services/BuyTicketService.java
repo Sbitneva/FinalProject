@@ -72,5 +72,27 @@ public class BuyTicketService {
         }
     }
 
+    public Ship getShipTicketsForPurchase(int shipId){
+        Ship ship = new Ship();
+        ShipDao shipDao = DaoFactory.getShipDao();
+        TicketDao ticketDao = DaoFactory.getTicketDao();
+        PortDao portDao = DaoFactory.getPortDao();
+
+        try {
+            Map<Integer, String> portMap = portDao.getPortsMap();
+            ship.setShipId(shipId);
+            ship.setShipName(shipDao.getShipNameById(shipId));
+            ship.setTickets(ticketDao.getAllAvailableTickets(shipId));
+            ship.setPorts(portDao.getPortsByShipId(shipId));
+            for(int i = 0; i < ship.getPorts().size(); i++) {
+                ship.getPorts().get(i).setPortName(portMap.get(ship.getPorts().get(i).getPortId()));
+            }
+        } catch (SQLException e){
+            log.error(e.getMessage());
+        }
+        return ship;
+
+    }
+
 
 }

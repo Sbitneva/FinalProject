@@ -10,7 +10,6 @@
     <link href="../../css/client/buy-ticket.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<c:forEach items="${ships}" var="ship">
     <h2>${ship.shipName}</h2>
     <form id="ship_form">
         <b>Ports:</b>
@@ -38,7 +37,7 @@
                 <td>${ticket.price}</td>
                 <td>
                     <form id="buy_excursion_form"
-                          action="CruiseServlet?command=buyTicket&action=select&ticketId=${ticket.ticketId}"
+                          action="/CruiseServlet?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
                           method="post">
                         <button id="buy_excursion_button" type="submit">Buy</button>
                     </form>
@@ -46,8 +45,5 @@
             </tr>
         </c:forEach>
     </table>
-
-
-</c:forEach>
 </body>
 </html>
