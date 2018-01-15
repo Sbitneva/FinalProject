@@ -15,13 +15,13 @@ public class UserCommand implements Command {
 
     private static Logger log = Logger.getLogger(UserCommand.class.getName());
 
+    private static final String USER_COMMAND_PATH = "jsp/client/client-page.jsp";
+    private static final String USER_ATTRIBUTE = "user";
+    private static final String USER_PARAMETER = "userId";
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("execution");
-
-        final String USER_COMMAND_PATH = "jsp/client/client-page.jsp";
-        final String USER_ATTRIBUTE = "user";
-        final String USER_PARAMETER = "userId";
 
         int userId = Integer.parseInt(request.getParameter(USER_PARAMETER));
         UserService userService = UserService.getUserService();
