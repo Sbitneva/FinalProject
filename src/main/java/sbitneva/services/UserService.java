@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class UserService {
     private static Logger log = Logger.getLogger(UserService.class.getName());
     private static UserService userService = new UserService();
-    private User user = new User();
 
     private UserService() {
 
@@ -36,7 +35,6 @@ public class UserService {
     }
 
     private void fillUserFields(User user) throws SQLException, DAOException {
-
         ExcursionDao excursionDao = DaoFactory.getExcursionDao();
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();

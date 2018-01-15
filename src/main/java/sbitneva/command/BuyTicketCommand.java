@@ -12,10 +12,9 @@ import java.util.ArrayList;
 
 public class BuyTicketCommand implements Command {
 
+    private final static String SHIPS_ATTRIBUTE = "ships";
+    private final static String BUY_TICKETS_PAGE = "jsp/client/buy-ticket.jsp";
     static Logger log = Logger.getLogger(BuyTicketCommand.class.getName());
-
-    private final String SHIPS_ATTRIBUTE = "ships";
-    private final String BUY_TICKETS_PAGE = "jsp/client/buy-ticket.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
