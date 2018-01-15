@@ -23,10 +23,11 @@ public class UserService {
     }
 
     public User verify(int userId) throws SQLException, DAOException {
-
         UserDao userDao = DaoFactory.getUserDao();
+        TicketDao ticketDao = DaoFactory.getTicketDao();
         User user = userDao.getUserById(userId);
-        if (user == null) {
+        user.setTickets(ticketDao.getUserTickets(userId));
+        if (user.getUserId() == 0) {
             throw new DAOException("there is no user with id = " + userId);
         } else {
             fillUserFields(user);

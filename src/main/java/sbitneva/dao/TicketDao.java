@@ -2,6 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ticket;
+import sbitneva.exception.DAOException;
 import sbitneva.transactions.ConnectionWrapper;
 import sbitneva.transactions.TransactionManager;
 
@@ -22,7 +23,38 @@ public class TicketDao {
                     "(tickets.ship_id_ships = ? and tickets.user_id_users is null " +
                     "and tickets.comfort_level_id_comfort_levels = comfort_levels.comfort_level_id);";
     private final static String UPDATE_TICKET_DISCOUNT = "update tickets set discount = ? where ticket_id = ?";
+    private static final String GET_ALL_CLIENT_TICKETS =
+            "select * from tickets inner join ships on (tickets.user_id_users=? " +
+                    "and tickets.ship_id_ships = ships.ship_id);";
 
+    public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DAOException {
+        ArrayList<Ticket> tickets = new ArrayList<>();
+        ConnectionWrapper con = TransactionManager.getConnection();
+        try {
+            PreparedStatement statement = con.preparedStatement(GET_ALL_CLIENT_TICKETS);
+            statement.setInt(1, userId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Ticket ticket = new Ticket();
+                ticket.setTicketId(resultSet.getInt(1));
+                ticket.setDiscount(resultSet.getInt(2));
+                ticket.setPrice(resultSet.getInt(3));
+                ticket.setComfortLevel(resultSet.getInt(4));
+                ticket.setShipId(resultSet.getInt(5));
+                ticket.setShipName(resultSet.getString(8));
+                ticket.setCruiseDuration(resultSet.getInt(9));
+                tickets.add(ticket);
+            }
+
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+            throw new DAOException();
+        }
+        con.close();
+        return tickets;
+    }
 
     public ArrayList<Ticket> getAllFreeTickets(int shipId) throws SQLException {
         ArrayList<Ticket> freeTickets = new ArrayList<>();
@@ -59,10 +91,10 @@ public class TicketDao {
             while (resultSet.next()) {
                 Ticket ticket = new Ticket();
                 ticket.setTicketId(resultSet.getInt(1));
-                ticket.setShipId(resultSet.getInt(6));
+                ticket.setShipId(resultSet.getInt(5));
                 ticket.setPrice(resultSet.getInt(3));
-                ticket.setComfortLevel(resultSet.getInt(5));
-                ticket.setComfortLevelName(resultSet.getString(9));
+                ticket.setComfortLevel(resultSet.getInt(4));
+                ticket.setComfortLevelName(resultSet.getString(8));
                 ticket.setDiscount(resultSet.getInt(2));
                 tickets.add(ticket);
             }
