@@ -22,6 +22,8 @@ services:
     depends_on:
       - postgres
     image: webapp
+    environment:
+      DATABASE_URL: postgresql://postgres:5432/${POSTGRES_DB}
     build: .
     ports:
       - 80:8080
