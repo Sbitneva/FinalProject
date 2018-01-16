@@ -118,37 +118,30 @@ public class TicketDao {
     }
 
     public int getUserIdByTicketId(int ticketId) throws SQLException {
-        int userId = 0;
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(GET_USER_ID_BY_TICKET_ID);
-            statement.setInt(1, ticketId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                userId = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        connection.close();
+        int userId = getIdByTicket(ticketId, GET_USER_ID_BY_TICKET_ID);
         return userId;
     }
 
     public int getShipByTicketId(int ticketId) throws SQLException {
-        int shipId = 0;
+        int shipId = getIdByTicket(ticketId, GET_SHIP_ID_BY_TICKET_ID);
+        return shipId;
+    }
+
+    private int getIdByTicket(int ticketId, String sql) throws SQLException{
+        int id = 0;
         Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(GET_SHIP_ID_BY_TICKET_ID);
+            PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, ticketId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                shipId = resultSet.getInt(1);
+                id = resultSet.getInt(1);
             }
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
         connection.close();
-        return shipId;
+        return id;
     }
 
     public int updateDiscount(int ticketId, int discount) throws SQLException {

@@ -77,13 +77,16 @@ public class BuyTicketService {
         ShipDao shipDao = DaoFactory.getShipDao();
         TicketDao ticketDao = DaoFactory.getTicketDao();
         PortDao portDao = DaoFactory.getPortDao();
-
+        ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
         try {
             Map<Integer, String> portMap = portDao.getPortsMap();
-            ship.setShipId(shipId);
-            ship.setShipName(shipDao.getShipNameById(shipId));
+            ship = shipDao.getBasicShipData(shipId);
             ship.setTickets(ticketDao.getAllAvailableTickets(shipId));
             ship.setPorts(portDao.getPortsByShipId(shipId));
+            for (int i = 0; i < ship.getTickets().size(); i++) {
+                ship.getTickets().get(i).setComfortLevelName(
+                        comfortLevelDao.getComfortLevelNameById(ship.getTickets().get(i).getComfortLevel()));
+            }
             for(int i = 0; i < ship.getPorts().size(); i++) {
                 ship.getPorts().get(i).setPortName(portMap.get(ship.getPorts().get(i).getPortId()));
             }

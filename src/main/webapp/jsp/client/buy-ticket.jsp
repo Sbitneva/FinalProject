@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <html>
 <head>
     <title>Cruise Company</title>
@@ -16,10 +17,14 @@
         <c:forEach items="${ship.ports}" var="port">
             <br>${port.portName}
         </c:forEach>
-
-        <br><b>Cruise duration: ${ship.cruiseDuration} </b>
+        <br>
+            <b>Tickets amount: ${fn:length(ship.tickets)}</b>
+        <br>
+        <br>
+            <b>Cruise duration: ${ship.cruiseDuration} </b>
         <br>
     </form>
+
     <table id="ship_table">
         <tr>
             <th>Ticket Id</th>
@@ -31,11 +36,17 @@
         </tr>
         <c:forEach items="${ship.tickets}" var="ticket">
             <tr>
-                <td>${ticket.ticketId}</td>
-                <td>${ticket.comfortLevel}</td>
-                <td>${ticket.discount}</td>
+                <td style="width:5%;">${ticket.ticketId}</td>
+                <td> <form id="show_services"
+                          action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                          method="post">
+                        ${ticket.comfortLevelName}
+                        <button id="show" type="submit">Show services</button>
+                    </form>
+                </td>
+                <td style="width:5%;">${ticket.discount}</td>
                 <td>${ticket.price}</td>
-                <td>
+                <td style="width:5%;">
                     <form id="buy_excursion_form"
                           action="/CruiseServlet?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
                           method="post">
@@ -45,5 +56,6 @@
             </tr>
         </c:forEach>
     </table>
+
 </body>
 </html>

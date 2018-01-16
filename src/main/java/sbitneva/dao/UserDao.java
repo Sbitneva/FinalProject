@@ -20,23 +20,14 @@ public class UserDao {
     public User getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
 
         Connection connection = ConnectionPool.getConnection();
-        User user = new User();
-
+        User user;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
             statement.setString(1, email);
             statement.setString(2, password);
 
             ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                user.setUserId(resultSet.getInt(1));
-                user.setFirstName(resultSet.getString(2));
-                user.setLastName(resultSet.getString(3));
-                user.setEmail(resultSet.getString(4));
-                user.setPassword(resultSet.getString(5));
-                user.setShipId(resultSet.getInt(6));
-            }
+            user = getUser(resultSet);
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
@@ -48,27 +39,33 @@ public class UserDao {
     public User getUserById(int userId) throws SQLException, DAOException {
 
         Connection connection = ConnectionPool.getConnection();
-        User user = new User();
+        User user;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_ID);
             statement.setInt(1, userId);
 
             ResultSet resultSet = statement.executeQuery();
+            user = getUser(resultSet);
 
-            if (resultSet.next()) {
-                user.setUserId(resultSet.getInt(1));
-                user.setFirstName(resultSet.getString(2));
-                user.setLastName(resultSet.getString(3));
-                user.setEmail(resultSet.getString(4));
-                user.setPassword(resultSet.getString(5));
-                user.setShipId(resultSet.getInt(6));
-                //user.setTickets(getUserTickets(userId));
-            }
         } catch (SQLException e) {
             log.error(e.getMessage());
             throw new DAOException("There is no user with the specified email and password");
         }
         connection.close();
+        return user;
+    }
+
+    private User getUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+
+        if (resultSet.next()) {
+            user.setUserId(resultSet.getInt(1));
+            user.setFirstName(resultSet.getString(2));
+            user.setLastName(resultSet.getString(3));
+            user.setEmail(resultSet.getString(4));
+            user.setPassword(resultSet.getString(5));
+            user.setShipId(resultSet.getInt(6));
+        }
         return user;
     }
 
@@ -89,7 +86,6 @@ public class UserDao {
             log.error(e.getStackTrace());
         }
         connection.close();
-
         return result;
     }
 }

@@ -11,6 +11,10 @@
 <body>
 <h1 id="hello_string">Hello, ${user.firstName} ${user.lastName} </h1>
 
+<form id="buy_ticket_form" action="/CruiseServlet?command=buyTicket&action=showShips" method="post">
+    <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
+</form>
+
 <h2>Your purchased tickets: </h2>
 
 <table id="tickets_table">
@@ -26,7 +30,13 @@
             <td>${ticket.ticketId}</td>
             <td>${ticket.shipName}</td>
             <td>${ticket.cruiseDuration}</td>
-            <td>${ticket.comfortLevel}</td>
+            <td> <form id="show_services"
+                       action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                       method="post">
+                    ${ticket.comfortLevelName}
+                <button id="show" type="submit">Show services</button>
+            </form>
+            </td>
             <td>
                 <form id="buy_excursion_form"
                       action="/CruiseServlet?command=buyExcursion&action=select&ticketId=${ticket.ticketId}"
@@ -37,9 +47,7 @@
         </tr>
     </c:forEach>
 </table>
-<form id="buy_ticket_form" action="/CruiseServlet?command=buyTicket&action=showShips" method="post">
-    <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
-</form>
+
 
 <h2>Your purchased excursions: </h2>
 
