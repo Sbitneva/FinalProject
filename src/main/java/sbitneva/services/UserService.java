@@ -3,6 +3,7 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Excursion;
+import sbitneva.entity.Ticket;
 import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
@@ -24,8 +25,13 @@ public class UserService {
     public User verify(int userId) throws SQLException, DAOException {
         UserDao userDao = DaoFactory.getUserDao();
         TicketDao ticketDao = DaoFactory.getTicketDao();
+        ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
         User user = userDao.getUserById(userId);
         user.setTickets(ticketDao.getUserTickets(userId));
+        ArrayList<Ticket> tickets = user.getTickets();
+        for(Ticket ticket:tickets){
+            ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+        }
         if (user.getUserId() == 0) {
             throw new DAOException("there is no user with id = " + userId);
         } else {

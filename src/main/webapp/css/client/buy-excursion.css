@@ -1,7 +1,7 @@
 #excursions_table {
     font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 70%;
 }
 
 #excursions_table td, #excursions_table th {
