@@ -13,26 +13,8 @@ services:
     networks:
       - back-end
     volumes:
-      - db:/var/lib/postgresql/data
       - ./db:/docker-entrypoint-initdb.d
-
-  webapp:
-    container_name: webapp
-    depends_on:
-      - postgres
-    image: webapp
-    environment:
-      DATABASE_URL: postgresql://postgres:5432/${POSTGRES_DB}
-    build: .
-    ports:
-      - 80:8080
-    networks:
-      - back-end
 
 networks:
   back-end:
-    external: true
-
-volumes:
-  db:
     external: true
