@@ -1,0 +1,10 @@
+---
+version: "2.3"
+
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres:9.6.6-alpine
+    ports:
+      - 5432:5432
