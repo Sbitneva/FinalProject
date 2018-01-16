@@ -3,6 +3,7 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Excursion;
+import sbitneva.entity.Ticket;
 import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
@@ -12,7 +13,6 @@ import java.util.ArrayList;
 public class UserService {
     private static Logger log = Logger.getLogger(UserService.class.getName());
     private static UserService userService = new UserService();
-    private User user = new User();
 
     private UserService() {
 
@@ -23,10 +23,16 @@ public class UserService {
     }
 
     public User verify(int userId) throws SQLException, DAOException {
-
         UserDao userDao = DaoFactory.getUserDao();
+        TicketDao ticketDao = DaoFactory.getTicketDao();
+        ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
         User user = userDao.getUserById(userId);
-        if (user == null) {
+        user.setTickets(ticketDao.getUserTickets(userId));
+        ArrayList<Ticket> tickets = user.getTickets();
+        for(Ticket ticket:tickets){
+            ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+        }
+        if (user.getUserId() == 0) {
             throw new DAOException("there is no user with id = " + userId);
         } else {
             fillUserFields(user);
@@ -35,7 +41,6 @@ public class UserService {
     }
 
     private void fillUserFields(User user) throws SQLException, DAOException {
-
         ExcursionDao excursionDao = DaoFactory.getExcursionDao();
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();

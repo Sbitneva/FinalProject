@@ -1,12 +1,10 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
-import sbitneva.entity.ComfortLevel;
-import sbitneva.entity.Excursion;
 import sbitneva.entity.Service;
-import sbitneva.transactions.ConnectionWrapper;
-import sbitneva.transactions.TransactionManager;
+import sbitneva.transactions.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,9 +22,9 @@ public class ComfortLevelDao {
 
     public ArrayList<Service> getComfortLevelInfo(int comfortLevelId) throws SQLException {
         ArrayList<Service> services = new ArrayList<>();
-        ConnectionWrapper con = TransactionManager.getConnection();
-        try{
-            PreparedStatement statement = con.preparedStatement(GET_SERVICES_BY_COMFORT_LEVEL_ID);
+        Connection con = ConnectionPool.getConnection();
+        try {
+            PreparedStatement statement = con.prepareStatement(GET_SERVICES_BY_COMFORT_LEVEL_ID);
             statement.setInt(1, comfortLevelId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -43,15 +41,15 @@ public class ComfortLevelDao {
 
     public String getComfortLevelNameById(int comfortLevelId) throws SQLException {
         String name = "";
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection con = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_COMFORT_LEVEL_NAME_BY_ID);
+            PreparedStatement statement = con.prepareStatement(GET_COMFORT_LEVEL_NAME_BY_ID);
             statement.setInt(1, comfortLevelId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 name = resultSet.getString(1);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
         con.close();

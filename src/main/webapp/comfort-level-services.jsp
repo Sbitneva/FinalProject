@@ -10,17 +10,17 @@
     <link href="css/comfort-levels-services.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
+<h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
 
-    <table id="services_table">
+<table id="services_table">
+    <tr>
+        <th>Services</th>
+    </tr>
+    <c:forEach items="${comfortLevel.services}" var="service">
         <tr>
-            <th>Services</th>
+            <td>${service.serviceName}</td>
         </tr>
-        <c:forEach items="${comfortLevel.services}" var="service">
-            <tr>
-                <td>${service.serviceName}</td>
-            </tr>
 
-        </c:forEach>
-    </table>
+    </c:forEach>
+</table>
 </body>

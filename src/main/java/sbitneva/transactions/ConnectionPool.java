@@ -11,7 +11,8 @@ import java.sql.SQLException;
 
 public class ConnectionPool {
     private static final String DB_DRIVER = "org.postgresql.Driver";
-    private static final String DB_PATH = "jdbc:postgresql://localhost:5432/cruise_company";
+    private static final String DB_PATH = "jdbc:postgresql://";
+    private static final String DB_LOCAL_PATH = "localhost:5432/cruise_company";
     private static final String DB_LOGIN = "postgres";
     private static final String DB_PASSWORD = "postgres";
     private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
@@ -27,13 +28,20 @@ public class ConnectionPool {
 
     private static BasicDataSource initDataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        URI dbUri = null;
         try {
-            dbUri = new URI("localhost:5432/cruise_company");
-        } catch (URISyntaxException e) {
+            String environmentVar = System.getenv("DATABASE_URL");
+            String dbUrl;
+            URI dbUri = null;
+            if (environmentVar != null) {
+                dbUri = new URI(environmentVar);
+                dbUrl = DB_PATH + dbUri.getHost() + ":" + dbUri.getPort() + dbUri.getPath();
+                log.debug("Using database uri from environment :" + dbUrl);
+            } else {
+                dbUri = new URI(DB_LOCAL_PATH);
+                dbUrl = DB_PATH + DB_LOCAL_PATH;
+                log.debug("Using database uri from localhost :" + dbUrl);
+            }
 
-        } finally {
-            String dbUrl = DB_PATH;
             connectionPool = new BasicDataSource();
 
             if (dbUri.getUserInfo() == null) {
@@ -43,15 +51,23 @@ public class ConnectionPool {
             connectionPool.setDriverClassName(DB_DRIVER);
             connectionPool.setUrl(dbUrl);
             connectionPool.setInitialSize(1);
-            connectionPool.setMaxOpenPreparedStatements(100);
             try {
                 connectionPool.getConnection().setAutoCommit(false);
             } catch (SQLException e) {
                 log.error(e.getMessage());
             }
-        }
+        } catch (URISyntaxException e) {
 
+        }
         return connectionPool;
+    }
+
+    public void close() {
+        try {
+            connectionPool.close();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
     }
 
 }

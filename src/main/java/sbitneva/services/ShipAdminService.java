@@ -40,16 +40,16 @@ public class ShipAdminService {
     public boolean setDiscount(int discount, int ticketId) {
         boolean status = false;
         TicketDao ticketDao = DaoFactory.getTicketDao();
-        try{
-            if((discount >= 0) && (discount <= 100)){
+        try {
+            if ((discount >= 0) && (discount <= 100)) {
                 int result = ticketDao.updateDiscount(ticketId, discount);
-                if(result == 1) {
+                if (result == 1) {
                     status = true;
-                }else {
+                } else {
                     log.warn("Ticket discount is not updated");
                 }
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
         return status;
@@ -69,7 +69,7 @@ public class ShipAdminService {
 
     public ArrayList<Staff> getStaff(int shipId) {
         ArrayList<Staff> staff = new ArrayList<>();
-        try{
+        try {
             StaffDao staffDao = DaoFactory.getStaffDao();
             staff = staffDao.getStaff(shipId);
         } catch (SQLException e) {

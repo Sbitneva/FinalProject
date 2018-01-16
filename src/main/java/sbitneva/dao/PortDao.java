@@ -3,9 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Port;
 import sbitneva.exception.DAOException;
-import sbitneva.transactions.ConnectionWrapper;
-import sbitneva.transactions.TransactionManager;
+import sbitneva.transactions.ConnectionPool;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,19 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PortDao {
-    private static Logger log = Logger.getLogger(PortDao.class.getName());
-
     private final static String GET_PORTNAME_BY_ID = "select port_name from ports where port_id = ?";
     private final static String GET_PORT_ID_BY_EXCURSION_ID = "select port_id_ports from excursions where excursion_id=?";
     private final static String GET_PORTS_IDS_BY_SHIP_ID =
             "select port_id_ports from many_ports_has_many_ships where ship_id_ships = ?";
     private final static String GET_ALL_PORTS = "select * from ports";
+    private static Logger log = Logger.getLogger(PortDao.class.getName());
 
     public String getPortNameById(int id) throws SQLException, DAOException {
         String portName = new String();
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_PORTNAME_BY_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_PORTNAME_BY_ID);
             statement.setInt(1, id);
 
             ResultSet resultSet = statement.executeQuery();
@@ -36,15 +35,15 @@ public class PortDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
         return portName;
     }
 
     public int getPortIdByExcursionId(int excursionId) throws SQLException {
         int portId = 0;
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_PORT_ID_BY_EXCURSION_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_PORT_ID_BY_EXCURSION_ID);
             statement.setInt(1, excursionId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -54,16 +53,16 @@ public class PortDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
         return portId;
     }
 
     public ArrayList<Port> getPortsByShipId(int shipId) throws SQLException {
         ArrayList<Port> ports = new ArrayList<>();
 
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_PORTS_IDS_BY_SHIP_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_PORTS_IDS_BY_SHIP_ID);
             statement.setInt(1, shipId);
 
             ResultSet resultSet = statement.executeQuery();
@@ -75,15 +74,15 @@ public class PortDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
         return ports;
     }
 
     public Map<Integer, String> getPortsMap() throws SQLException {
         Map<Integer, String> portsMap = new HashMap<>();
-        ConnectionWrapper con = TransactionManager.getConnection();
+        Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = con.preparedStatement(GET_ALL_PORTS);
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_PORTS);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -92,7 +91,7 @@ public class PortDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
-        con.close();
+        connection.close();
 
         return portsMap;
     }
