@@ -9,9 +9,11 @@
     <link href="../../css/client/client-page.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1 id="hello_string">Hello, ${user.firstName} ${user.lastName} </h1>
+<h1 id="hello_string">Hello, ${client.firstName} ${client.lastName} </h1>
 
-<form id="buy_ticket_form" action="/CruiseServlet?command=buyTicket&action=showShips" method="post">
+
+<form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
+
     <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
 </form>
 
@@ -25,13 +27,13 @@
         <th>Comfort Level</th>
         <th>Additional properties</th>
     </tr>
-    <c:forEach items="${user.tickets}" var="ticket">
+    <c:forEach items="${client.tickets}" var="ticket">
         <tr>
             <td>${ticket.ticketId}</td>
             <td>${ticket.shipName}</td>
             <td>${ticket.cruiseDuration}</td>
             <td> <form id="show_services"
-                       action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                       action="/Cruise?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
                        method="post">
                     ${ticket.comfortLevelName}
                 <button id="show" type="submit">Show services</button>
@@ -39,7 +41,7 @@
             </td>
             <td>
                 <form id="buy_excursion_form"
-                      action="/CruiseServlet?command=buyExcursion&action=select&ticketId=${ticket.ticketId}"
+                      action="/Cruise?command=buyExcursion&action=select&ticketId=${ticket.ticketId}"
                       method="post">
                     <button id="buy_excursion_button" type="submit"> Buy new Excursion</button>
                 </form>
@@ -57,7 +59,7 @@
         <th>Cruise Ship Name</th>
         <th>Port</th>
     </tr>
-    <c:forEach items="${user.excursions}" var="excursion">
+    <c:forEach items="${client.excursions}" var="excursion">
         <tr>
             <td>${excursion.excursionName}</td>
             <td>${excursion.shipName}</td>

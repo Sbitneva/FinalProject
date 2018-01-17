@@ -2,8 +2,8 @@ package sbitneva.entity;
 
 import java.util.ArrayList;
 
-public class User {
-    private int userId;
+public class Client {
+    private int clientId;
     private String firstName;
     private String lastName;
     private String email;
@@ -20,12 +20,12 @@ public class User {
         this.excursions = excursions;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getClientId() {
+        return clientId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 
     public String getFirstName() {
@@ -78,8 +78,8 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
+        return "Client{" +
+                "clientId=" + clientId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

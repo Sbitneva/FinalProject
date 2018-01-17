@@ -2,8 +2,8 @@ package sbitneva.services;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
+import sbitneva.entity.Client;
 import sbitneva.entity.Ship;
-import sbitneva.entity.User;
 import sbitneva.exception.DAOException;
 
 import java.sql.SQLException;
@@ -27,8 +27,8 @@ public class BuyTicketService {
 
         UserDao userDao = DaoFactory.getUserDao();
         try {
-            User user = userDao.getUserById(userId);
-            if (user == null) {
+            Client client = userDao.getUserById(userId);
+            if (client == null) {
                 return false;
             }
         } catch (SQLException e) {

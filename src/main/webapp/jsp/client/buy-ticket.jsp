@@ -38,7 +38,7 @@
             <tr>
                 <td style="width:5%;">${ticket.ticketId}</td>
                 <td> <form id="show_services"
-                          action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                          action="?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
                           method="post">
                         ${ticket.comfortLevelName}
                         <button id="show" type="submit">Show services</button>
@@ -48,7 +48,7 @@
                 <td>${ticket.price}</td>
                 <td style="width:5%;">
                     <form id="buy_excursion_form"
-                          action="/CruiseServlet?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
+                          action="/?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
                           method="post">
                         <button id="buy_excursion_button" type="submit">Buy</button>
                     </form>

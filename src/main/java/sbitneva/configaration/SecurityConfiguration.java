@@ -1,6 +1,6 @@
 package sbitneva.configaration;
 
-import sbitneva.command.FactoryCommand;
+import sbitneva.command.factory.FactoryCommand;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.LOGIN, "ALL");
         grant.put(FactoryCommand.REGISTRATION, "ALL");
         grant.put(FactoryCommand.LOGOUT, "AUTH");
-        grant.put(FactoryCommand.USERS, "AUTH");
+        //grant.put(FactoryCommand.USERS, "AUTH");
         grant.put("/", "ALL");
     }
 
