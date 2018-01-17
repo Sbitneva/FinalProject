@@ -13,13 +13,13 @@ script:
   - docker-compose -f docker-compose-immutable-psql.yml up -d
   - >-
     docker run
-      --network back-end
-      -it --rm
-      -e DATABASE_URL=postgresql://postgres:5432/cruise_company
-      -v "$HOME/.m2:/root/.m2"
-      -v "$PWD":/usr/src/app
-      -w /usr/src/app maven:3.5.2-jdk-8-alpine
-      mvn clean install
+    --network back-end
+    -it --rm
+    -e DATABASE_URL=postgresql://postgres:5432/cruise_company
+    -v "$HOME/.m2:/root/.m2"
+    -v "$PWD":/usr/src/app
+    -w /usr/src/app maven:3.5.2-jdk-8-alpine
+    mvn clean install
   - docker-compose down
   - sudo chown -R $UID:$UID "$PWD/target"
   - docker volume create db
