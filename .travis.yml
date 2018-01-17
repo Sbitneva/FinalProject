@@ -16,7 +16,7 @@ script:
       --network back-end
       -it --rm
       -e DATABASE_URL=postgresql://postgres:5432/cruise_company
-      -v "$PWD/.m2:/root/.m2"
+      -v "$HOME/.m2:/root/.m2"
       -v "$PWD":/usr/src/app
       -w /usr/src/app maven:3.5.2-jdk-8-alpine
       mvn clean install
