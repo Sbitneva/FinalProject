@@ -32,7 +32,7 @@
                 private ArrayList<Ticket> tickets = new ArrayList<>();
                 -->
                 <form id="show_tickets_form"
-                      action="/CruiseServlet?command=buyTicket&action=showTickets&shipId=${ship.shipId}"
+                      action="/Cruise?command=getTickets&shipId=${ship.shipId}"
                       method="post">
                     <button id="show_tickets_button" type="submit"> Show tickets </button>
                 </form>

@@ -3,7 +3,7 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.UserDao;
-import sbitneva.entity.User;
+import sbitneva.entity.Client;
 import sbitneva.exception.DAOException;
 
 import java.sql.SQLException;
@@ -21,20 +21,20 @@ public class LoginService {
         return loginService;
     }
 
-    public User verify(String email, String password) {
-        User user = null;
+    public Client verify(String email, String password) {
+        Client client = null;
 
         if ((email.isEmpty()) || password.isEmpty()) {
-            return user;
+            return client;
         }
 
         UserDao userDao = DaoFactory.getUserDao();
         try {
-            user = userDao.getClientByEmailAndPassword(email, password);
+            client = userDao.getClientByEmailAndPassword(email, password);
         } catch (DAOException | SQLException e) {
             log.error(e.getMessage());
         }
-        return user;
+        return client;
     }
 
 }

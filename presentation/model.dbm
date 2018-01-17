@@ -5,10 +5,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
-<role name="user"
+<role name="client"
       login="true"
       encrypted="true"
-      password="user">
+      password="client">
 </role>
 
 <database name="cruise_company" encoding="UTF8" lc-collate="en_US.UTF-8" lc-ctype="en_US.UTF-8">

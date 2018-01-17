@@ -3,7 +3,7 @@ package sbitneva.services;
 import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.UserDao;
-import sbitneva.entity.User;
+import sbitneva.entity.Client;
 import sbitneva.exception.DAOException;
 import sbitneva.exception.RegistrationException;
 
@@ -42,7 +42,7 @@ public class RegistrationService {
         log.debug("firstName = " + firstName + " lastName =" + lastName +
                 " email = " + email + " password = " + password);
         boolean verified = false;
-        User user = new User();
+        Client client = new Client();
         try {
             verified = verifyUserData(firstName, lastName, email, password);
         } catch (RegistrationException e) {
@@ -54,10 +54,10 @@ public class RegistrationService {
             try {
                 int i = userDao.addNewUser(firstName, lastName, email, password);
                 if (i != 1) {
-                    log.error("New user didn't created");
-                    throw new RegistrationException("New user didn't created");
+                    log.error("New client didn't created");
+                    throw new RegistrationException("New client didn't created");
                 } else {
-                    user = userDao.getClientByEmailAndPassword(email, password);
+                    client = userDao.getClientByEmailAndPassword(email, password);
                     log.debug("Registration is succeeded");
                 }
             } catch (SQLException | DAOException e) {
@@ -65,7 +65,7 @@ public class RegistrationService {
             }
         }
 
-        return user.getUserId();
+        return client.getClientId();
     }
 
     private boolean verifyEmail(String email) throws RegistrationException {

@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Excursion;
 import sbitneva.entity.Ticket;
-import sbitneva.entity.User;
+import sbitneva.entity.Client;
 import sbitneva.exception.DAOException;
 
 import java.sql.SQLException;
@@ -22,33 +22,33 @@ public class UserService {
         return userService;
     }
 
-    public User verify(int userId) throws SQLException, DAOException {
+    public Client verify(int userId) throws SQLException, DAOException {
         UserDao userDao = DaoFactory.getUserDao();
         TicketDao ticketDao = DaoFactory.getTicketDao();
         ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-        User user = userDao.getUserById(userId);
-        user.setTickets(ticketDao.getUserTickets(userId));
-        ArrayList<Ticket> tickets = user.getTickets();
+        Client client = userDao.getUserById(userId);
+        client.setTickets(ticketDao.getUserTickets(userId));
+        ArrayList<Ticket> tickets = client.getTickets();
         for(Ticket ticket:tickets){
             ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
         }
-        if (user.getUserId() == 0) {
-            throw new DAOException("there is no user with id = " + userId);
+        if (client.getClientId() == 0) {
+            throw new DAOException("there is no client with id = " + userId);
         } else {
-            fillUserFields(user);
-            return user;
+            fillUserFields(client);
+            return client;
         }
     }
 
-    private void fillUserFields(User user) throws SQLException, DAOException {
+    private void fillUserFields(Client client) throws SQLException, DAOException {
         ExcursionDao excursionDao = DaoFactory.getExcursionDao();
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();
         ArrayList<Excursion> userExcursions = new ArrayList<>();
 
         try {
-            if (user.getTickets().size() > 0) {
-                userExcursions = excursionDao.getExcursionsByUser(user.getUserId());
+            if (client.getTickets().size() > 0) {
+                userExcursions = excursionDao.getExcursionsByUser(client.getClientId());
             }
 
             for (int i = 0; i < userExcursions.size(); i++) {
@@ -58,7 +58,7 @@ public class UserService {
                 userExcursions.get(i).setPortName(portDao.getPortNameById(portId));
             }
 
-            user.setExcursions(userExcursions);
+            client.setExcursions(userExcursions);
 
         } catch (SQLException e) {
             log.error(e.getMessage());

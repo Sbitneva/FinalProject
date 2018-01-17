@@ -27,7 +27,7 @@
                 <td>${excursion.price}</td>
                 <td>
                     <form id="buy_excursion_form"
-                          action="/CruiseServlet?command=buyExcursion&action=buy&ticketId=${ticketId}&excursionId=${excursion.excursionId}"
+                          action="/?command=buyExcursion&action=buy&ticketId=${ticketId}&excursionId=${excursion.excursionId}"
                           method="post">
                         <button id="buy_excursion_button" type="submit"> Buy new Excursion</button>
                     </form>

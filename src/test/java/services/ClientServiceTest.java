@@ -2,7 +2,7 @@ package services;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import sbitneva.entity.User;
+import sbitneva.entity.Client;
 import sbitneva.exception.DAOException;
 import sbitneva.services.UserService;
 
@@ -11,8 +11,8 @@ import java.sql.SQLException;
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
-public class UserServiceTest {
-    private static Logger log = Logger.getLogger(UserServiceTest.class.getName());
+public class ClientServiceTest {
+    private static Logger log = Logger.getLogger(ClientServiceTest.class.getName());
     private UserService userService = UserService.getUserService();
 
     @Test
@@ -20,22 +20,22 @@ public class UserServiceTest {
         int impossibleUserId = -3;
         int clientId = 2;
         int notClientId = 1;
-        User user = null;
+        Client client = null;
         try {
-            user = userService.verify(impossibleUserId);
+            client = userService.verify(impossibleUserId);
         } catch (SQLException | DAOException e){
             log.debug(e.getClass().getSimpleName() + " " + DAOException.class.getSimpleName());
             assertEquals(e.getClass().getSimpleName(), DAOException.class.getSimpleName());
         }
         try{
-            user = userService.verify(clientId);
-            assertEquals(user.getUserId(), clientId);
+            client = userService.verify(clientId);
+            assertEquals(client.getClientId(), clientId);
         } catch (SQLException | DAOException e) {
             assert(true);
         }
         try{
-            user = userService.verify(notClientId);
-            assertEquals(user.getUserId(), 0);
+            client = userService.verify(notClientId);
+            assertEquals(client.getClientId(), 0);
         } catch (SQLException | DAOException e) {
             assert(true);
         }

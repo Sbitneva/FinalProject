@@ -11,7 +11,7 @@ import java.io.IOException;
 public class RegistrationCommand implements Command {
 
     private final static String REGISTRATION_COMMAND_PATH = "jsp/registration/registration.jsp";
-    private final static String AFTER_REGISTRATION_COMMAND_PATH = "/CruiseServlet?command=users&userId=";
+    private final static String AFTER_REGISTRATION_COMMAND_PATH = "/?command=users&userId=";
     private final static String FIRST_NAME_PARAMETER = "first_name";
     private final static String LAST_NAME_PARAMETER = "last_name";
     private final static String EMAIL_PARAMETER = "email";

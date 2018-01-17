@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 public class BuyExcursionCommand implements Command {
-    private final static String USER_COMMAND_PATH = "CruiseServlet?command=users&userId=";
+    private final static String USER_COMMAND_PATH = "?command=users&userId=";
     private final static String SELECT_PATH = "jsp/client/buy-excursion.jsp";
     private final static String TICKET_ID_ATTRIBUTE = "ticketId";
     private final static String USER_ID_ATTRIBUTE = "userId";

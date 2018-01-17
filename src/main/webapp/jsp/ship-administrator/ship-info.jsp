@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>${ship.shipName}</h1>
-<form id="staff_button" action="CruiseServlet?command=shipAdmin&action=staff&shipId=${ship.shipId}" type="submit"
+<form id="staff_button" action="?command=shipAdmin&action=staff&shipId=${ship.shipId}" type="submit"
       method="post">
     <button id="staff" type="submit">
         Show ships staff
@@ -31,14 +31,14 @@
             <td>${ticket.ticketId}</td>
             <td>${ticket.comfortLevelName}
                 <form id="show_services"
-                      action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                      action="?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
                       method="post">
                     <button id="show" type="submit">Show services</button>
                 </form>
             </td>
             <td>
                 <form id="apply_discount"
-                      action="CruiseServlet?command=shipAdmin&action=apply&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
+                      action="?command=shipAdmin&action=apply&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
                       method="post">
                     <input type="text" name="discount" contenteditable="true" value="${ticket.discount}">
                     <button id="apply" type="submit">Apply discount</button>

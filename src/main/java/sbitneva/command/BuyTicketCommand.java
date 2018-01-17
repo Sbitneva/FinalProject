@@ -97,7 +97,7 @@ public class BuyTicketCommand implements Command {
                 int ticketId = Integer.parseInt(request.getParameter(TICKET_ID_ATTRIBUTE));
                 if (buyTicketService.verify(userId)) {
                     buyTicketService.buySelectedTicket(userId, ticketId);
-                    request.getRequestDispatcher("CruiseServlet?command=users&userId=" + userId).
+                    request.getRequestDispatcher("?command=users&userId=" + userId).
                             forward(request, response);
                     return;
                 }

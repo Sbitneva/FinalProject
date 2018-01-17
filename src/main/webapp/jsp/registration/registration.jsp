@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="wrapper">
-    <form action="/CruiseServlet?command=registration" method="post">
+    <form action="/?command=registration" method="post">
         <fieldset>
             <legend>Registration</legend>
             <div>
