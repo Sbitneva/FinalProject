@@ -47,34 +47,48 @@ Ship have a passenger capacity, a cruise route, a number of ports to visit, a cr
     cd FinalProject
     ```
 
-2. Build project's _java_ source
+2. Create external user-defined docker network for _postgres_ and _webapp_ services
     ```bash
-    docker run -it --rm             \
-        -v "$PWD":/usr/src/app      \
-        -w /usr/src/app             \
-        maven:3.5.2-jdk-8-alpine    \
-        mvn clean install
+    docker network create back-end
     ```
 
-3. Change built _target_ files owner from `root` to current user `$UID`
+3. Run immutable postgres database for test purpose
+    ```bash
+    docker-compose -f docker-compose-immutable-psql.yml up -d
+    ```
+
+4. Build project's _java_ source
+    ```bash
+    docker run                                                  \
+      --network back-end                                        \
+      -it --rm                                                  \
+      -e DATABASE_URL=postgresql://postgres:5432/cruise_company \
+      -v "$PWD/.m2:/root/.m2"                                   \
+      -v "$PWD":/usr/src/app                                    \
+      -w /usr/src/app maven:3.5.2-jdk-8-alpine                  \
+      mvn clean install
+    ```
+
+5. Stop and clean-up immutable database service
+    ```bash
+    docker-compose down
+    ```
+
+6. Change built _target_ files owner from `root` to current user `$UID`
     ```bash
     sudo chown -R $UID:$UID "$PWD/target"
     ```
 
-4. Build _webapp_ docker image
-    ```bash
-    docker-compose build
-    ```
-
-5. Create external docker volume for _webapp_ persistent database storage
+7. Create external docker volume for _webapp_ persistent database storage
     ```bash
     docker volume create db
     ```
 
-6. Create external user-defined docker network for _postgres_ and _webapp_ services
+8. Build _webapp_ docker image
     ```bash
-    docker network create back-end
+    docker-compose build
     ```
+
 
 ## Run project services
 
