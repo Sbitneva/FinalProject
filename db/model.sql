@@ -281,7 +281,6 @@ CREATE TABLE tickets (
     ticket_id bigint NOT NULL,
     discount smallint,
     price integer,
-    ability boolean,
     comfort_level_id_comfort_levels smallint,
     ship_id_ships bigint,
     user_id_users bigint
@@ -496,9 +495,13 @@ COPY many_services_has_many_comfort_levels (service_id_services, comfort_level_i
 --
 
 COPY many_tickets_has_many_excursions (ticket_id_tickets, excursion_id_excursions) FROM stdin;
+8	2
+1	3
+5	4
 1	1
-1	2
-8	6
+5	3
+7	5
+4	3
 \.
 
 
@@ -589,17 +592,53 @@ SELECT pg_catalog.setval('staff_staff_id_seq', 7, true);
 -- Data for Name: tickets; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY tickets (ticket_id, discount, price, ability, comfort_level_id_comfort_levels, ship_id_ships, user_id_users) FROM stdin;
-1	\N	5000	f	1	1	2
-2	\N	5000	t	1	1	\N
-3	\N	5000	t	1	1	\N
-4	\N	4000	t	2	1	\N
-5	\N	4000	t	2	1	\N
-6	\N	4000	t	2	1	\N
-7	\N	1000	t	5	1	\N
-8	\N	6500	f	2	2	2
-9	\N	6500	t	2	2	\N
-10	\N	6500	t	2	2	\N
+COPY tickets (ticket_id, discount, price, comfort_level_id_comfort_levels, ship_id_ships, user_id_users) FROM stdin;
+1	\N	5000	1	1	2
+8	\N	6500	2	2	2
+9	\N	6500	2	2	\N
+3	30	5000	1	1	2
+36	\N	4000	2	1	2
+6	50	4000	2	1	2
+23	\N	4000	2	1	2
+2	\N	5000	1	1	4
+7	\N	1000	5	1	2
+10	\N	6500	2	2	2
+5	\N	4000	2	1	2
+4	0	4000	2	1	2
+41	\N	4000	2	1	\N
+42	\N	4000	2	1	\N
+43	\N	4000	2	1	\N
+20	\N	4000	2	1	\N
+21	\N	4000	2	1	\N
+22	\N	4000	2	1	\N
+16	\N	4000	2	1	\N
+17	\N	4000	2	1	\N
+18	\N	4000	2	1	\N
+19	\N	4000	2	1	\N
+28	\N	4000	2	1	\N
+29	\N	4000	2	1	\N
+30	\N	4000	2	1	\N
+31	\N	4000	2	1	\N
+24	\N	4000	2	1	\N
+25	\N	4000	2	1	\N
+26	\N	4000	2	1	\N
+27	\N	4000	2	1	\N
+12	\N	4000	2	1	\N
+13	\N	4000	2	1	\N
+14	\N	4000	2	1	\N
+15	\N	4000	2	1	\N
+11	\N	4000	2	1	\N
+37	\N	4000	2	1	\N
+38	\N	4000	2	1	\N
+39	\N	4000	2	1	\N
+32	\N	4000	2	1	\N
+33	\N	4000	2	1	\N
+34	\N	4000	2	1	\N
+35	\N	4000	2	1	\N
+44	\N	4000	2	1	\N
+45	\N	4000	2	1	\N
+46	\N	4000	2	1	\N
+40	\N	4000	2	1	\N
 \.
 
 
@@ -607,7 +646,7 @@ COPY tickets (ticket_id, discount, price, ability, comfort_level_id_comfort_leve
 -- Name: tickets_ticket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tickets_ticket_id_seq', 10, true);
+SELECT pg_catalog.setval('tickets_ticket_id_seq', 46, true);
 
 
 --
@@ -620,6 +659,10 @@ COPY users (user_id, first_name, last_name, email, password, ship_id_ships) FROM
 3	Christian           	Dior                	cd@gmail.com                            	1234                	\N
 4	Egor                	Sbitnev             	egor@gmail.com                          	1234                	\N
 5	Stepan              	Sbitnev             	stepan@gmail.com                        	1234                	\N
+6	Николай             	Носков              	kolya@gmail.com                         	1234                	\N
+7	Василий             	Пупкин              	vasiliy@gmail.com                       	1234                	\N
+9	Мария               	Максимович          	marusya@gmail.com                       	1234                	\N
+10	Глеб                	Глебов              	gleb@gmail.com                          	1234                	\N
 \.
 
 
@@ -627,7 +670,7 @@ COPY users (user_id, first_name, last_name, email, password, ship_id_ships) FROM
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('users_user_id_seq', 5, true);
+SELECT pg_catalog.setval('users_user_id_seq', 794, true);
 
 
 --
