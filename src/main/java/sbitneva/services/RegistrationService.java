@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.UserDao;
 import sbitneva.entity.Client;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 import sbitneva.exception.RegistrationException;
 
 import java.sql.SQLException;
@@ -60,7 +60,7 @@ public class RegistrationService {
                     client = userDao.getClientByEmailAndPassword(email, password);
                     log.debug("Registration is succeeded");
                 }
-            } catch (SQLException | DAOException e) {
+            } catch (SQLException | DaoException e) {
                 log.error(e.getMessage());
             }
         }

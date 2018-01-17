@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Client;
 import sbitneva.entity.Ship;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class BuyTicketService {
         } catch (SQLException e) {
             log.error(e.getMessage());
             return false;
-        } catch (DAOException e1) {
+        } catch (DaoException e1) {
             log.error(e1.getMessage());
             return false;
         }

@@ -2,7 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ticket;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class TicketDao {
                     "and tickets.ship_id_ships = ships.ship_id);";
     private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
-    public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DAOException {
+    public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
         Connection connection = ConnectionPool.getConnection();
         try {
@@ -49,7 +49,7 @@ public class TicketDao {
 
         } catch (SQLException e) {
             log.error(e.getMessage());
-            throw new DAOException();
+            throw new DaoException();
         }
         connection.close();
         return tickets;

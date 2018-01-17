@@ -2,7 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Client;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -15,9 +15,28 @@ public class UserDao {
     private static final String GET_CLIENT_BY_ID = "select * from users where (user_id = ? and ship_id_ships is null);";
     private static final String GET_CLIENT_BY_EMAIL_AND_PASS = "select * from users where email = ? and password = ?";
     private static final String ADD_USER = "insert into users values ( default, ?, ?, ?, ?, default )";
+    private static final String GET_USER_SHIPID = "select ship_id_ships from users where (user_id = ?)";
     private static Logger log = Logger.getLogger(UserDao.class.getName());
 
-    public Client getClientByEmailAndPassword(String email, String password) throws SQLException, DAOException {
+    public int getUserShipId(int userId) throws SQLException, DaoException{
+        int shipId = 0;
+        Connection connection = ConnectionPool.getConnection();
+        try{
+                PreparedStatement statement = connection.prepareStatement(GET_USER_SHIPID);
+                statement.setInt(1, userId);
+                ResultSet resultSet = statement.executeQuery();
+                if(resultSet.next()) {
+                    shipId = resultSet.getInt(1);
+                } else {
+                    throw new DaoException("User with user id = " + userId + "does not exist");
+                }
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        return shipId;
+    }
+
+    public Client getClientByEmailAndPassword(String email, String password) throws SQLException, DaoException {
 
         Connection connection = ConnectionPool.getConnection();
         Client client;
@@ -30,13 +49,13 @@ public class UserDao {
             client = getUser(resultSet);
         } catch (SQLException e) {
             log.error(e.getMessage());
-            throw new DAOException("There is no client with the specified email and password");
+            throw new DaoException("There is no client with the specified email and password");
         }
         connection.close();
         return client;
     }
 
-    public Client getUserById(int userId) throws SQLException, DAOException {
+    public Client getUserById(int userId) throws SQLException, DaoException {
 
         Connection connection = ConnectionPool.getConnection();
         Client client;
@@ -49,7 +68,7 @@ public class UserDao {
 
         } catch (SQLException e) {
             log.error(e.getMessage());
-            throw new DAOException("There is no client with the specified email and password");
+            throw new DaoException("There is no client with the specified email and password");
         }
         connection.close();
         return client;

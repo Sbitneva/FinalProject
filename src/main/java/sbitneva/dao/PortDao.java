@@ -2,7 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Port;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -21,7 +21,7 @@ public class PortDao {
     private final static String GET_ALL_PORTS = "select * from ports";
     private static Logger log = Logger.getLogger(PortDao.class.getName());
 
-    public String getPortNameById(int id) throws SQLException, DAOException {
+    public String getPortNameById(int id) throws SQLException, DaoException {
         String portName = new String();
         Connection connection = ConnectionPool.getConnection();
         try {

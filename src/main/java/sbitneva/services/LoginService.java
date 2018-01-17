@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.UserDao;
 import sbitneva.entity.Client;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 
@@ -31,7 +31,7 @@ public class LoginService {
         UserDao userDao = DaoFactory.getUserDao();
         try {
             client = userDao.getClientByEmailAndPassword(email, password);
-        } catch (DAOException | SQLException e) {
+        } catch (DaoException | SQLException e) {
             log.error(e.getMessage());
         }
         return client;
