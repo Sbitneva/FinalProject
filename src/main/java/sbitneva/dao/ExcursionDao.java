@@ -2,7 +2,7 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Excursion;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -21,7 +21,7 @@ public class ExcursionDao {
                     "(excursions.port_id_ports = ? and excursions.port_id_ports = ports.port_id)";
     private static Logger log = Logger.getLogger(ExcursionDao.class.getName());
 
-    public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DAOException {
+    public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DaoException {
         ArrayList<Excursion> excursions = new ArrayList<>();
         Connection con = ConnectionPool.getConnection();
         try {

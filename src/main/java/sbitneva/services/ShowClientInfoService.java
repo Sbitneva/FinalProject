@@ -5,42 +5,41 @@ import sbitneva.dao.*;
 import sbitneva.entity.Excursion;
 import sbitneva.entity.Ticket;
 import sbitneva.entity.Client;
-import sbitneva.exception.DAOException;
+import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserService {
-    private static Logger log = Logger.getLogger(UserService.class.getName());
-    private static UserService userService = new UserService();
+public class ShowClientInfoService {
+    private static Logger log = Logger.getLogger(ShowClientInfoService.class.getName());
+    private static ShowClientInfoService showClientInfoService = new ShowClientInfoService();
 
-    private UserService() {
+    private ShowClientInfoService() {
 
     }
 
-    public static UserService getUserService() {
-        return userService;
+    public static ShowClientInfoService getShowClientInfoService() {
+        return showClientInfoService;
     }
 
-    public Client verify(int userId) throws SQLException, DAOException {
-        UserDao userDao = DaoFactory.getUserDao();
-        TicketDao ticketDao = DaoFactory.getTicketDao();
-        ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-        Client client = userDao.getUserById(userId);
-        client.setTickets(ticketDao.getUserTickets(userId));
-        ArrayList<Ticket> tickets = client.getTickets();
-        for(Ticket ticket:tickets){
-            ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+    public Client getClient(int userId) throws SQLException, DaoException {
+        Client client = null;
+        if(isClient(userId)) {
+            UserDao userDao = DaoFactory.getUserDao();
+            TicketDao ticketDao = DaoFactory.getTicketDao();
+            ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
+            client = userDao.getUserById(userId);
+            client.setTickets(ticketDao.getUserTickets(userId));
+            ArrayList<Ticket> tickets = client.getTickets();
+            for(Ticket ticket:tickets){
+                ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+            }
+            fillClientFields(client);
         }
-        if (client.getClientId() == 0) {
-            throw new DAOException("there is no client with id = " + userId);
-        } else {
-            fillUserFields(client);
-            return client;
-        }
+        return client;
     }
 
-    private void fillUserFields(Client client) throws SQLException, DAOException {
+    private void fillClientFields(Client client) {
         ExcursionDao excursionDao = DaoFactory.getExcursionDao();
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();
@@ -50,19 +49,28 @@ public class UserService {
             if (client.getTickets().size() > 0) {
                 userExcursions = excursionDao.getExcursionsByUser(client.getClientId());
             }
-
-            for (int i = 0; i < userExcursions.size(); i++) {
-                userExcursions.get(i).setExcursionName(excursionDao.getExcursionNameById(userExcursions.get(i).getExcursionId()));
-                userExcursions.get(i).setShipName(shipDao.getShipNameById(userExcursions.get(i).getShipId()));
-                int portId = portDao.getPortIdByExcursionId(userExcursions.get(i).getExcursionId());
-                userExcursions.get(i).setPortName(portDao.getPortNameById(portId));
+            for (Excursion excursion : userExcursions) {
+                excursion.setExcursionName(excursionDao.getExcursionNameById(excursion.getExcursionId()));
+                excursion.setShipName(shipDao.getShipNameById(excursion.getShipId()));
+                int portId = portDao.getPortIdByExcursionId(excursion.getExcursionId());
+                excursion.setPortName(portDao.getPortNameById(portId));
             }
-
             client.setExcursions(userExcursions);
-
-        } catch (SQLException e) {
-            log.error(e.getMessage());
+        } catch (SQLException | DaoException e) {
+            log.error(e.getClass().getSimpleName() + " : " +e.getMessage());
         }
+    }
 
+    private boolean isClient(int id) {
+        boolean result = false;
+        UserDao userDao = DaoFactory.getUserDao();
+        try{
+            if(userDao.getUserShipId(id) == 0){
+                result = true;
+            }
+        } catch (DaoException | SQLException e){
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+        return result;
     }
 }

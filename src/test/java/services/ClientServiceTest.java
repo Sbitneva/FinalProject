@@ -3,8 +3,8 @@ package services;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.entity.Client;
-import sbitneva.exception.DAOException;
-import sbitneva.services.UserService;
+import sbitneva.exception.DaoException;
+import sbitneva.services.ShowClientInfoService;
 
 import java.sql.SQLException;
 
@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ClientServiceTest {
     private static Logger log = Logger.getLogger(ClientServiceTest.class.getName());
-    private UserService userService = UserService.getUserService();
+    private ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
 
     @Test
     public void testVerify(){
@@ -22,21 +22,21 @@ public class ClientServiceTest {
         int notClientId = 1;
         Client client = null;
         try {
-            client = userService.verify(impossibleUserId);
-        } catch (SQLException | DAOException e){
-            log.debug(e.getClass().getSimpleName() + " " + DAOException.class.getSimpleName());
-            assertEquals(e.getClass().getSimpleName(), DAOException.class.getSimpleName());
+            client = showClientInfoService.getClient(impossibleUserId);
+        } catch (SQLException | DaoException e){
+            log.debug(e.getClass().getSimpleName() + " " + DaoException.class.getSimpleName());
+            assertEquals(e.getClass().getSimpleName(), DaoException.class.getSimpleName());
         }
         try{
-            client = userService.verify(clientId);
+            client = showClientInfoService.getClient(clientId);
             assertEquals(client.getClientId(), clientId);
-        } catch (SQLException | DAOException e) {
+        } catch (SQLException | DaoException e) {
             assert(true);
         }
         try{
-            client = userService.verify(notClientId);
+            client = showClientInfoService.getClient(notClientId);
             assertEquals(client.getClientId(), 0);
-        } catch (SQLException | DAOException e) {
+        } catch (SQLException | DaoException e) {
             assert(true);
         }
     }

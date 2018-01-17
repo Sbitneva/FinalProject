@@ -3,6 +3,7 @@ package sbitneva.command;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class CommandsHelper {
 
@@ -24,7 +25,9 @@ public class CommandsHelper {
             try {
                 int clientId = Integer.parseInt(request.getSession().getAttribute("id").toString());
                 log.debug("client id = " + clientId);
-                result = true;
+                if(clientId > 0) {
+                    result = true;
+                }
             } catch (NumberFormatException e){
                 log.error("session attribute id must be a number;");
             }

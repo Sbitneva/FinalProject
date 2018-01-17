@@ -1,11 +1,11 @@
 package sbitneva.exception;
 
-public class DAOException extends Throwable {
-    public DAOException() {
+public class DaoException extends Throwable {
+    public DaoException() {
 
     }
 
-    public DAOException(String message) {
+    public DaoException(String message) {
         super(message);
     }
 }
