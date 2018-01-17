@@ -11,7 +11,7 @@ install: true
 script: 
   - docker network create back-end
   - docker-compose -f docker-compose-immutable-psql.yml up -d
-  - |
+  - >-
     docker run
       --network back-end
       -it --rm
