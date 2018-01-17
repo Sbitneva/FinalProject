@@ -10,7 +10,7 @@ before_install:
 install: true
 script: 
   - docker network create back-end
-  - docker-compose -f docker-compose-immutable-psql up -d
+  - docker-compose -f docker-compose-immutable-psql.yml up -d
   - |
     docker run
       --network back-end
@@ -19,8 +19,8 @@ script:
       -v "$PWD/.m2:/root/.m2"
       -v "$PWD":/usr/src/app
       -w /usr/src/app maven:3.5.2-jdk-8-alpine
-        mvn clean install
-  - docker-compose -f docker-compose-immutable-psql down
+      mvn clean install
+  - docker-compose down
   - sudo chown -R $UID:$UID "$PWD/target"
   - docker volume create db
   - docker-compose build
