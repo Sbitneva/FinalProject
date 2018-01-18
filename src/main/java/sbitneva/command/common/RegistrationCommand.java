@@ -1,6 +1,7 @@
-package sbitneva.command;
+package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.factory.Command;
 import sbitneva.services.RegistrationService;
 
 import javax.servlet.ServletException;

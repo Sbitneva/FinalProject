@@ -8,7 +8,7 @@
 </head>
 <body onload="document.authorization.login.focus();">
 <script src="../js/check_empty_field.js"></script>
-<form name="authorization" action="/Cruise?command=login" onsubmit="required()" method="post">
+<form name="authorization" action="Cruise?command=login" onsubmit="required()" method="post">
     <table id="login_table">
         <tbody>
         <tr>

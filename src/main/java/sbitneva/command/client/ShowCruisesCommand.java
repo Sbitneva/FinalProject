@@ -1,8 +1,8 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
 import sbitneva.command.CommandsHelper;
+import sbitneva.command.factory.Command;
 import sbitneva.entity.Ship;
 import sbitneva.services.ShowCruisesService;
 
@@ -16,7 +16,7 @@ public class ShowCruisesCommand implements Command{
 
     private static Logger log = Logger.getLogger(ShowCruisesCommand.class.getName());
 
-    private static final String SHOW_CRUISES_PAGE = "jsp/client/ships.jsp";
+    private static final String SHOW_CRUISES_PAGE = "jsp/client/cruises.jsp";
     private static final String SHIP_PARAMETER_NAME = "ships";
 
     @Override

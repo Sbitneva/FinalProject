@@ -1,7 +1,7 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
+import sbitneva.command.factory.Command;
 import sbitneva.command.factory.FactoryCommand;
 import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.entity.Client;

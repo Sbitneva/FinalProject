@@ -1,9 +1,8 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
+import sbitneva.command.factory.Command;
 import sbitneva.command.CommandsHelper;
-import sbitneva.dao.DaoFactory;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
 import sbitneva.services.ShowClientInfoService;

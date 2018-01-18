@@ -1,6 +1,6 @@
 package sbitneva.command.client;
 
-import sbitneva.command.Command;
+import sbitneva.command.factory.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
