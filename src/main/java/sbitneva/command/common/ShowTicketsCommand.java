@@ -5,41 +5,46 @@ import sbitneva.command.Command;
 import sbitneva.command.CommandsHelper;
 import sbitneva.dao.UserDao;
 import sbitneva.entity.Client;
+import sbitneva.entity.Ship;
+import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
 import sbitneva.services.ShowClientInfoService;
+import sbitneva.services.ShowTicketsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class ShowTicketsCommand implements Command {
 
     private static Logger log = Logger.getLogger(UserDao.class.getName());
+    private static final String SHIP_ID_PARAMETER = "shipId";
+    private static final String SHIP_ATTR_NAME = "ship";
+    private static final String TICKETS_PAGE = "jsp/client/buy-ticket.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CommandsHelper commandsHelper = CommandsHelper.getCommandsHelper();
-        if( commandsHelper.verifySession(request)) {
-
-        } else{
-            //TODO:redirect to error page
-        }
-        //TODO:redirect to error page
-        /*if(commandsHelper.verifySession(request)) {
-            ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
-            int clientId = Integer.parseInt(request.getSession().getAttribute(CLIENT_ID_ATTRIBUTE).toString());
-            try{
-                Client client = showClientInfoService.getClient(clientId);
-                if(client != null) {
-                    request.setAttribute(CLIENT_ATTRIBUTE, client);
-                    request.getRequestDispatcher(CLIENT_PAGE_PATH).forward(request, response);
+        if(request.getParameter(SHIP_ID_PARAMETER) != null) {
+            if(CommandsHelper.isParameterAcceptableInteger(request.getParameter(SHIP_ID_PARAMETER))) {
+                int shipId = Integer.parseInt(request.getParameter(SHIP_ID_PARAMETER));
+                ShowTicketsService showTicketsService = ShowTicketsService.getShowTicketsService();
+                Ship ship = showTicketsService.getTickets(shipId);
+                if(ship == null){
+                    log.debug("undefined ship requested");
+                    //TODO:call showCruises command - ship undefined in db
+                    request.getRequestDispatcher("/Cruise?command=getCruises").forward(request, response);
+                }else{
+                    request.setAttribute(SHIP_ATTR_NAME, ship);
+                    request.getRequestDispatcher(TICKETS_PAGE).forward(request, response);
                 }
-            } catch (SQLException | DaoException e) {
-                log.error(e.getMessage());
             }
 
-        }*/
+        } else {
+            request.getRequestDispatcher("/Cruise?command=getCruises").forward(request, response);
+        }
+
     }
 }

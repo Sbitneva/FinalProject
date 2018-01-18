@@ -23,18 +23,10 @@ public class ShowCruisesCommand implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("ShowCruisesCommand execution started");
         try{
-            CommandsHelper commandsHelper = CommandsHelper.getCommandsHelper();
-            boolean isSessionVerified = commandsHelper.verifySession(request);
-            if(isSessionVerified) {
-                ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
-                ArrayList<Ship> ships = showCruisesService.getCruiseShips();
-                request.setAttribute(SHIP_PARAMETER_NAME, ships);
-                request.getRequestDispatcher(SHOW_CRUISES_PAGE).forward(request, response);
-            } else{
-
-                //TODO:forward to main page with session error
-            }
-
+            ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
+            ArrayList<Ship> ships = showCruisesService.getCruiseShips();
+            request.setAttribute(SHIP_PARAMETER_NAME, ships);
+            request.getRequestDispatcher(SHOW_CRUISES_PAGE).forward(request, response);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

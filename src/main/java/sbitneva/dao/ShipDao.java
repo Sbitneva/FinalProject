@@ -18,15 +18,17 @@ public class ShipDao {
     private static Logger log = Logger.getLogger(ShipDao.class.getName());
 
     public Ship getBasicShipData(int shipId) throws SQLException {
-        Ship ship = new Ship();
-        ship.setShipId(shipId);
+        Ship ship = null;
+
         Connection connection = ConnectionPool.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_SHIP_INFO);
             statement.setInt(1, shipId);
 
             ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
+            if (resultSet.next())
+            {   ship = new Ship();
+                ship.setShipId(resultSet.getInt(1));
                 ship.setShipName(resultSet.getString(2));
                 ship.setCruiseDuration(resultSet.getInt(3));
             }
