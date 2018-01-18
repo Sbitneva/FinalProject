@@ -38,7 +38,7 @@ public class AuthenticationFilter implements Filter {
         boolean errorRedirect = false;
         HttpSession session = ((HttpServletRequest) request).getSession(true);
         if((!(hasAttributes(session)))){
-            log.debug("session has no any attributes and request login command");
+            log.debug("session has no any attributes");
             filterChain.doFilter(request, response);
         }
         else if (isAttributesValid(session)) {
@@ -69,10 +69,10 @@ public class AuthenticationFilter implements Filter {
             log.debug("session attributes are wrong");
         }
         if(errorRedirect) {
-            /*
+
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect(MAIN_PAGE);
-            */
+
         }
 
     }

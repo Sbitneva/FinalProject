@@ -5,6 +5,7 @@ import sbitneva.command.*;
 import sbitneva.command.client.ShowClientInfoCommand;
 import sbitneva.command.client.ShowCruisesCommand;
 import sbitneva.command.common.LoginCommand;
+import sbitneva.command.common.LogoutCommand;
 import sbitneva.command.common.ShowTicketsCommand;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ public class FactoryCommand {
 
     private FactoryCommand() {
         commandMap.put(LOGIN, new LoginCommand());
+        commandMap.put(LOGOUT, new LogoutCommand());
         commandMap.put(REGISTRATION, new RegistrationCommand());
         commandMap.put(CLIENT, new ShowClientInfoCommand());
         commandMap.put(BUY_TICKET, new BuyTicketCommand());

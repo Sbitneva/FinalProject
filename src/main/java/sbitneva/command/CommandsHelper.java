@@ -3,14 +3,14 @@ package sbitneva.command;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class CommandsHelper {
 
     private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
 
     private static CommandsHelper commandsHelper = new CommandsHelper();
-    private static String SESSION_ATTRIBUTE_NAME = "id";
+    public static String ID_SESSION_ATTRIBUTE = "id";
+    public static String USER_TYPE_SESSION_ATTRIBUTE = "type";
 
     private CommandsHelper(){
 
@@ -21,7 +21,7 @@ public class CommandsHelper {
 
     public boolean verifySession(HttpServletRequest request){
         boolean result = false;
-        if(request.getSession().getAttribute(SESSION_ATTRIBUTE_NAME) != null) {
+        if(request.getSession().getAttribute(ID_SESSION_ATTRIBUTE) != null) {
             try {
                 int clientId = Integer.parseInt(request.getSession().getAttribute("id").toString());
                 log.debug("client id = " + clientId);
