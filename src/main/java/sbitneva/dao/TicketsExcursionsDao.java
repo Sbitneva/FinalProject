@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class TicketsExcursionsDao {
+
     private final static String ADD_EXCURSION_AND_TICKET = "insert into many_tickets_has_many_excursions values (?, ?)";
     private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
 

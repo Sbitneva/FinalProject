@@ -29,9 +29,9 @@ public class FactoryCommand {
     //private static final String SHIP_ADMIN = "shipAdmin";
     //private static final String COMFORT = "comfortInfo";
 
-    private static final String BUY_TICKET = "buyTicket";
-    private static final String BUY_EXCURSION = "buyExcursion";
-    private static final FactoryCommand factoryCommand = new FactoryCommand();
+    public static final String BUY_TICKET = "buyTicket";
+    public static final String BUY_EXCURSION = "buyExcursion";
+    public static final FactoryCommand factoryCommand = new FactoryCommand();
 
     private Map<String, Command> commandMap = new HashMap<>();
 

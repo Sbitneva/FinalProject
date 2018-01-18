@@ -14,9 +14,9 @@ public class EncodingFilter implements Filter {
 
     private static Logger log = Logger.getLogger(EncodingFilter.class.getName());
 
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -24,7 +24,7 @@ public class EncodingFilter implements Filter {
             throws IOException, ServletException {
         servletRequest.setCharacterEncoding("UTF-8");
         filterChain.doFilter(servletRequest, servletResponse);
-        log.debug("filter work");
+        log.debug("encoding filter work");
     }
 
     @Override

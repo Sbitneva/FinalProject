@@ -8,7 +8,5 @@ public class Authentication {
     private Authentication() {
     }
 
-    public static boolean isUserLogIn(HttpSession session) {
-        return Objects.nonNull(session.getAttribute("login"));
-    }
+
 }
