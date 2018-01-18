@@ -1,8 +1,6 @@
 package sbitneva.filters;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
-import sbitneva.command.factory.FactoryCommand;
 import sbitneva.configaration.SecurityConfiguration;
 
 import javax.servlet.*;

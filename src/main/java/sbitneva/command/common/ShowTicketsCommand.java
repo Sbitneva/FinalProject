@@ -1,29 +1,23 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
+import sbitneva.command.factory.Command;
 import sbitneva.command.CommandsHelper;
 import sbitneva.dao.UserDao;
-import sbitneva.entity.Client;
 import sbitneva.entity.Ship;
-import sbitneva.entity.Ticket;
-import sbitneva.exception.DaoException;
-import sbitneva.services.ShowClientInfoService;
 import sbitneva.services.ShowTicketsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class ShowTicketsCommand implements Command {
 
     private static Logger log = Logger.getLogger(UserDao.class.getName());
     private static final String SHIP_ID_PARAMETER = "shipId";
     private static final String SHIP_ATTR_NAME = "ship";
-    private static final String TICKETS_PAGE = "jsp/client/buy-ticket.jsp";
+    private static final String TICKETS_PAGE = "jsp/client/tickets.jsp";
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

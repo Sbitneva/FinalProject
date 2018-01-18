@@ -2,15 +2,58 @@ package sbitneva.command;
 
 import org.apache.log4j.Logger;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class CommandsHelper {
 
     private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
 
     private static CommandsHelper commandsHelper = new CommandsHelper();
-    public static String ID_SESSION_ATTRIBUTE = "id";
-    public static String USER_TYPE_SESSION_ATTRIBUTE = "type";
+    //session attributes names
+    public static final String ID_SESSION_ATTRIBUTE = "id";
+    public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
+
+    //request parameters names
+    public static final String USER_ID      = "id";
+    public static final String USER         = "user";
+    public static final String TICKETS      = "tickets";
+    public static final String SHIP_ID      = "shipId";
+    public static final String EMAIL        = "email";
+    public static final String PASSWORD     = "password";
+    public static final String FIRST_NAME   = "firstName";
+    public static final String LAST_NAME    = "lastName";
+
+    // client pages
+
+    public static final String EXCURSIONS_PAGE      = "jsp/client/excursions.jsp";
+    public static final String TICKETS_PAGE         = "jsp/client/tickets.jsp";
+    public static final String CLIENT_INFO_PAGE     = "jsp/client/client-page.jsp";
+    public static final String CRUISES_LIST_PAGE    = "jsp/client/cruises.jsp";
+
+    // common pages
+
+    public static final String MAIN_PAGE           = "index.jsp";
+    public static final String REGISTRATION_PAGE    = "jsp/registration/registration.jsp";
+    public static final String SERVICES_PAGE        = "comfort-level-services.jsp";
+
+    // ship-admin pages
+
+    public static final String SHIP_INFO_PAGE       = "jsp/ship-administrator/ship-info.jsp";
+    public static final String SHIP_STAFF_PAGE      = "jsp/ship-administrator/staff.jsp";
+
+    // client commands
+    public static final String SHOW_EXCURSIONS_COMMAND  = "/Cruise?command=getExcursions&ticketId=";
+    public static final String SHOW_TICKETS_COMMAND     = "/Cruise?command=getTickets&shipId=";
+    public static final String SHOW_CRUISES_COMMAND     = "/Cruise?command=getCruises";
+    public static final String CLIENT_COMMAND           = "/Cruise?command=client";
+
+    // common commands
+    public static final String LOGIN_COMMAND     = "Cruise?command=login";
+    public static final String LOGOUT_COMMAND    = "Cruise?command=logout";
+    public static final String REGISTRATION_COMMAND    = "Cruise?command=logout";
+
+    // ship-admin commands
+
+    public static final String SHIP_ADMIN_COMMAND = "/Cruise?command=shipAdmin";
+
 
     private CommandsHelper(){
 

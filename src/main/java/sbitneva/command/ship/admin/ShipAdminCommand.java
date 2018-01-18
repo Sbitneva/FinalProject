@@ -1,15 +1,14 @@
-package sbitneva.command;
+package sbitneva.command.ship.admin;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.factory.Command;
 import sbitneva.entity.ComfortLevel;
 import sbitneva.entity.Ship;
 import sbitneva.entity.Staff;
 import sbitneva.services.ShipAdminService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShipAdminCommand implements Command {
