@@ -11,12 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao {
+    private static Logger log = Logger.getLogger(UserDao.class.getName());
 
     private static final String GET_CLIENT_BY_ID = "select * from users where (user_id = ? and ship_id_ships is null);";
     private static final String GET_CLIENT_BY_EMAIL_AND_PASS = "select * from users where email = ? and password = ?";
     private static final String ADD_USER = "insert into users values ( default, ?, ?, ?, ?, default )";
     private static final String GET_USER_SHIPID = "select ship_id_ships from users where (user_id = ?)";
-    private static Logger log = Logger.getLogger(UserDao.class.getName());
+
 
     public int getUserShipId(int userId) throws SQLException, DaoException{
         int shipId = 0;

@@ -3,6 +3,7 @@ package sbitneva.command.common;
 import org.apache.log4j.Logger;
 import sbitneva.command.Command;
 import sbitneva.command.factory.FactoryCommand;
+import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.entity.Client;
 import sbitneva.exception.LoginException;
 import sbitneva.services.LoginService;
@@ -50,6 +51,7 @@ public class LoginCommand implements Command {
                 log.debug("client is a service client");
                 HttpSession session = request.getSession();
                 session.setAttribute(USER_ID_ATTRIBUTE, client.getClientId());
+                session.setAttribute("type", SecurityConfiguration.CLIENT_TYPE);
                 request.getRequestDispatcher(
                         FactoryCommand.SERVLET_PATH + USER_COMMAND_PATH).forward(request, response);
             }
