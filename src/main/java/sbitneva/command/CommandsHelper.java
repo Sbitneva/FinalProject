@@ -19,18 +19,15 @@ public class CommandsHelper {
         return commandsHelper;
     }
 
-    public boolean verifySession(HttpServletRequest request){
+    public static boolean isParameterAcceptableInteger(String parameter){
         boolean result = false;
-        if(request.getSession().getAttribute(ID_SESSION_ATTRIBUTE) != null) {
-            try {
-                int clientId = Integer.parseInt(request.getSession().getAttribute("id").toString());
-                log.debug("client id = " + clientId);
-                if(clientId > 0) {
-                    result = true;
-                }
-            } catch (NumberFormatException e){
-                log.error("session attribute id must be a number;");
+        try {
+            int intVal = Integer.parseInt(parameter);
+            if(intVal > 0) {
+                result = true;
             }
+        } catch (NumberFormatException e){
+            log.error("session attribute id must be a number;");
         }
         return result;
     }
