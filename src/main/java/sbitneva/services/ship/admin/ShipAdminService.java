@@ -5,6 +5,7 @@ import sbitneva.dao.*;
 import sbitneva.entity.ComfortLevel;
 import sbitneva.entity.Ship;
 import sbitneva.entity.Staff;
+import sbitneva.exception.DaoException;
 import sbitneva.exception.RequestedDataException;
 
 import java.sql.SQLException;
@@ -23,5 +24,19 @@ public class ShipAdminService {
         return shipAdminService;
     }
 
+    public Ship getShip(int userId) {
+        Ship ship = null;
+        UserDao userDao = DaoFactory.getUserDao();
+        try{
+            int shipId = userDao.getUserShipId(userId);
+            if(shipId > 0){
+                ShipDao shipDao = DaoFactory.getShipDao();
+                ship = shipDao.getBasicShipData(shipId);
+            }
+        } catch (SQLException | DaoException e){
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+        return ship;
+    }
 
 }

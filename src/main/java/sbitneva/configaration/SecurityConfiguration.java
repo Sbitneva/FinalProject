@@ -26,7 +26,7 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.CLIENT, CLIENT_ACCES);
         grant.put(FactoryCommand.SHIP_ADMIN, SHIP_ADMIN_ACCES);
         grant.put(FactoryCommand.BUY_TICKET, CLIENT_ACCES);
-        grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, CLIENT_ACCES);
+        grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.SHOW_AVAILABLE_CRUISES, CLIENT_ACCES);
     }
 
