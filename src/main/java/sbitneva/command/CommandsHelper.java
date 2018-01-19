@@ -19,6 +19,7 @@ public class CommandsHelper {
     public static final String TICKETS      = "tickets";
     public static final String SHIP_ID      = "shipId";
     public static final String SHIP         = "ship";
+    public static final String SHIPS        = "ships";
     public static final String EMAIL        = "email";
     public static final String PASSWORD     = "password";
     public static final String FIRST_NAME   = "firstName";
@@ -58,7 +59,6 @@ public class CommandsHelper {
     // ship-admin commands
 
     public static final String SHIP_ADMIN_COMMAND = "?command=shipAdmin";
-
 
     private CommandsHelper(){
 

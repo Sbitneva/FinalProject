@@ -14,7 +14,6 @@ import java.io.IOException;
         urlPatterns = {"/*"}
 )
 
-
 public class AuthenticationFilter implements Filter {
 
     private static Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
@@ -55,7 +54,7 @@ public class AuthenticationFilter implements Filter {
                 }
                 else{
                     log.debug("request has no command with requested name");
-                    errorRedirect = true;
+                    filterChain.doFilter(request, response);
                 }
             } else{
                 log.debug("request has no command parameter");
