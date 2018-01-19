@@ -5,7 +5,7 @@ import sbitneva.command.factory.Command;
 import sbitneva.command.CommandsHelper;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
-import sbitneva.services.ShowClientInfoService;
+import sbitneva.services.client.ShowClientInfoService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

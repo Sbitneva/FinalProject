@@ -1,12 +1,10 @@
-package sbitneva.services;
+package sbitneva.services.common;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
 import sbitneva.entity.Ship;
-import sbitneva.entity.Ticket;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class ShowTicketsService {

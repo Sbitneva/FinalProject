@@ -1,10 +1,9 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Ship;
-import sbitneva.services.ShowCruisesService;
+import sbitneva.services.client.ShowCruisesService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

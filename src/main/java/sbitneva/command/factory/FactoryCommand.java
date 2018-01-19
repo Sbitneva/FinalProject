@@ -8,6 +8,7 @@ import sbitneva.command.common.LoginCommand;
 import sbitneva.command.common.LogoutCommand;
 import sbitneva.command.common.RegistrationCommand;
 import sbitneva.command.common.ShowTicketsCommand;
+import sbitneva.command.ship.admin.ShipAdminCommand;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -28,8 +29,8 @@ public class FactoryCommand {
     public static final String SHOW_AVAILABLE_TICKETS = "getTickets";
     public static final String SHOW_AVAILABLE_CRUISES = "getCruises";
     //public static final String USERS = "users";
-    //private static final String SHIP_ADMIN = "shipAdmin";
-    //private static final String COMFORT = "comfortInfo";
+    public static final String SHIP_ADMIN = "shipAdmin";
+        //private static final String COMFORT = "comfortInfo";
 
     public static final String BUY_TICKET = "buyTicket";
     public static final String BUY_EXCURSION = "buyExcursion";
@@ -46,7 +47,7 @@ public class FactoryCommand {
         commandMap.put(SHOW_AVAILABLE_TICKETS, new ShowTicketsCommand());
         commandMap.put(SHOW_AVAILABLE_CRUISES, new ShowCruisesCommand());
         //commandMap.put(BUY_EXCURSION, new BuyExcursionCommand());
-        //commandMap.put(SHIP_ADMIN, new ShipAdminCommand());
+        commandMap.put(SHIP_ADMIN, new ShipAdminCommand());
     }
 
     public static FactoryCommand getInstance() {
@@ -58,6 +59,8 @@ public class FactoryCommand {
         log.debug(request.getRequestURI());
         if (requestCommand == null) {
             return null;
+        } else {
+            log.debug(commandMap.get(requestCommand));
         }
 
         return commandMap.get(requestCommand);

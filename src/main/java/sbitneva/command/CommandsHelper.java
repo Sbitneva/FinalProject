@@ -7,8 +7,10 @@ public class CommandsHelper {
     private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
 
     private static CommandsHelper commandsHelper = new CommandsHelper();
+
+    public static final String SERVLET_NAME = "/Cruise";
     //session attributes names
-    public static final String ID_SESSION_ATTRIBUTE = "id";
+    public static final String USER_ID_SESSION_ATTRIBUTE = "id";
     public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
 
     //request parameters names
@@ -20,6 +22,7 @@ public class CommandsHelper {
     public static final String PASSWORD     = "password";
     public static final String FIRST_NAME   = "firstName";
     public static final String LAST_NAME    = "lastName";
+    public static final String ERRORS       = "errors";
 
     // client pages
 
@@ -40,19 +43,19 @@ public class CommandsHelper {
     public static final String SHIP_STAFF_PAGE      = "jsp/ship-administrator/staff.jsp";
 
     // client commands
-    public static final String SHOW_EXCURSIONS_COMMAND  = "/Cruise?command=getExcursions&ticketId=";
-    public static final String SHOW_TICKETS_COMMAND     = "/Cruise?command=getTickets&shipId=";
-    public static final String SHOW_CRUISES_COMMAND     = "/Cruise?command=getCruises";
-    public static final String CLIENT_COMMAND           = "/Cruise?command=client";
+    public static final String SHOW_EXCURSIONS_COMMAND  = "?command=getExcursions&ticketId=";
+    public static final String SHOW_TICKETS_COMMAND     = "?command=getTickets&shipId=";
+    public static final String SHOW_CRUISES_COMMAND     = "?command=getCruises";
+    public static final String CLIENT_COMMAND           = "?command=client";
 
     // common commands
-    public static final String LOGIN_COMMAND     = "Cruise?command=login";
-    public static final String LOGOUT_COMMAND    = "Cruise?command=logout";
-    public static final String REGISTRATION_COMMAND    = "Cruise?command=logout";
+    public static final String LOGIN_COMMAND     = "?command=login";
+    public static final String LOGOUT_COMMAND    = "?command=logout";
+    public static final String REGISTRATION_COMMAND    = "?command=logout";
 
     // ship-admin commands
 
-    public static final String SHIP_ADMIN_COMMAND = "/Cruise?command=shipAdmin";
+    public static final String SHIP_ADMIN_COMMAND = "?command=shipAdmin";
 
 
     private CommandsHelper(){
