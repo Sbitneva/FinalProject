@@ -3,7 +3,7 @@ package sbitneva.command.client;
 import org.apache.log4j.Logger;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Port;
-import sbitneva.services.BuyExcursionService;
+import sbitneva.services.client.BuyExcursionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -16,6 +16,7 @@ import java.io.IOException;
 public class ServletDispatcher extends HttpServlet {
     static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         processRequest(req, resp);

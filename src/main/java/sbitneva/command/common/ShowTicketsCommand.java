@@ -5,7 +5,7 @@ import sbitneva.command.factory.Command;
 import sbitneva.command.CommandsHelper;
 import sbitneva.dao.UserDao;
 import sbitneva.entity.Ship;
-import sbitneva.services.ShowTicketsService;
+import sbitneva.services.common.ShowTicketsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

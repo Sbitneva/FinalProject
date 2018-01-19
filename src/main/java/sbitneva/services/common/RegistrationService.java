@@ -1,4 +1,4 @@
-package sbitneva.services;
+package sbitneva.services.common;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;

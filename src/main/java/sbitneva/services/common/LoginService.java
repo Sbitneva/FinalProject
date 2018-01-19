@@ -1,4 +1,4 @@
-package sbitneva.services;
+package sbitneva.services.common;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
@@ -21,13 +21,8 @@ public class LoginService {
         return loginService;
     }
 
-    public Client verify(String email, String password) {
+    public Client getUser(String email, String password){
         Client client = null;
-
-        if ((email.isEmpty()) || password.isEmpty()) {
-            return client;
-        }
-
         UserDao userDao = DaoFactory.getUserDao();
         try {
             client = userDao.getClientByEmailAndPassword(email, password);
