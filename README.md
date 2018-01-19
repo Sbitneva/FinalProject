@@ -8,101 +8,39 @@
 Company can have several ships.
 Ship have a passenger capacity, a cruise route, a number of ports to visit, a cruise duration and staff. The client chooses cruise and pays for it. Also chooses excursions upon arrival at the port for additional payment. The cruise ship administrator is responsible for passengers bonuses, including ticket class (pool, gym, cinema room, beauty salons, etc.)
 
-## Requirements and installation
+## Requirements
 
 - Linux Ubuntu (Server) LTS 16.04
-
-- Update package index
-    ```bash
-    sudo apt update
-    ```
-
-- git
-    ```bash
-    sudo apt-get install -y git
-    ```
-
 - [docker-ce](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-docker-ce)
-    ```bash
-    sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-    sudo apt-get update
-    sudo apt-get install -y docker-ce
-    sudo groupadd docker
-    sudo usermod -aG docker $USER
-    ```
-
 - [docker-compose](https://docs.docker.com/compose/install/#install-compose)
-    ```bash
-    sudo apt-get update && sudo apt-get install -y python python-pip
-    sudo pip install docker-compose
-    ```
+- git
+- maven
+- postgresql
 
-## Project build and installation
+## Manual Build
 
 1. Clone the project
     ```bash
     git clone https://www.github.com/Sbitneva/FinalProject
+    ```
+
+2. Change directory
+    ```bash
     cd FinalProject
     ```
 
-2. Create external user-defined docker network for _postgres_ and _webapp_ services
+3. Run clean and default lifecycles (inclusive up to install phase)
     ```bash
-    docker network create back-end
+    mvn clean install
     ```
 
-3. Run immutable postgres database for test purpose
-    ```bash
-    docker-compose -f docker-compose-immutable-psql.yml up -d
-    ```
-
-4. Build project's _java_ source
-    ```bash
-    docker run                                                  \
-      --network back-end                                        \
-      -it --rm                                                  \
-      -e DATABASE_URL=postgresql://postgres:5432/cruise_company \
-      -v "$PWD/.m2:/root/.m2"                                   \
-      -v "$PWD":/usr/src/app                                    \
-      -w /usr/src/app maven:3.5.2-jdk-8-alpine                  \
-      mvn clean install
-    ```
-
-5. Stop and clean-up immutable database service
-    ```bash
-    docker-compose down
-    ```
-
-6. Change built _target_ files owner from `root` to current user `$UID`
-    ```bash
-    sudo chown -R $UID:$UID "$PWD/target"
-    ```
-
-7. Create external docker volume for _webapp_ persistent database storage
-    ```bash
-    docker volume create db
-    ```
-
-8. Build _webapp_ docker image
-    ```bash
-    docker-compose build
-    ```
-
-
-## Run project services
+## Run
 
 ```bash
-docker-compose up -d
+DATABASE_URL=postgresql://localhost:5432/cruise_company \
+java -jar cruise-company-1.0-SNAPSHOT.jar
 ```
 
-_webapp_ service will be accessible at `http://localhost/`
+- `DATABASE_URL` for full remote or local database path, in case of nothing provided the fallback value is `postgresql://localhost:54321/cruise_company`, which is used as immutable DB path at the test phase
 
-## Stop project services
-
-```bash
-docker-compose down
-```
-
-## Presentation
-_TODO_
+_webapp_ service will be accessible at `http://localhost:8080/`
