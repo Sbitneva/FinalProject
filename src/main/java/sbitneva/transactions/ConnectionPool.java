@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class ConnectionPool {
     private static final String DB_DRIVER = "org.postgresql.Driver";
     private static final String DB_PATH = "jdbc:postgresql://";
-    private static final String DB_LOCAL_PATH = "localhost:5432/cruise_company";
+    private static final String DB_LOCAL_PATH = "localhost:54321/cruise_company";
     private static final String DB_LOGIN = "postgres";
     private static final String DB_PASSWORD = "postgres";
     private static Logger log = Logger.getLogger(ConnectionPool.class.getName());

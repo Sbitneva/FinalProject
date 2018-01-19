@@ -22,7 +22,7 @@
         <log4j.version>1.2.17</log4j.version>
         <junit.version>4.12</junit.version>
         <servlet-api.version>4.0.0</servlet-api.version>
-        <versions-maven-plugin.version>2.5</versions-maven-plugin.version>
+        <exec-maven.version>1.6.0</exec-maven.version>
     </properties>
 
     <dependencies>
@@ -98,11 +98,60 @@
             </resource>
         </resources>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-            </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>${exec-maven.version}</version>
+            <executions>
+                <execution>
+                    <id>docker-compose-immutable-db-up</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    <configuration>
+                        <workingDirectory>compose</workingDirectory>
+                        <executable>docker-compose</executable>
+                        <arguments>
+                            <argument>-f</argument>
+                            <argument>docker-compose-immutable-psql.yml</argument>
+                            <argument>up</argument>
+                            <argument>-d</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>postgres-wait-for</id>
+                    <phase>test-compile</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    <configuration>
+                        <workingDirectory>compose</workingDirectory>
+                        <executable>./pg_ready.sh</executable>
+                        <arguments>
+                            <argument>docker-compose-immutable-psql.yml</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>docker-compose-immutable-db-down</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>exec</goal>
+                    </goals>
+                    <configuration>
+                        <workingDirectory>compose</workingDirectory>
+                        <executable>docker-compose</executable>
+                        <arguments>
+                            <argument>-f</argument>
+                            <argument>docker-compose-immutable-psql.yml</argument>
+                            <argument>down</argument>
+                        </arguments>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
