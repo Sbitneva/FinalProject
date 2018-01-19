@@ -76,9 +76,9 @@ public class UserDao {
     }
 
     private Client getUser(ResultSet resultSet) throws SQLException {
-        Client client = new Client();
-
+        Client client = null;
         if (resultSet.next()) {
+            client = new Client();
             client.setClientId(resultSet.getInt(1));
             client.setFirstName(resultSet.getString(2));
             client.setLastName(resultSet.getString(3));
