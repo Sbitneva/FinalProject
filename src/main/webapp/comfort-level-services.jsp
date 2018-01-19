@@ -4,23 +4,24 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title>Cruise Company</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="css/main.css" type="text/css" rel="stylesheet">
     <link href="css/all-backgrounds.css" type="text/css" rel="stylesheet">
     <link href="css/comfort-levels-services.css" type="text/css" rel="stylesheet">
+    <title>Cruise Company</title>
 </head>
 <body>
-<h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
+    <h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
 
-<table id="services_table">
-    <tr>
-        <th>Services</th>
-    </tr>
-    <c:forEach items="${comfortLevel.services}" var="service">
+    <table id="services_table">
         <tr>
-            <td>${service.serviceName}</td>
+            <th>Services</th>
         </tr>
+        <c:forEach items="${comfortLevel.services}" var="service">
+            <tr>
+                <td>${service.serviceName}</td>
+            </tr>
 
-    </c:forEach>
-</table>
+        </c:forEach>
+    </table>
 </body>

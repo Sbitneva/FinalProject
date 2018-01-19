@@ -1,6 +1,7 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.CommandsHelper;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Ship;
 import sbitneva.services.client.ShowCruisesService;
@@ -15,17 +16,14 @@ public class ShowCruisesCommand implements Command{
 
     private static Logger log = Logger.getLogger(ShowCruisesCommand.class.getName());
 
-    private static final String SHOW_CRUISES_PAGE = "jsp/client/cruises.jsp";
-    private static final String SHIP_PARAMETER_NAME = "ships";
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("ShowCruisesCommand execution started");
         try{
             ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
             ArrayList<Ship> ships = showCruisesService.getCruiseShips();
-            request.setAttribute(SHIP_PARAMETER_NAME, ships);
-            request.getRequestDispatcher(SHOW_CRUISES_PAGE).forward(request, response);
+            request.setAttribute(CommandsHelper.SHIPS, ships);
+            request.getRequestDispatcher(CommandsHelper.CRUISES_LIST_PAGE).forward(request, response);
         } catch (Exception e) {
             log.error(e.getMessage());
         }

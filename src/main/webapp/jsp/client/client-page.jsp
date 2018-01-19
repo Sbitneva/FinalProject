@@ -1,16 +1,18 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+
 <html>
 <head>
     <title>Cruise Company</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link href="../../css/all-backgrounds.css" type="text/css" rel="stylesheet">
-    <link href="../../css/client/client-page.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/client/client-page.css" >
 </head>
 <body>
 <h1 id="hello_string">Hello, ${client.firstName} ${client.lastName} </h1>
-
 
 <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
 
