@@ -2,17 +2,15 @@ package sbitneva.command.ship.admin;
 
 import org.apache.log4j.Logger;
 import sbitneva.command.factory.Command;
+import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.entity.Ship;
 import sbitneva.services.common.ShowTicketsService;
 
-import static sbitneva.command.CommandsHelper.PAGES;
-import static sbitneva.command.CommandsHelper.PAGE;
-import static sbitneva.command.CommandsHelper.SHIP;
-import static sbitneva.command.CommandsHelper.SHIP_INFO_PAGE;
-import static sbitneva.command.CommandsHelper.USER_ID_SESSION_ATTRIBUTE;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import static sbitneva.command.CommandsHelper.*;
+import static sbitneva.configaration.SecurityConfiguration.*;
 
 public class ShowShipTicketsCommand implements Command {
 
@@ -21,22 +19,45 @@ public class ShowShipTicketsCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {
         log.debug("execution " + request.getQueryString());
+        int userType = Integer.parseInt(request.getSession().getAttribute(USER_TYPE_SESSION_ATTRIBUTE).toString());
         ShowTicketsService showTicketsService = ShowTicketsService.getShowTicketsService();
+
         int currentPage = getCurrentPage(request);
-        try {
-            int userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
-            Ship ship = showTicketsService.getShip(userId, currentPage);
-            if(ship != null) {
-                int pages = showTicketsService.getTicketsPages(ship.getShipId());
-                request.setAttribute(SHIP, ship);
-                request.setAttribute(PAGES, pages);
-                request.getRequestDispatcher(SHIP_INFO_PAGE).forward(request, response);
+
+        if(userType == SHIP_ADMIN_TYPE){
+            try {
+                int userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
+                Ship ship = showTicketsService.getShip(userId, currentPage);
+                if(ship != null) {
+                    sendData(request, response, ship, SHIP_INFO_PAGE);
+                }
+            } catch (Exception e){
+                log.error(e.getMessage());
             }
 
-        } catch (Exception e){
-
+        } else if(userType == CLIENT_TYPE) {
+            int shipId = getShipIdFromClient(request);
+            try{
+                Ship ship = showTicketsService.getShipForClient(shipId, currentPage);
+                if(ship != null) {
+                    sendData(request, response, ship, TICKETS_PAGE);
+                }
+            } catch(Exception e){
+                log.error(e.getMessage());
+            }
         }
+    }
 
+    private void sendData(HttpServletRequest request, HttpServletResponse response, Ship ship, String page){
+        ShowTicketsService showTicketsService = ShowTicketsService.getShowTicketsService();
+        try{
+            int pages = showTicketsService.getTicketsPages(ship.getShipId());
+            request.setAttribute(SHIP, ship);
+            request.setAttribute(PAGES, pages);
+            request.getRequestDispatcher(page).forward(request, response);
+        } catch (Exception e){
+            log.error(e.getMessage());
+        }
     }
 
     private int getCurrentPage(HttpServletRequest request){
@@ -50,4 +71,18 @@ public class ShowShipTicketsCommand implements Command {
         }
         return currentPage;
     }
+
+    private int getShipIdFromClient(HttpServletRequest request){
+        int shipId = 0;
+        if(request.getParameter(SHIP_ID) != null) {
+            try{
+                shipId = Integer.parseInt(request.getParameter(SHIP_ID));
+            } catch (NumberFormatException e) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
+        }
+        return shipId;
+    }
+
+
 }

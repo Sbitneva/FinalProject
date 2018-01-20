@@ -23,16 +23,8 @@
             <td>${ship.shipName}</td>
             <td>${ship.cruiseDuration}</td>
             <td>
-                <!--
-                private int shipId;
-                private String shipName;
-                private int cruiseDuration;
-                private ArrayList<Staff> shipStaff = new ArrayList<>();
-                private ArrayList<Port> ports = new ArrayList<>();
-                private ArrayList<Ticket> tickets = new ArrayList<>();
-                -->
                 <form id="show_tickets_form"
-                      action="/Cruise?command=getTickets&shipId=${ship.shipId}"
+                      action="/Cruise?command=showShip&shipId=${ship.shipId}"
                       method="post">
                     <button id="show_tickets_button" type="submit"> Show tickets </button>
                 </form>
