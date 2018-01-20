@@ -26,6 +26,8 @@ public class CommandsHelper {
     public static final String LAST_NAME    = "lastName";
     public static final String ERRORS       = "errors";
     public static final String CLIENT       = "client";
+    public static final String PAGE         = "page";
+    public static final String PAGES        = "pages";
 
     // client pages
 

@@ -19,8 +19,9 @@ public class ServletDispatcher extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
         log.debug("Get");
+        processRequest(req, resp);
+
     }
 
     @Override

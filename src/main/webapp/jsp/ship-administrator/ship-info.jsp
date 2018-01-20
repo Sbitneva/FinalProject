@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>${ship.shipName}</h1>
-<form id="staff_button" action="?command=shipAdmin&action=staff&shipId=${ship.shipId}" type="submit"
+<form id="staff_button" action="/Cruise?command=getStaff&shipId=${ship.shipId}" type="submit"
       method="post">
     <button id="staff" type="submit">
         Show ships staff
@@ -31,24 +31,37 @@
             <td>${ticket.ticketId}</td>
             <td>${ticket.comfortLevelName}
                 <form id="show_services"
-                      action="?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                      action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
                     <button id="show" type="submit">Show services</button>
                 </form>
             </td>
             <td>
                 <form id="apply_discount"
-                      action="?command=shipAdmin&action=apply&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
+                      action="/Cruise?command=applyDiscount&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
                       method="post">
                     <input type="text" name="discount" contenteditable="true" value="${ticket.discount}">
                     <button id="apply" type="submit">Apply discount</button>
                 </form>
             </td>
             <td>
-                    ${ticket.price}
+                ${ticket.price}
             <td>
         </tr>
     </c:forEach>
 </table>
-</body>
+
+        <table id="pagination_table">
+            <tr align="center">
+                <c:forEach var = "i" begin="1" end="${pages}">
+                    <form id="pagination_form" action="/Cruise?command=shipAdmin" method="post" >
+                    <td>
+                        <button name="page" type="submit" type="text" value="${i}">${i}</button>
+                    </td>
+                    </form>
+                </c:forEach>
+
+            </tr>
+        </table>
+    </body>
 </html>

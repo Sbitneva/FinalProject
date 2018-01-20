@@ -58,7 +58,8 @@ public class AuthenticationFilter implements Filter {
                 }
             } else{
                 log.debug("request has no command parameter");
-                errorRedirect = true;
+                //errorRedirect = true;
+                filterChain.doFilter(request, response);
             }
 
         } else {
