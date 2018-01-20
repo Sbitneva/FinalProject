@@ -20,6 +20,8 @@ public class ComfortLevelDao {
             " (services.service_id = many_services_has_many_comfort_levels.service_id_services " +
             "and many_services_has_many_comfort_levels.comfort_level_id_comfort_levels = ?)";
     public static final String GET_COMFORT_LEVELS = "select * from comfort_levels";
+    public static final String GET_COMFORT_LEVEL_NAME =
+            "select comfort_level_name from comfort_levels where (comfort_level_id = ?)";
 
     public ArrayList<Service> getComfortLevelInfo(int comfortLevelId) throws SQLException {
         ArrayList<Service> services = new ArrayList<>();
