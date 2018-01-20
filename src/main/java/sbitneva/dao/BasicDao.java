@@ -30,4 +30,22 @@ public class BasicDao {
         return comfortLevels;
     }
 
+    public String getNameById(String sql, int id) throws SQLException{
+        String name = null;
+        Connection con = ConnectionPool.getConnection();
+        try{
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                name = resultSet.getString(1);
+            }
+
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        con.close();
+        return name;
+    }
+
 }

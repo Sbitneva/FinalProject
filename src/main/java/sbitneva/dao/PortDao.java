@@ -81,7 +81,7 @@ public class PortDao {
         return ports;
     }
 
-    public Map<Integer, String> getPortsMap() throws SQLException {
+    /*public Map<Integer, String> getPortsMap() throws SQLException {
         Map<Integer, String> portsMap = new HashMap<>();
         Connection connection = ConnectionPool.getConnection();
         try {
@@ -98,4 +98,5 @@ public class PortDao {
 
         return portsMap;
     }
+    */
 }
