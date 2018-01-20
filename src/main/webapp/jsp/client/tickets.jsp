@@ -35,7 +35,7 @@
             <tr>
                 <td style="width:10%;">${ticket.ticketId}</td>
                 <td> <form id="show_services"
-                          action="?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                          action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                           method="post">
                         ${ticket.comfortLevelName}
                         <button id="show" type="submit">Show services</button>
