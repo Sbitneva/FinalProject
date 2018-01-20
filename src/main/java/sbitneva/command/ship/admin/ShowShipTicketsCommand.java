@@ -43,7 +43,7 @@ public class ShowShipTicketsCommand implements Command {
                     sendData(request, response, ship, TICKETS_PAGE);
                 }
             } catch(Exception e){
-                log.error(e.getMessage());
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }
     }
@@ -56,7 +56,7 @@ public class ShowShipTicketsCommand implements Command {
             request.setAttribute(PAGES, pages);
             request.getRequestDispatcher(page).forward(request, response);
         } catch (Exception e){
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 

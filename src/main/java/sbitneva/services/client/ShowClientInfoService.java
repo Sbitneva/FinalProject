@@ -32,7 +32,7 @@ public class ShowClientInfoService {
             client.setTickets(ticketDao.getUserTickets(userId));
             ArrayList<Ticket> tickets = client.getTickets();
             for(Ticket ticket:tickets){
-                ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+                //ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
             }
             fillClientFields(client);
         }
