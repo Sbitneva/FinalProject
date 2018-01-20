@@ -9,6 +9,9 @@ import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
+
+import static sbitneva.dao.ComfortLevelDao.*;
 
 public class ShowClientInfoService {
     private static Logger log = Logger.getLogger(ShowClientInfoService.class.getName());
@@ -27,14 +30,19 @@ public class ShowClientInfoService {
         if(isClient(userId)) {
             UserDao userDao = DaoFactory.getUserDao();
             TicketDao ticketDao = DaoFactory.getTicketDao();
-            ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
             client = userDao.getUserById(userId);
-            client.setTickets(ticketDao.getUserTickets(userId));
-            ArrayList<Ticket> tickets = client.getTickets();
-            for(Ticket ticket:tickets){
-                //ticket.setComfortLevelName(comfortLevelDao.getComfortLevelNameById(ticket.getComfortLevel()));
+            if(client != null) {
+                client.setTickets(ticketDao.getUserTickets(userId));
+                ArrayList<Ticket> tickets = client.getTickets();
+                if (tickets.size() > 0) {
+                    BasicDao basicDao = DaoFactory.getBasicDao();
+                    Map<Integer, String> comfortLevels = basicDao.getIdNameDataFromTable(GET_COMFORT_LEVELS);
+                    for (Ticket ticket : tickets) {
+                        ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
+                    }
+                }
+                fillClientFields(client);
             }
-            fillClientFields(client);
         }
         return client;
     }

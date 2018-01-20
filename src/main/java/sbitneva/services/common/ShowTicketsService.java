@@ -104,7 +104,7 @@ public class ShowTicketsService {
     }
 
     private void setComfortLevelNames(ArrayList<Ticket> tickets) {
-        Map<Integer, String> comfortLevels = new HashMap<>();
+        Map<Integer, String> comfortLevels;
         BasicDao basicDao = DaoFactory.getBasicDao();
         try{
             comfortLevels = basicDao.getIdNameDataFromTable(ComfortLevelDao.GET_COMFORT_LEVELS);
@@ -114,7 +114,7 @@ public class ShowTicketsService {
                 }
             }
         } catch(SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 }
