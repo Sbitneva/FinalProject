@@ -30,6 +30,7 @@ public class CommandsHelper {
     public static final String PAGES        = "pages";
     public static final String COMFORT_ID   = "comfortId";
     public static final String SERVICES     = "comfortLevel";
+    public static final String STAFF        = "staff";
 
     // client pages
 

@@ -10,7 +10,7 @@
     <link href="../../css/ship-administrator/staff.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>Comfort level : ${comfortLevel.comfortLevelName}</h1>
+<h1>Ship staff: ${comfortLevel.comfortLevelName}</h1>
 
 <table id="staff_table">
     <tr>

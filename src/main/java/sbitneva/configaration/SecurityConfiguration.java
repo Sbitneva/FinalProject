@@ -28,6 +28,7 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.SHOW_AVAILABLE_CRUISES, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_SERVICES, GENERAL_LOG_ACCESS);
+        grant.put(FactoryCommand.SHOW_STAFF, SHIP_ADMIN_TYPE);
     }
 
     public static SecurityConfiguration getConfig() {
