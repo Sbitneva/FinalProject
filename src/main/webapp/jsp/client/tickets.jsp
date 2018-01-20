@@ -8,7 +8,7 @@
     <title>Cruise Company</title>
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link href="../../css/all-backgrounds.css" type="text/css" rel="stylesheet">
-    <link href="../../css/client/buy-ticket.css" type="text/css" rel="stylesheet">
+    <link href="../../css/client/tickets.css" type="text/css" rel="stylesheet">
 </head>
 <body>
     <h2>${ship.shipName}</h2>
@@ -17,9 +17,6 @@
         <c:forEach items="${ship.ports}" var="port">
             <br>${port.portName}
         </c:forEach>
-        <br>
-            <b>Tickets amount: ${fn:length(ship.tickets)}</b>
-        <br>
         <br>
             <b>Cruise duration: ${ship.cruiseDuration} </b>
         <br>
@@ -36,7 +33,7 @@
         </tr>
         <c:forEach items="${ship.tickets}" var="ticket">
             <tr>
-                <td style="width:5%;">${ticket.ticketId}</td>
+                <td style="width:10%;">${ticket.ticketId}</td>
                 <td> <form id="show_services"
                           action="?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
                           method="post">
@@ -44,17 +41,30 @@
                         <button id="show" type="submit">Show services</button>
                     </form>
                 </td>
-                <td style="width:5%;">${ticket.discount}</td>
+                <td style="width:20%;">${ticket.discount}</td>
                 <td>${ticket.price}</td>
-                <td style="width:5%;">
-                    <form id="buy_excursion_form"
+                <td style="width:25%;">
+                    <form id="add_to_cart_form"
                           action="/?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
                           method="post">
-                        <button id="buy_excursion_button" type="submit">Buy</button>
+                        <button id="add_to_cart_button" type="submit">Add to cart</button>
                     </form>
                 </td>
             </tr>
         </c:forEach>
+    </table>
+
+    <table id="pagination_table">
+        <tr align="center">
+            <c:forEach var = "i" begin="1" end="${pages}">
+                <form id="pagination_form" action="/Cruise?command=showShip&shipId=${ship.shipId}" method="post" >
+                    <td>
+                        <button name="page" type="submit" type="text" value="${i}">${i}</button>
+                    </td>
+                </form>
+            </c:forEach>
+
+        </tr>
     </table>
 
 </body>

@@ -84,5 +84,4 @@ public class ShowShipTicketsCommand implements Command {
         return shipId;
     }
 
-
 }
