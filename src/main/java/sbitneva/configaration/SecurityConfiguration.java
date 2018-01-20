@@ -4,7 +4,6 @@ import sbitneva.command.factory.FactoryCommand;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class SecurityConfiguration {
     private static final SecurityConfiguration config = new SecurityConfiguration();
@@ -13,8 +12,8 @@ public class SecurityConfiguration {
 
     private static final int ALL_ACCESS = 4;
     private static final int GENERAL_LOG_ACCESS = 3;
-    private static final int CLIENT_ACCES = 1;
-    private static final int SHIP_ADMIN_ACCES = 2;
+    private static final int CLIENT_ACCESS = 1;
+    private static final int SHIP_ADMIN_ACCESS = 2;
 
     public static final int CLIENT_TYPE = 1;
     public static final int SHIP_ADMIN_TYPE = 2;
@@ -23,25 +22,15 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.LOGIN, ALL_ACCESS);
         grant.put(FactoryCommand.REGISTRATION, ALL_ACCESS);
         grant.put(FactoryCommand.LOGOUT, GENERAL_LOG_ACCESS);
-        grant.put(FactoryCommand.CLIENT, CLIENT_ACCES);
-        grant.put(FactoryCommand.SHIP_ADMIN, SHIP_ADMIN_ACCES);
-        grant.put(FactoryCommand.BUY_TICKET, CLIENT_ACCES);
+        grant.put(FactoryCommand.CLIENT, CLIENT_ACCESS);
+        grant.put(FactoryCommand.SHOW_SHIP_COMMAND, GENERAL_LOG_ACCESS);
+        grant.put(FactoryCommand.BUY_TICKET, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, GENERAL_LOG_ACCESS);
-        grant.put(FactoryCommand.SHOW_AVAILABLE_CRUISES, CLIENT_ACCES);
+        grant.put(FactoryCommand.SHOW_AVAILABLE_CRUISES, CLIENT_ACCESS);
     }
 
     public static SecurityConfiguration getConfig() {
         return config;
-    }
-
-    public int getAccess(String userType){
-        int access = 0;
-        Integer userTypeId = grant.get(userType);
-        if(userTypeId == null) {
-            return access;
-        } else {
-            return userTypeId;
-        }
     }
 
     public boolean hasCommand(String command){
@@ -55,10 +44,13 @@ public class SecurityConfiguration {
     public boolean verifyRights(int userTypeId, String command){
         boolean result = true;
         int commandAccessType = grant.get(command);
-        if ((commandAccessType == CLIENT_TYPE) || (commandAccessType == SHIP_ADMIN_ACCES )) {
-            if(userTypeId != commandAccessType) {
-                result = false;
+        if ((commandAccessType == CLIENT_TYPE) || (commandAccessType == SHIP_ADMIN_ACCESS) || commandAccessType == GENERAL_LOG_ACCESS) {
+            if (commandAccessType != GENERAL_LOG_ACCESS) {
+                if (userTypeId != commandAccessType) {
+                    result = false;
+                }
             }
+
         }
 
         return result;

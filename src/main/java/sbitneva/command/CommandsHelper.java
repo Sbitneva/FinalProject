@@ -60,7 +60,7 @@ public class CommandsHelper {
 
     // ship-admin commands
 
-    public static final String SHIP_ADMIN_COMMAND = "?command=shipAdmin";
+    public static final String SHOW_SHIP_COMMAND = "?command=showShip";
 
     private CommandsHelper(){
 
