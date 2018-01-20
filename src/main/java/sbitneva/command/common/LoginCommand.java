@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static sbitneva.command.CommandsHelper.*;
+
 public class LoginCommand implements Command {
     private static Logger log = Logger.getLogger(LoginCommand.class.getName());
     private StringBuffer errors = new StringBuffer();
@@ -32,20 +34,20 @@ public class LoginCommand implements Command {
                 switch (userType) {
                     case SecurityConfiguration.CLIENT_TYPE :
                         isFullRequest = true;
-                        request.getSession().setAttribute(CommandsHelper.USER_ID_SESSION_ATTRIBUTE, user.getClientId());
+                        request.getSession().setAttribute(USER_ID_SESSION_ATTRIBUTE, user.getClientId());
                         request.getSession().setAttribute(
-                                CommandsHelper.USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.CLIENT_TYPE);
+                                USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.CLIENT_TYPE);
                         request.getRequestDispatcher(
-                                CommandsHelper.SERVLET_NAME + CommandsHelper.CLIENT_COMMAND).
+                                SERVLET_NAME + CLIENT_COMMAND).
                                 forward(request, response);
                         break;
                     case SecurityConfiguration.SHIP_ADMIN_TYPE:
                         isFullRequest = true;
-                        request.getSession().setAttribute(CommandsHelper.USER_ID_SESSION_ATTRIBUTE, user.getClientId());
+                        request.getSession().setAttribute(USER_ID_SESSION_ATTRIBUTE, user.getClientId());
                         request.getSession().setAttribute(
-                                CommandsHelper.USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.SHIP_ADMIN_TYPE);
+                                USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.SHIP_ADMIN_TYPE);
                         request.getRequestDispatcher(
-                                CommandsHelper.SERVLET_NAME +  CommandsHelper.SHOW_SHIP_COMMAND).
+                                SERVLET_NAME +  SHOW_SHIP_COMMAND).
                                 forward(request, response);
                         break;
                     default :
@@ -56,9 +58,9 @@ public class LoginCommand implements Command {
             }
         }
         if(!isFullRequest) {
-            request.setAttribute(CommandsHelper.ERRORS, errors.toString());
+            request.setAttribute(ERRORS, errors.toString());
             try{
-                request.getRequestDispatcher(CommandsHelper.MAIN_PAGE).forward(request, response);
+                request.getRequestDispatcher(MAIN_PAGE).forward(request, response);
             } catch (ServletException | IOException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }

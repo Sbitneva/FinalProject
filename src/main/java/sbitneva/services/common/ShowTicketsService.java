@@ -60,13 +60,7 @@ public class ShowTicketsService {
                 ShipDao shipDao = DaoFactory.getShipDao();
                 ship = shipDao.getBasicShipData(shipId);
                 if(ship != null) {
-                    int offset = (pageId - 1) * ITEMS_PER_PAGE;
-                    TicketDao ticketDao = DaoFactory.getTicketDao();
-                    int itemsNumber = ticketDao.getAvailableTicketsNumber(shipId) - offset;
-                    if(itemsNumber > ITEMS_PER_PAGE){
-                        itemsNumber = ITEMS_PER_PAGE;
-                    }
-                    ArrayList<Ticket> tickets = getTickets(shipId, offset, itemsNumber);
+                    ArrayList<Ticket> tickets = getTickets(shipId, pageId);
                     ship.setTickets(tickets);
                 }
             }
@@ -91,14 +85,33 @@ public class ShowTicketsService {
         return pagesNumber;
     }
 
-    public ArrayList<Ticket> getTickets(int shipId, int offset, int itemsNumber) {
-        TicketDao ticketDao = DaoFactory.getTicketDao();
+    public ArrayList<Ticket> getTickets(int shipId, int pageId) {
         ArrayList<Ticket> tickets = null;
+        int offset = (pageId - 1) * ITEMS_PER_PAGE;
+        TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
+            int itemsNumber = ticketDao.getAvailableTicketsNumber(shipId) - offset;
+            if(itemsNumber > ITEMS_PER_PAGE){
+                itemsNumber = ITEMS_PER_PAGE;
+            }
             tickets = ticketDao.getTicketsForPage(shipId, offset, itemsNumber);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return tickets;
+    }
+
+    public Ship getShipForClient(int shipId, int currentPage){
+        Ship ship = null;
+        ShipDao shipDao = DaoFactory.getShipDao();
+        try{
+            ship = shipDao.getBasicShipData(shipId);
+            if(ship != null) {
+                ship.setTickets(getTickets(shipId, currentPage));
+            }
+        } catch (SQLException e) {
+
+        }
+        return ship;
     }
 }
