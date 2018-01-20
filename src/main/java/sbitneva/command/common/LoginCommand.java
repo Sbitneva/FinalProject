@@ -45,7 +45,7 @@ public class LoginCommand implements Command {
                         request.getSession().setAttribute(
                                 CommandsHelper.USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.SHIP_ADMIN_TYPE);
                         request.getRequestDispatcher(
-                                CommandsHelper.SERVLET_NAME +  CommandsHelper.SHIP_ADMIN_COMMAND).
+                                CommandsHelper.SERVLET_NAME +  CommandsHelper.SHOW_SHIP_COMMAND).
                                 forward(request, response);
                         break;
                     default :

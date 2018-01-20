@@ -54,7 +54,7 @@
         <table id="pagination_table">
             <tr align="center">
                 <c:forEach var = "i" begin="1" end="${pages}">
-                    <form id="pagination_form" action="/Cruise?command=shipAdmin" method="post" >
+                    <form id="pagination_form" action="/Cruise?command=showShip" method="post" >
                     <td>
                         <button name="page" type="submit" type="text" value="${i}">${i}</button>
                     </td>
