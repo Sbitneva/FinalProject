@@ -16,8 +16,10 @@ import java.util.Map;
 public class PortDao {
     private final static String GET_PORTNAME_BY_ID = "select port_name from ports where port_id = ?";
     private final static String GET_PORT_ID_BY_EXCURSION_ID = "select port_id_ports from excursions where excursion_id=?";
-    private final static String GET_PORTS_IDS_BY_SHIP_ID =
-            "select port_id_ports from many_ports_has_many_ships where ship_id_ships = ?";
+    private final static String GET_PORTS_BY_SHIP_ID =
+            " select * from ports inner join many_ports_has_many_ships on" +
+                    " (many_ports_has_many_ships.port_id_ports = ports.port_id" +
+                    " and many_ports_has_many_ships.ship_id_ships = ?)";
     private final static String GET_ALL_PORTS = "select * from ports";
     private static Logger log = Logger.getLogger(PortDao.class.getName());
 
@@ -62,13 +64,14 @@ public class PortDao {
 
         Connection connection = ConnectionPool.getConnection();
         try {
-            PreparedStatement statement = connection.prepareStatement(GET_PORTS_IDS_BY_SHIP_ID);
+            PreparedStatement statement = connection.prepareStatement(GET_PORTS_BY_SHIP_ID);
             statement.setInt(1, shipId);
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Port port = new Port();
                 port.setPortId(resultSet.getInt(1));
+                port.setPortName(resultSet.getString(2));
                 ports.add(port);
             }
         } catch (SQLException e) {

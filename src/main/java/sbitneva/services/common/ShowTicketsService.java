@@ -2,6 +2,7 @@ package sbitneva.services.common;
 
 import org.apache.log4j.Logger;
 import sbitneva.dao.*;
+import sbitneva.entity.Port;
 import sbitneva.entity.Ship;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
@@ -62,6 +63,7 @@ public class ShowTicketsService {
                 if(ship != null) {
                     ArrayList<Ticket> tickets = getTickets(shipId, pageId);
                     ship.setTickets(tickets);
+                    ship.setPorts(getShipPorts(shipId));
                 }
             }
         } catch (SQLException | DaoException e){
@@ -108,10 +110,24 @@ public class ShowTicketsService {
             ship = shipDao.getBasicShipData(shipId);
             if(ship != null) {
                 ship.setTickets(getTickets(shipId, currentPage));
+                ship.setPorts(getShipPorts(shipId));
             }
         } catch (SQLException e) {
 
         }
         return ship;
+    }
+
+    private ArrayList<Port> getShipPorts(int shipId){
+
+        ArrayList<Port> ports = new ArrayList<>();
+        PortDao portDao = DaoFactory.getPortDao();
+        try {
+            ports = portDao.getPortsByShipId(shipId);
+        } catch (SQLException e){
+
+        }
+        return ports;
+
     }
 }
