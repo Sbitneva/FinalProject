@@ -84,8 +84,9 @@ public class BuyTicketService {
             ship.setTickets(ticketDao.getAllAvailableTickets(shipId));
             ship.setPorts(portDao.getPortsByShipId(shipId));
             for (int i = 0; i < ship.getTickets().size(); i++) {
-                ship.getTickets().get(i).setComfortLevelName(
+                /*ship.getTickets().get(i).setComfortLevelName(
                         comfortLevelDao.getComfortLevelNameById(ship.getTickets().get(i).getComfortLevel()));
+                        */
             }
             for(int i = 0; i < ship.getPorts().size(); i++) {
                 ship.getPorts().get(i).setPortName(portMap.get(ship.getPorts().get(i).getPortId()));

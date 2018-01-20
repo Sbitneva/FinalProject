@@ -9,6 +9,7 @@ import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ShowTicketsService {
@@ -22,35 +23,6 @@ public class ShowTicketsService {
     public static ShowTicketsService getShowTicketsService() {
         return showTicketsService;
     }
-
-    /*
-    public Ship getTickets(int shipId){
-
-        Ship ship = null;
-        ShipDao shipDao = DaoFactory.getShipDao();
-        try {
-            ship = shipDao.getBasicShipData(shipId);
-            if(ship != null) {
-                TicketDao ticketDao = DaoFactory.getTicketDao();
-                PortDao portDao = DaoFactory.getPortDao();
-                ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-                Map<Integer, String> portMap = portDao.getPortsMap();
-                ship.setTickets(ticketDao.getAllAvailableTickets(shipId));
-                ship.setPorts(portDao.getPortsByShipId(shipId));
-                for (int i = 0; i < ship.getTickets().size(); i++) {
-                    ship.getTickets().get(i).setComfortLevelName(
-                            comfortLevelDao.getComfortLevelNameById(ship.getTickets().get(i).getComfortLevel()));
-                }
-                for (int i = 0; i < ship.getPorts().size(); i++) {
-                    ship.getPorts().get(i).setPortName(portMap.get(ship.getPorts().get(i).getPortId()));
-                }
-            }
-        } catch (SQLException e){
-            log.error(e.getMessage());
-        }
-        return ship;
-    }
-    */
 
     public Ship getShip(int userId, int pageId) {
         Ship ship = null;
@@ -97,6 +69,7 @@ public class ShowTicketsService {
                 itemsNumber = ITEMS_PER_PAGE;
             }
             tickets = ticketDao.getTicketsForPage(shipId, offset, itemsNumber);
+            setComfortLevelNames(tickets);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
@@ -113,7 +86,7 @@ public class ShowTicketsService {
                 ship.setPorts(getShipPorts(shipId));
             }
         } catch (SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return ship;
     }
@@ -125,9 +98,23 @@ public class ShowTicketsService {
         try {
             ports = portDao.getPortsByShipId(shipId);
         } catch (SQLException e){
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return ports;
+    }
 
+    private void setComfortLevelNames(ArrayList<Ticket> tickets) {
+        Map<Integer, String> comfortLevels = new HashMap<>();
+        BasicDao basicDao = DaoFactory.getBasicDao();
+        try{
+            comfortLevels = basicDao.getIdNameDataFromTable(ComfortLevelDao.GET_COMFORT_LEVELS);
+            if(comfortLevels.size() > 0){
+                for(Ticket ticket : tickets) {
+                    ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
+                }
+            }
+        } catch(SQLException e) {
+
+        }
     }
 }
