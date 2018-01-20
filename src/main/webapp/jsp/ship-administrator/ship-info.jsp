@@ -17,8 +17,6 @@
         Show ships staff
     </button>
 </form>
-
-
 <table id="tickets_table">
     <tr>
         <th>Ticket Id</th>
