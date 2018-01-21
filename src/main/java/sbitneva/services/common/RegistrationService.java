@@ -10,12 +10,10 @@ import sbitneva.exception.RegistrationException;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static sbitneva.command.common.RegistrationCommand.errors;
-
 import static java.util.regex.Pattern.UNICODE_CHARACTER_CLASS;
 
 public class RegistrationService {
+
     private static Logger log = Logger.getLogger(RegistrationService.class.getName());
 
     private final static String CHECK_EMAIL_REGEXP = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"" +
