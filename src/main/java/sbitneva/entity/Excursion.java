@@ -8,6 +8,15 @@ public class Excursion {
     private String shipName;
     private String portName;
     private int price;
+    private int ticketId;
+
+    public int getTicketId() {
+        return ticketId;
+    }
+
+    public void setTicketId(int ticketId) {
+        this.ticketId = ticketId;
+    }
 
     public int getExcursionId() {
         return excursionId;

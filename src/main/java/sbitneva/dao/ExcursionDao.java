@@ -31,6 +31,7 @@ public class ExcursionDao {
             excursions = new ArrayList<>();
             while (resultSet.next()) {
                 Excursion excursion = new Excursion();
+                excursion.setTicketId(resultSet.getInt(1));
                 excursion.setExcursionId(resultSet.getInt(2));
                 excursion.setShipId(resultSet.getInt(7));
                 excursions.add(excursion);
