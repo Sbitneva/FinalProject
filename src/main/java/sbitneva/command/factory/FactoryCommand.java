@@ -3,6 +3,7 @@ package sbitneva.command.factory;
 import org.apache.log4j.Logger;
 import sbitneva.command.client.ShowClientInfoCommand;
 import sbitneva.command.client.ShowCruisesCommand;
+import sbitneva.command.client.ShowExcursionsCommand;
 import sbitneva.command.common.LoginCommand;
 import sbitneva.command.common.LogoutCommand;
 import sbitneva.command.common.RegistrationCommand;
@@ -40,7 +41,7 @@ public class FactoryCommand {
         commandMap.put(REGISTRATION, new RegistrationCommand());
         commandMap.put(CLIENT, new ShowClientInfoCommand());
         commandMap.put(APPLY_DISCOUNT, new ApplyDiscountCommand());
-        //commandMap.put(SHOW_AVAILABLE_TICKETS, new ShowTicketsCommand());
+        commandMap.put(SHOW_EXCURSIONS, new ShowExcursionsCommand());
         commandMap.put(SHOW_AVAILABLE_CRUISES, new ShowCruisesCommand());
         commandMap.put(SHOW_STAFF, new ShowStaffCommand());
         commandMap.put(SHOW_SHIP, new ShowShipTicketsCommand());
