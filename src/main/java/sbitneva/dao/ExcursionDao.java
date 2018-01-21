@@ -32,7 +32,7 @@ public class ExcursionDao {
             while (resultSet.next()) {
                 Excursion excursion = new Excursion();
                 excursion.setExcursionId(resultSet.getInt(2));
-                excursion.setShipId(resultSet.getInt(8));
+                excursion.setShipId(resultSet.getInt(7));
                 excursions.add(excursion);
             }
 

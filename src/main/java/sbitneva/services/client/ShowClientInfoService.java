@@ -46,12 +46,14 @@ public class ShowClientInfoService {
     }
 
     private void fillClientFields(Client client) {
-        ExcursionDao excursionDao = DaoFactory.getExcursionDao();
+
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();
         ArrayList<Excursion> userExcursions = new ArrayList<>();
 
         try {
+            ExcursionDao excursionDao = DaoFactory.getExcursionDao();
+
             if (client.getTickets().size() > 0) {
                 userExcursions = excursionDao.getExcursionsByUser(client.getClientId());
             }

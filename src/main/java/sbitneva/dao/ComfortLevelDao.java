@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class ComfortLevelDao {
+
     public static final String GET_COMFORT_LEVELS = "select * from comfort_levels";
     public static final String GET_COMFORT_LEVEL_NAME =
             "select comfort_level_name from comfort_levels where (comfort_level_id = ?)";
