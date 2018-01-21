@@ -16,10 +16,10 @@ public class ShowStaffCommand implements Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int shipId = getShipId(request);
-        if(shipId > 0){
+        if (shipId > 0) {
             ShowStaffService showStaffService = ShowStaffService.getShowStaffService();
             ArrayList<Staff> staff = showStaffService.getStaff(shipId);
-            if(staff != null) {
+            if (staff != null) {
                 request.setAttribute(STAFF, staff);
                 request.getRequestDispatcher(SHIP_STAFF_PAGE).forward(request, response);
             }
@@ -28,7 +28,7 @@ public class ShowStaffCommand implements Command {
 
     private int getShipId(HttpServletRequest request) {
         int shipId = 0;
-        if(request.getParameter(SHIP_ID) != null) {
+        if (request.getParameter(SHIP_ID) != null) {
             shipId = Integer.parseInt(request.getParameter(SHIP_ID));
         }
         return shipId;

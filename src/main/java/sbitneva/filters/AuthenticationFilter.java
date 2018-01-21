@@ -16,13 +16,12 @@ import java.io.IOException;
 
 public class AuthenticationFilter implements Filter {
 
-    private static Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
-
     private static final String MAIN_PAGE = "/index.jsp";
     private static final String ERROR_404_PAGE = "jsp/errors/404-error.jsp";
     private static final String USER_ID_SESSION_ATTR_NAME = "id";
     private static final String ACCESS_SESSION_ATTR_NAME = "type";
     private static final String COMMAND_PARAMETER_NAME = "command";
+    private static Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -34,29 +33,27 @@ public class AuthenticationFilter implements Filter {
         log.debug("auth filter work");
         boolean errorRedirect = false;
         HttpSession session = ((HttpServletRequest) request).getSession(true);
-        if((!(hasAttributes(session)))){
+        if ((!(hasAttributes(session)))) {
             log.debug("session has no any attributes");
             filterChain.doFilter(request, response);
-        }
-        else if (isAttributesValid(session)) {
+        } else if (isAttributesValid(session)) {
             log.debug("session attributes are full");
             int accessId = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
             String command = getCommandFromRequest(request);
-            if(command != null) {
+            if (command != null) {
                 log.debug("request has command parameter");
                 SecurityConfiguration securityConfiguration = SecurityConfiguration.getConfig();
-                if(securityConfiguration.hasCommand(command)) {
+                if (securityConfiguration.hasCommand(command)) {
                     log.debug("request has right command parameter");
-                    if(securityConfiguration.verifyRights(accessId, command)) {
+                    if (securityConfiguration.verifyRights(accessId, command)) {
                         log.debug("current response has access rights for requested command execution");
                         filterChain.doFilter(request, response);
                     }
-                }
-                else{
+                } else {
                     log.debug("request has no command with requested name");
                     filterChain.doFilter(request, response);
                 }
-            } else{
+            } else {
                 log.debug("request has no command parameter");
                 //errorRedirect = true;
                 filterChain.doFilter(request, response);
@@ -66,7 +63,7 @@ public class AuthenticationFilter implements Filter {
             errorRedirect = true;
             log.debug("session attributes are wrong");
         }
-        if(errorRedirect) {
+        if (errorRedirect) {
 
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             httpServletResponse.sendRedirect(MAIN_PAGE);
@@ -100,9 +97,9 @@ public class AuthenticationFilter implements Filter {
         return isValid;
     }
 
-    private String getCommandFromRequest(ServletRequest request){
-        HttpServletRequest httpRequest = (HttpServletRequest)request;
-        if(httpRequest.getParameter(COMMAND_PARAMETER_NAME) != null) {
+    private String getCommandFromRequest(ServletRequest request) {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        if (httpRequest.getParameter(COMMAND_PARAMETER_NAME) != null) {
             return httpRequest.getParameter(COMMAND_PARAMETER_NAME);
         } else {
             return null;

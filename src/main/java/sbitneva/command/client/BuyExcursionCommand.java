@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 
 public class BuyExcursionCommand implements Command {
+
+    private static Logger log = Logger.getLogger(BuyExcursionCommand.class.getName());
+
     private final static String USER_COMMAND_PATH = "?command=users&userId=";
     private final static String SELECT_PATH = "jsp/client/excursions.jsp";
     private final static String TICKET_ID_ATTRIBUTE = "ticketId";
@@ -20,7 +23,7 @@ public class BuyExcursionCommand implements Command {
     private final static String EXCURSION_ATTRIBUTE = "excursionId";
     private final static String SELECT_ACTION = "select";
     private final static String BUY_ACTION = "buy";
-    private static Logger log = Logger.getLogger(BuyExcursionCommand.class.getName());
+
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {

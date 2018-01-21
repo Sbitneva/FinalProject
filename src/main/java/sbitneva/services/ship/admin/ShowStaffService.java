@@ -15,7 +15,7 @@ public class ShowStaffService {
 
     private static ShowStaffService showStaffService = new ShowStaffService();
 
-    private ShowStaffService(){
+    private ShowStaffService() {
 
     }
 
@@ -23,10 +23,10 @@ public class ShowStaffService {
         return showStaffService;
     }
 
-    public ArrayList<Staff> getStaff(int shipId){
+    public ArrayList<Staff> getStaff(int shipId) {
         ArrayList<Staff> staff = null;
         StaffDao staffDao = DaoFactory.getStaffDao();
-        try{
+        try {
             staff = staffDao.getStaff(shipId);
 
         } catch (SQLException e) {

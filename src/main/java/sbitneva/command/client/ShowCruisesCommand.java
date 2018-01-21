@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ShowCruisesCommand implements Command{
+public class ShowCruisesCommand implements Command {
 
     private static Logger log = Logger.getLogger(ShowCruisesCommand.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("ShowCruisesCommand execution started");
-        try{
+        try {
             ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
             ArrayList<Ship> ships = showCruisesService.getCruiseShips();
             request.setAttribute(CommandsHelper.SHIPS, ships);

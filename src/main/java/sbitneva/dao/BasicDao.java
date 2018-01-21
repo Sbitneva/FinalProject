@@ -14,7 +14,7 @@ public class BasicDao {
 
     private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
 
-    public Map<Integer, String> getIdNameDataFromTable(String sql) throws SQLException {
+    public static Map<Integer, String> getIdNameDataFromTable(String sql) throws SQLException {
         Map<Integer, String> comfortLevels = new HashMap<>();
         Connection con = ConnectionPool.getConnection();
         try {
@@ -30,10 +30,10 @@ public class BasicDao {
         return comfortLevels;
     }
 
-    public String getNameById(String sql, int id) throws SQLException{
+    public static String getNameById(String sql, int id) throws SQLException {
         String name = null;
         Connection con = ConnectionPool.getConnection();
-        try{
+        try {
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -46,6 +46,38 @@ public class BasicDao {
         }
         con.close();
         return name;
+    }
+
+    public static int getId(String sql, int parameter) throws SQLException {
+        int id = 0;
+        Connection connection = ConnectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, parameter);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        connection.close();
+        return id;
+    }
+
+    public static int updateCell(String sql, int parameter1, int parameter2) throws SQLException{
+        int result = 0;
+        Connection connection = ConnectionPool.getConnection();
+        try {
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, parameter1);
+            statement.setInt(2, parameter2);
+            result = statement.executeUpdate();
+        } catch (SQLException e) {
+            log.error(e.getMessage());
+        }
+        connection.close();
+        return result;
     }
 
 }
