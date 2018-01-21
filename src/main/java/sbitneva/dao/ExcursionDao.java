@@ -22,12 +22,13 @@ public class ExcursionDao {
     private static Logger log = Logger.getLogger(ExcursionDao.class.getName());
 
     public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DaoException {
-        ArrayList<Excursion> excursions = new ArrayList<>();
+        ArrayList<Excursion> excursions = null;
         Connection con = ConnectionPool.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement(GET_EXCURSIONS_BY_USER_ID);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
+            excursions = new ArrayList<>();
             while (resultSet.next()) {
                 Excursion excursion = new Excursion();
                 excursion.setExcursionId(resultSet.getInt(2));

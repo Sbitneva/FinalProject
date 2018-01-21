@@ -43,7 +43,7 @@
             </td>
             <td>
                 <form id="buy_excursion_form"
-                      action="/Cruise?command=buyExcursion&action=select&ticketId=${ticket.ticketId}"
+                      action="/Cruise?command=getExcursions&ticketId=${ticket.ticketId}"
                       method="post">
                     <button id="buy_excursion_button" type="submit"> Buy new Excursion</button>
                 </form>

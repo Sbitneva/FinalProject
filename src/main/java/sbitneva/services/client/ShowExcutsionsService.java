@@ -1,10 +1,12 @@
 package sbitneva.services.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.dao.BasicDao;
-import sbitneva.dao.DaoFactory;
+import sbitneva.dao.*;
 import sbitneva.entity.Excursion;
+import sbitneva.entity.Port;
+import sbitneva.exception.DaoException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ShowExcutsionsService {
@@ -19,10 +21,26 @@ public class ShowExcutsionsService {
         return showExcutsionsService;
     }
 
-    public ArrayList<Excursion> getExcursions(int ticketId) {
-        ArrayList<Excursion> excursions = null;
-        BasicDao basicDao = DaoFactory.getBasicDao();
+    public ArrayList<Port> getExcursions(int ticketId) {
+        ArrayList<Port> ports = null;
+        TicketDao ticketDao = DaoFactory.getTicketDao();
+        try {
+            int shipId = ticketDao.getShipByTicketId(ticketId);
+            if(shipId > 0) {
+                PortDao portDao = DaoFactory.getPortDao();
+                ports = portDao.getPortsByShipId(shipId);
+                if(ports != null) {
+                    ExcursionDao excursionDao = DaoFactory.getExcursionDao();
+                    for(Port port : ports) {
+                        port.setExcursions(excursionDao.getAllExcursionsForPort(port.getPortId()));
+                        port.setPortName(portDao.getPortNameById(port.getPortId()));
+                    }
+                }
+            }
+        } catch (SQLException | DaoException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
 
-        return excursions;
+        return ports;
     }
 }
