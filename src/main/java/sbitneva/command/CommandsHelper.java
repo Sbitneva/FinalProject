@@ -18,6 +18,7 @@ public class CommandsHelper {
     public static final String USER         = "user";
     public static final String TICKETS      = "tickets";
     public static final String SHIP_ID      = "shipId";
+    public static final String TICKET_ID    = "ticketId";
     public static final String SHIP         = "ship";
     public static final String SHIPS        = "ships";
     public static final String EMAIL        = "email";
@@ -31,6 +32,7 @@ public class CommandsHelper {
     public static final String COMFORT_ID   = "comfortId";
     public static final String SERVICES     = "comfortLevel";
     public static final String STAFF        = "staff";
+    public static final String DISCOUNT     = "discount";
 
     // client pages
 
@@ -52,7 +54,7 @@ public class CommandsHelper {
 
     // client commands
     public static final String SHOW_EXCURSIONS_COMMAND  = "?command=getExcursions&ticketId=";
-    public static final String SHOW_TICKETS_COMMAND     = "?command=getTickets&shipId=";
+    public static final String SHOW_TICKETS_COMMAND     = "?command=getTickets";
     public static final String SHOW_CRUISES_COMMAND     = "?command=getCruises";
     public static final String CLIENT_COMMAND           = "?command=client";
 

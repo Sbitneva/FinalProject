@@ -29,6 +29,8 @@ public class ShowShipTicketsCommand implements Command {
                 int userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
                 Ship ship = showTicketsService.getShip(userId, currentPage);
                 if(ship != null) {
+                    request.getSession().setAttribute(SHIP_ID, ship.getShipId());
+                    request.setAttribute(PAGE, currentPage);
                     sendData(request, response, ship, SHIP_INFO_PAGE);
                 }
             } catch (Exception e){

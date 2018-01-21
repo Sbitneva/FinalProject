@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class ShowTicketsService {
     private static Logger log = Logger.getLogger(LoginService.class.getName());
-    private static final int ITEMS_PER_PAGE = 10;
+    private static final int ITEMS_PER_PAGE = 9;
     private static ShowTicketsService showTicketsService = new ShowTicketsService();
     private ShowTicketsService(){
 

@@ -11,12 +11,15 @@
 </head>
 <body>
 <h1>${ship.shipName}</h1>
+
 <form id="staff_button" action="/Cruise?command=getStaff&shipId=${ship.shipId}" type="submit"
       method="post">
     <button id="staff" type="submit">
         Show ships staff
     </button>
 </form>
+<b>Current page = ${page}</b>
+
 <table id="tickets_table">
     <tr>
         <th>Ticket Id</th>
@@ -24,6 +27,7 @@
         <th>Discount %</th>
         <th>Price</th>
     </tr>
+
     <c:forEach items="${ship.tickets}" var="ticket">
         <tr>
             <td>${ticket.ticketId}</td>
@@ -36,7 +40,7 @@
             </td>
             <td>
                 <form id="apply_discount"
-                      action="/Cruise?command=applyDiscount&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
+                      action="/Cruise?command=setDiscount&ticketId=${ticket.ticketId}&page=${page}"
                       method="post">
                     <input type="text" name="discount" contenteditable="true" value="${ticket.discount}">
                     <button id="apply" type="submit">Apply discount</button>
@@ -47,8 +51,8 @@
             <td>
         </tr>
     </c:forEach>
-</table>
-
+    <br>
+    </table>
         <table id="pagination_table">
             <tr align="center">
                 <c:forEach var = "i" begin="1" end="${pages}">
@@ -58,7 +62,6 @@
                     </td>
                     </form>
                 </c:forEach>
-
             </tr>
         </table>
     </body>
