@@ -11,7 +11,8 @@ public class ApplyDiscountService {
     private static Logger log = Logger.getLogger(ApplyDiscountService.class.getName());
 
     private static ApplyDiscountService applyDiscountService = new ApplyDiscountService();
-    private ApplyDiscountService(){
+
+    private ApplyDiscountService() {
 
     }
 
@@ -21,11 +22,11 @@ public class ApplyDiscountService {
 
     public boolean setDiscount(int ticketId, int discount) {
         boolean result = false;
-        if((discount >= 0) && (discount <= 99)){
+        if ((discount >= 0) && (discount <= 99)) {
             TicketDao ticketDao = DaoFactory.getTicketDao();
-            try{
+            try {
                 int n = ticketDao.updateDiscount(ticketId, discount);
-                if(n == 1) {
+                if (n == 1) {
                     result = true;
                 }
             } catch (SQLException e) {

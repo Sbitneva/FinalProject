@@ -17,24 +17,21 @@ import java.util.Map;
 
 public class FactoryCommand {
 
-    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
-
-    private static final String PARAM_NAME_COMMAND = "command";
-
-    public static final String LOGIN            = "login";
-    public static final String REGISTRATION     = "registration";
-    public static final String LOGOUT           = "logout";
-    public static final String CLIENT           = "client";
+    public static final String LOGIN = "login";
+    public static final String REGISTRATION = "registration";
+    public static final String LOGOUT = "logout";
+    public static final String CLIENT = "client";
     public static final String SHOW_AVAILABLE_TICKETS = "getTickets";
     public static final String SHOW_AVAILABLE_CRUISES = "getCruises";
-    public static final String SHOW_SERVICES    = "getServices";
-    public static final String SHOW_SHIP        = "showShip";
-    public static final String BUY_TICKET       = "buyTicket";
-    public static final String SHOW_STAFF       = "getStaff";
-    public static final String APPLY_DISCOUNT   = "setDiscount";
-
+    public static final String SHOW_SERVICES = "getServices";
+    public static final String SHOW_SHIP = "showShip";
+    //public static final String BUY_TICKET       = "buyTicket";
+    public static final String SHOW_STAFF = "getStaff";
+    public static final String APPLY_DISCOUNT = "setDiscount";
+    public static final String SHOW_EXCURSIONS = "getExcursions";
     public static final FactoryCommand factoryCommand = new FactoryCommand();
-
+    private static final String PARAM_NAME_COMMAND = "command";
+    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
     private Map<String, Command> commandMap = new HashMap<>();
 
     private FactoryCommand() {

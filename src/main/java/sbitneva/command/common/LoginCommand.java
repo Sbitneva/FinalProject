@@ -17,6 +17,7 @@ import static sbitneva.command.CommandsHelper.*;
 
 public class LoginCommand implements Command {
     private static Logger log = Logger.getLogger(LoginCommand.class.getName());
+
     private StringBuffer errors = new StringBuffer();
     private boolean isFullRequest = false;
 
@@ -26,13 +27,13 @@ public class LoginCommand implements Command {
         String email = request.getParameter(CommandsHelper.EMAIL);
         String password = request.getParameter(CommandsHelper.PASSWORD);
 
-        if(responseDataVerification(email, password)) {
+        if (responseDataVerification(email, password)) {
             LoginService loginService = LoginService.getLoginService();
             try {
                 Client user = loginService.getUser(email, password);
                 int userType = getUserType(user);
                 switch (userType) {
-                    case SecurityConfiguration.CLIENT_TYPE :
+                    case SecurityConfiguration.CLIENT_TYPE:
                         isFullRequest = true;
                         request.getSession().setAttribute(USER_ID_SESSION_ATTRIBUTE, user.getClientId());
                         request.getSession().setAttribute(
@@ -47,19 +48,19 @@ public class LoginCommand implements Command {
                         request.getSession().setAttribute(
                                 USER_TYPE_SESSION_ATTRIBUTE, SecurityConfiguration.SHIP_ADMIN_TYPE);
                         request.getRequestDispatcher(
-                                SERVLET_NAME +  SHOW_SHIP_COMMAND).
+                                SERVLET_NAME + SHOW_SHIP_COMMAND).
                                 forward(request, response);
                         break;
-                    default :
+                    default:
                         errors.append("Service has no users with given login and password");
                 }
             } catch (IOException | ServletException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }
-        if(!isFullRequest) {
+        if (!isFullRequest) {
             request.setAttribute(ERRORS, errors.toString());
-            try{
+            try {
                 request.getRequestDispatcher(MAIN_PAGE).forward(request, response);
             } catch (ServletException | IOException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
@@ -67,9 +68,9 @@ public class LoginCommand implements Command {
         }
     }
 
-    private boolean responseDataVerification(String email, String password){
+    private boolean responseDataVerification(String email, String password) {
         boolean result = false;
-        if((email != null) && (password != null)) {
+        if ((email != null) && (password != null)) {
             if (email.isEmpty()) {
                 errors.append("Enter email.\n");
                 log.warn("email parameter has an empty value");
@@ -89,10 +90,10 @@ public class LoginCommand implements Command {
 
     private int getUserType(Client user) {
         int typeId = 0;
-        if(user != null) {
-            if(user.getShipId() > 0) {
+        if (user != null) {
+            if (user.getShipId() > 0) {
                 return SecurityConfiguration.SHIP_ADMIN_TYPE;
-            } else if(user.getShipId() == 0) {
+            } else if (user.getShipId() == 0) {
                 return SecurityConfiguration.CLIENT_TYPE;
             }
         }

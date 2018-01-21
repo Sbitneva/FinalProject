@@ -12,13 +12,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ExcursionDao {
-    private final static String GET_EXCURSIONS_BY_USER_ID = "select * from many_tickets_has_many_excursions " +
-            "inner join tickets " +
-            "on (tickets.user_id_users=? and tickets.ticket_id= many_tickets_has_many_excursions.ticket_id_tickets)";
-    private final static String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
+    public final static String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
+    private final static String GET_EXCURSIONS_BY_USER_ID = "SELECT * FROM many_tickets_has_many_excursions " +
+            "INNER JOIN tickets " +
+            "ON (tickets.user_id_users=? AND tickets.ticket_id= many_tickets_has_many_excursions.ticket_id_tickets)";
     private final static String GET_ALL_EXCURSIONS_BY_PORT_ID =
-            "select * from  excursions inner join ports on " +
-                    "(excursions.port_id_ports = ? and excursions.port_id_ports = ports.port_id)";
+            "SELECT * FROM  excursions INNER JOIN ports ON " +
+                    "(excursions.port_id_ports = ? AND excursions.port_id_ports = ports.port_id)";
     private static Logger log = Logger.getLogger(ExcursionDao.class.getName());
 
     public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DaoException {
@@ -40,27 +40,6 @@ public class ExcursionDao {
         }
         con.close();
         return excursions;
-    }
-
-    public String getExcursionNameById(int id) throws SQLException {
-        String name = "";
-
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(GET_EXCURSION_NAME_BY_ID);
-            statement.setInt(1, id);
-
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
-                log.debug(name);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-
-        }
-        connection.close();
-        return name;
     }
 
     public ArrayList<Excursion> getAllExcursionsForPort(int portId) throws SQLException {
@@ -87,5 +66,9 @@ public class ExcursionDao {
         connection.close();
 
         return excursions;
+    }
+
+    public String getExcursionNameById(int id) throws SQLException {
+        return BasicDao.getNameById(GET_EXCURSION_NAME_BY_ID, id);
     }
 }

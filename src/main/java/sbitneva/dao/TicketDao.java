@@ -14,31 +14,18 @@ import java.util.ArrayList;
 public class TicketDao {
     private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
-    private final static String GET_ALL_FREE_TICKETS =
-            "select * from tickets where (ship_id_ships = ? and user_id_users is null)";
-
-    private final static String BUY_TICKET = "update tickets set user_id_users=? where ticket_id = ?";
-
+    private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE ticket_id = ?";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
-
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
-
-    private final static String GET_ALL_AVAILABLE_TICKETS =
-            "select * from tickets inner join comfort_levels on " +
-                    "(tickets.ship_id_ships = ? and tickets.user_id_users is null " +
-                    "and tickets.comfort_level_id_comfort_levels = comfort_levels.comfort_level_id);";
-
-    private final static String UPDATE_TICKET_DISCOUNT = "update tickets set discount = ? where ticket_id = ?";
-
+    private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ? WHERE ticket_id = ?";
     private static final String GET_ALL_CLIENT_TICKETS =
-            "select * from tickets inner join ships on (tickets.user_id_users=? " +
-                    "and tickets.ship_id_ships = ships.ship_id);";
-
+            "SELECT * FROM tickets INNER JOIN ships ON (tickets.user_id_users=? " +
+                    "AND tickets.ship_id_ships = ships.ship_id);";
     private static final String GET_AVAILABLE_TICKETS_NUMBER =
-            "select count (*) from tickets where (ship_id_ships = ? and user_id_users is null)";
-
+            "SELECT count (*) FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL)";
     private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
-            "select * from tickets where (ship_id_ships = ? and user_id_users is null) order by ticket_id offset ? limit ?";
+            "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) ORDER BY ticket_id OFFSET ? LIMIT ?";
+
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
@@ -69,93 +56,17 @@ public class TicketDao {
         return tickets;
     }
 
-    public ArrayList<Ticket> getAllFreeTickets(int shipId) throws SQLException {
-        ArrayList<Ticket> freeTickets = new ArrayList<>();
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(GET_ALL_FREE_TICKETS);
-            statement.setInt(1, shipId);
-            ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next()) {
-                Ticket ticket = new Ticket();
-                ticket.setTicketId(resultSet.getInt(1));
-                ticket.setDiscount(resultSet.getInt(2));
-                ticket.setPrice(resultSet.getInt(3));
-                ticket.setComfortLevel(resultSet.getInt(5));
-                ticket.setShipId(resultSet.getInt(6));
-                freeTickets.add(ticket);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        connection.close();
-        return freeTickets;
-    }
-
-    public ArrayList<Ticket> getAllAvailableTickets(int shipId) throws SQLException {
-        ArrayList<Ticket> tickets = new ArrayList<>();
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(GET_ALL_AVAILABLE_TICKETS);
-            statement.setInt(1, shipId);
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                Ticket ticket = new Ticket();
-                ticket.setTicketId(resultSet.getInt(1));
-                ticket.setShipId(resultSet.getInt(5));
-                ticket.setPrice(resultSet.getInt(3));
-                ticket.setComfortLevel(resultSet.getInt(4));
-                ticket.setComfortLevelName(resultSet.getString(8));
-                ticket.setDiscount(resultSet.getInt(2));
-                tickets.add(ticket);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        connection.close();
-        return tickets;
-    }
-
-    public void buySelectedItem(int userId, int ticketId) throws SQLException {
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(BUY_TICKET);
-            statement.setInt(1, userId);
-            statement.setInt(2, ticketId);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        connection.close();
+    public int buySelectedItem(int userId, int ticketId) throws SQLException {
+        return BasicDao.updateCell(BUY_TICKET, userId, ticketId);
     }
 
     public int getUserIdByTicketId(int ticketId) throws SQLException {
-        int userId = getIdByTicket(ticketId, GET_USER_ID_BY_TICKET_ID);
-        return userId;
+        return BasicDao.getId(GET_USER_ID_BY_TICKET_ID, ticketId);
     }
 
     public int getShipByTicketId(int ticketId) throws SQLException {
-        int shipId = getIdByTicket(ticketId, GET_SHIP_ID_BY_TICKET_ID);
-        return shipId;
-    }
-
-    private int getIdByTicket(int ticketId, String sql) throws SQLException{
-        int id = 0;
-        Connection connection = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, ticketId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                id = resultSet.getInt(1);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        connection.close();
-        return id;
+        return BasicDao.getId(GET_SHIP_ID_BY_TICKET_ID, ticketId);
     }
 
     public int updateDiscount(int ticketId, int discount) throws SQLException {
@@ -166,7 +77,6 @@ public class TicketDao {
             statement.setInt(1, discount);
             statement.setInt(2, ticketId);
             result = statement.executeUpdate();
-            //connection.setAutoCommit(true);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
@@ -174,7 +84,7 @@ public class TicketDao {
         return result;
     }
 
-    public int getAvailableTicketsNumber(int shipId) throws SQLException{
+    public int getAvailableTicketsNumber(int shipId) throws SQLException {
         int result = 0;
         Connection connection = ConnectionPool.getConnection();
         try {
@@ -182,10 +92,10 @@ public class TicketDao {
             PreparedStatement statement = connection.prepareStatement(GET_AVAILABLE_TICKETS_NUMBER);
             statement.setInt(1, shipId);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 result = resultSet.getInt(1);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
             e.printStackTrace();
         }
@@ -194,7 +104,6 @@ public class TicketDao {
     }
 
     public ArrayList<Ticket> getTicketsForPage(int shipId, int offset, int itemsNumber) throws SQLException {
-        int result = 0;
         Connection connection = ConnectionPool.getConnection();
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
@@ -203,7 +112,7 @@ public class TicketDao {
             statement.setInt(2, offset);
             statement.setInt(3, itemsNumber);
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 Ticket ticket = new Ticket();
                 ticket.setTicketId(resultSet.getInt(1));
                 ticket.setDiscount(resultSet.getInt(2));

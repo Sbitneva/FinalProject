@@ -1,7 +1,8 @@
 package sbitneva.command.common;
 
-import sbitneva.command.factory.Command;
+import org.apache.log4j.Logger;
 import sbitneva.command.CommandsHelper;
+import sbitneva.command.factory.Command;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,17 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+import static sbitneva.command.CommandsHelper.*;
+
 public class LogoutCommand implements Command {
-    private static final String MAIN_PAGE = "/index.jsp";
+
+    private static Logger log = Logger.getLogger(LoginCommand.class.getName());
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        log.debug("LogoutCommand execution started");
         HttpSession session = request.getSession();
-        removeSessionAttribute(CommandsHelper.USER_ID_SESSION_ATTRIBUTE, session);
-        removeSessionAttribute(CommandsHelper.USER_ID_SESSION_ATTRIBUTE, session);
+        removeSessionAttribute(USER_ID_SESSION_ATTRIBUTE, session);
+        removeSessionAttribute(USER_ID_SESSION_ATTRIBUTE, session);
         response.sendRedirect(MAIN_PAGE);
     }
+
     public void removeSessionAttribute(String attributeName, HttpSession session) {
-        if(session.getAttribute(attributeName) != null) {
+        if (session.getAttribute(attributeName) != null) {
             session.removeAttribute(attributeName);
         }
     }

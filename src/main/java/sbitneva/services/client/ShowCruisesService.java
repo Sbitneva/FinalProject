@@ -12,23 +12,22 @@ import java.util.ArrayList;
 public class ShowCruisesService {
 
     private static Logger log = Logger.getLogger(ShowCruisesService.class.getName());
+    private static ShowCruisesService showCruisesService = new ShowCruisesService();
 
-    private ShowCruisesService(){
+    private ShowCruisesService() {
 
     }
-
-    private static ShowCruisesService showCruisesService = new ShowCruisesService();
 
     public static ShowCruisesService getShowCruisesService() {
         return showCruisesService;
     }
 
-    public ArrayList<Ship> getCruiseShips(){
+    public ArrayList<Ship> getCruiseShips() {
         ArrayList<Ship> ships = new ArrayList<>();
         ShipDao shipDao = DaoFactory.getShipDao();
-        try{
+        try {
             ships = shipDao.getAllShips();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             log.error(e.getMessage());
         }
         return ships;

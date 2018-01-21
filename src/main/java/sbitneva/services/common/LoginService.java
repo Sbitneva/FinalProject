@@ -21,7 +21,7 @@ public class LoginService {
         return loginService;
     }
 
-    public Client getUser(String email, String password){
+    public Client getUser(String email, String password) {
         Client client = null;
         UserDao userDao = DaoFactory.getUserDao();
         try {

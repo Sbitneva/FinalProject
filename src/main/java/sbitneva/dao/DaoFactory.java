@@ -52,5 +52,7 @@ public class DaoFactory {
         return comfortLevelDao;
     }
 
-    public static BasicDao getBasicDao() {return basicDao;}
+    public static BasicDao getBasicDao() {
+        return basicDao;
+    }
 }

@@ -9,14 +9,14 @@ import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ShowTicketsService {
-    private static Logger log = Logger.getLogger(LoginService.class.getName());
     private static final int ITEMS_PER_PAGE = 9;
+    private static Logger log = Logger.getLogger(LoginService.class.getName());
     private static ShowTicketsService showTicketsService = new ShowTicketsService();
-    private ShowTicketsService(){
+
+    private ShowTicketsService() {
 
     }
 
@@ -27,18 +27,18 @@ public class ShowTicketsService {
     public Ship getShip(int userId, int pageId) {
         Ship ship = null;
         UserDao userDao = DaoFactory.getUserDao();
-        try{
+        try {
             int shipId = userDao.getUserShipId(userId);
-            if(shipId > 0){
+            if (shipId > 0) {
                 ShipDao shipDao = DaoFactory.getShipDao();
                 ship = shipDao.getBasicShipData(shipId);
-                if(ship != null) {
+                if (ship != null) {
                     ArrayList<Ticket> tickets = getTickets(shipId, pageId);
                     ship.setTickets(tickets);
                     ship.setPorts(getShipPorts(shipId));
                 }
             }
-        } catch (SQLException | DaoException e){
+        } catch (SQLException | DaoException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return ship;
@@ -65,7 +65,7 @@ public class ShowTicketsService {
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
             int itemsNumber = ticketDao.getAvailableTicketsNumber(shipId) - offset;
-            if(itemsNumber > ITEMS_PER_PAGE){
+            if (itemsNumber > ITEMS_PER_PAGE) {
                 itemsNumber = ITEMS_PER_PAGE;
             }
             tickets = ticketDao.getTicketsForPage(shipId, offset, itemsNumber);
@@ -76,12 +76,12 @@ public class ShowTicketsService {
         return tickets;
     }
 
-    public Ship getShipForClient(int shipId, int currentPage){
+    public Ship getShipForClient(int shipId, int currentPage) {
         Ship ship = null;
         ShipDao shipDao = DaoFactory.getShipDao();
-        try{
+        try {
             ship = shipDao.getBasicShipData(shipId);
-            if(ship != null) {
+            if (ship != null) {
                 ship.setTickets(getTickets(shipId, currentPage));
                 ship.setPorts(getShipPorts(shipId));
             }
@@ -91,13 +91,13 @@ public class ShowTicketsService {
         return ship;
     }
 
-    private ArrayList<Port> getShipPorts(int shipId){
+    private ArrayList<Port> getShipPorts(int shipId) {
 
         ArrayList<Port> ports = new ArrayList<>();
         PortDao portDao = DaoFactory.getPortDao();
         try {
             ports = portDao.getPortsByShipId(shipId);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return ports;
@@ -105,15 +105,15 @@ public class ShowTicketsService {
 
     private void setComfortLevelNames(ArrayList<Ticket> tickets) {
         Map<Integer, String> comfortLevels;
-        BasicDao basicDao = DaoFactory.getBasicDao();
-        try{
-            comfortLevels = basicDao.getIdNameDataFromTable(ComfortLevelDao.GET_COMFORT_LEVELS);
-            if(comfortLevels.size() > 0){
-                for(Ticket ticket : tickets) {
+        ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
+        try {
+            comfortLevels = comfortLevelDao.getComfortLevels();
+            if (comfortLevels.size() > 0) {
+                for (Ticket ticket : tickets) {
                     ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
                 }
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }

@@ -1,8 +1,8 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.factory.Command;
 import sbitneva.command.CommandsHelper;
+import sbitneva.command.factory.Command;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
 import sbitneva.services.client.ShowClientInfoService;
@@ -23,9 +23,9 @@ public class ShowClientInfoCommand implements Command {
         ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
         int clientId = Integer.parseInt(request.getSession().getAttribute(
                 CommandsHelper.USER_ID_SESSION_ATTRIBUTE).toString());
-        try{
+        try {
             Client client = showClientInfoService.getClient(clientId);
-            if(client != null) {
+            if (client != null) {
                 success = true;
                 request.setAttribute(CommandsHelper.CLIENT, client);
                 request.getRequestDispatcher(CommandsHelper.CLIENT_INFO_PAGE).forward(request, response);
@@ -33,7 +33,7 @@ public class ShowClientInfoCommand implements Command {
         } catch (SQLException | DaoException e) {
             log.error(e.getMessage());
         }
-        if(!success) {
+        if (!success) {
             request.setAttribute(CommandsHelper.ERRORS, "No user with given email and password");
             request.getRequestDispatcher(CommandsHelper.MAIN_PAGE).forward(request, response);
         }
