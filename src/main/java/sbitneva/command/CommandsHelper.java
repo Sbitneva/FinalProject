@@ -17,8 +17,8 @@ public class CommandsHelper {
     public static final String SHIPS = "ships";
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
-    public static final String FIRST_NAME = "firstName";
-    public static final String LAST_NAME = "lastName";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
     public static final String ERRORS = "errors";
     public static final String CLIENT = "client";
     public static final String PAGE = "page";
@@ -49,8 +49,9 @@ public class CommandsHelper {
     // common commands
     public static final String LOGIN_COMMAND = "?command=login";
     public static final String LOGOUT_COMMAND = "?command=logout";
-    public static final String REGISTRATION_COMMAND = "?command=logout";
+    public static final String REGISTRATION_COMMAND = "?command=registration";
     public static final String SHOW_SHIP_COMMAND = "?command=showShip";
+
     private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
     // ship-admin commands
     private static CommandsHelper commandsHelper = new CommandsHelper();

@@ -10,8 +10,13 @@
     <link href="../../css/registration/registration.css" rel="stylesheet">
 </head>
 <body>
+<form id="error">
+
+</form>
+
 <div id="wrapper">
-    <form action="/?command=registration" method="post">
+    <form action="/Cruise?command=registration" method="post">
+        <b>${errors}</b>
         <fieldset>
             <legend>Registration</legend>
             <div>

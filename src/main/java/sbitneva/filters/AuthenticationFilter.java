@@ -23,6 +23,8 @@ public class AuthenticationFilter implements Filter {
     private static final String COMMAND_PARAMETER_NAME = "command";
     private static Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
 
+    private SecurityConfiguration securityConfiguration = SecurityConfiguration.getConfig();
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -35,7 +37,11 @@ public class AuthenticationFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(true);
         if ((!(hasAttributes(session)))) {
             log.debug("session has no any attributes");
-            filterChain.doFilter(request, response);
+            String command = getCommandFromRequest(request);
+            if(securityConfiguration.isCommandForNotAuth(command) || command == null) {
+                log.debug("command goes through the filter");
+                filterChain.doFilter(request, response);
+            }
         } else if (isAttributesValid(session)) {
             log.debug("session attributes are full");
             int accessId = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
@@ -48,15 +54,18 @@ public class AuthenticationFilter implements Filter {
                     if (securityConfiguration.verifyRights(accessId, command)) {
                         log.debug("current response has access rights for requested command execution");
                         filterChain.doFilter(request, response);
+                        log.debug("command goes through the filter");
                     }
                 } else {
                     log.debug("request has no command with requested name");
                     filterChain.doFilter(request, response);
+                    log.debug("command goes through the filter");
                 }
             } else {
                 log.debug("request has no command parameter");
                 //errorRedirect = true;
                 filterChain.doFilter(request, response);
+                log.debug("command goes through the filter");
             }
 
         } else {
@@ -115,5 +124,6 @@ public class AuthenticationFilter implements Filter {
         }
         return has;
     }
+
 
 }
