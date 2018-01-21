@@ -2,82 +2,46 @@ package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
 import sbitneva.command.factory.Command;
-import sbitneva.entity.Port;
 import sbitneva.services.client.BuyExcursionService;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
+import java.io.IOException;
 
+import static sbitneva.command.CommandsHelper.*;
 
 public class BuyExcursionCommand implements Command {
 
     private static Logger log = Logger.getLogger(BuyExcursionCommand.class.getName());
 
-    private final static String USER_COMMAND_PATH = "?command=users&userId=";
-    private final static String SELECT_PATH = "jsp/client/excursions.jsp";
-    private final static String TICKET_ID_ATTRIBUTE = "ticketId";
-    private final static String USER_ID_ATTRIBUTE = "userId";
-    private final static String PORTS_ATTRIBUTE = "ports";
-    private final static String ACTION_ATTRIBUTE = "action";
-    private final static String EXCURSION_ATTRIBUTE = "excursionId";
-    private final static String SELECT_ACTION = "select";
-    private final static String BUY_ACTION = "buy";
-
-
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {
-        log.debug("execution");
-        int userId;
-        int ticketId;
-        if (request.getSession().getAttribute(USER_ID_ATTRIBUTE) != null) {
-            userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_ATTRIBUTE).toString());
-            log.debug("userId = " + userId);
-            if (request.getParameter(TICKET_ID_ATTRIBUTE) == null) {
-                return;
-            } else {
-                ticketId = Integer.parseInt(request.getParameter(TICKET_ID_ATTRIBUTE));
-            }
-        } else {
-            return;
-        }
-        String actionCommand = request.getParameter(ACTION_ATTRIBUTE);
-        if (actionCommand.equals(SELECT_ACTION)) {
-            selectCommand(userId, ticketId, request, response);
-        } else if (actionCommand.equals(BUY_ACTION)) {
-            buyCommand(userId, ticketId, request, response);
-        }
 
-    }
-
-    private void selectCommand(int userId, int ticketId, HttpServletRequest request, HttpServletResponse response) {
-        log.debug("select command");
-        BuyExcursionService excursionService = BuyExcursionService.getBuyTicketService();
-        ArrayList<Port> ports = excursionService.getExcursionsForPurchase(ticketId);
-        request.setAttribute(PORTS_ATTRIBUTE, ports);
-        request.setAttribute(TICKET_ID_ATTRIBUTE, ticketId);
-        request.getSession().setAttribute(USER_ID_ATTRIBUTE, userId);
-        try {
-            request.getRequestDispatcher(SELECT_PATH).forward(request, response);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-    }
-
-    private void buyCommand(int userId, int ticketId, HttpServletRequest request, HttpServletResponse response) {
-        log.debug("buy command");
-        BuyExcursionService excursionService = BuyExcursionService.getBuyTicketService();
-        int excursionId = Integer.parseInt(request.getParameter(EXCURSION_ATTRIBUTE));
-
+        int excursionId = getParameter(request, EXCURSION_ID);
         if (excursionId > 0) {
-            excursionService.buyExcursionForTicket(ticketId, excursionId);
-            request.getSession().setAttribute(USER_ID_ATTRIBUTE, userId);
-            try {
-                request.getRequestDispatcher(USER_COMMAND_PATH + userId).forward(request, response);
-            } catch (Exception e) {
-                log.error(e.getMessage());
+            BuyExcursionService buyExcursionService = BuyExcursionService.getBuyTicketService();
+            int ticketId = getParameter(request, TICKET_ID);
+            if (ticketId > 0) {
+                try {
+                    buyExcursionService.buyExcursionForTicket(ticketId, excursionId);
+                    request.getRequestDispatcher(SERVLET_NAME + CLIENT_COMMAND).forward(request, response);
+                } catch (ServletException | IOException e) {
+                    log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+                }
             }
         }
+    }
+
+
+    private int getParameter(HttpServletRequest request, String parameter) {
+        int value = 0;
+        if (request.getParameter(parameter) != null) {
+            value = Integer.parseInt(request.getParameter(parameter));
+        }
+        log.debug("value of " + parameter + " : " + value);
+
+        return value;
     }
 }
 

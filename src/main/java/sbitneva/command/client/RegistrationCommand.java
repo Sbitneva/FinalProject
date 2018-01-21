@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class RegistrationCommand implements Command {
     private static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

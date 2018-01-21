@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Checkout implements Command {
     private static Logger log = Logger.getLogger(Checkout.class.getName());
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 

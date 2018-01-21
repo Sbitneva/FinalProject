@@ -1,7 +1,6 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
 import sbitneva.command.factory.Command;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.*;
+import static sbitneva.command.CommandsHelper.MAIN_PAGE;
+import static sbitneva.command.CommandsHelper.USER_ID_SESSION_ATTRIBUTE;
 
 public class LogoutCommand implements Command {
 

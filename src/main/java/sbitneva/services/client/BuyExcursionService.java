@@ -1,14 +1,16 @@
 package sbitneva.services.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.dao.*;
-import sbitneva.entity.Port;
+import sbitneva.dao.DaoFactory;
+import sbitneva.dao.TicketsExcursionsDao;
+import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class BuyExcursionService {
+
     private static Logger log = Logger.getLogger(BuyExcursionService.class.getName());
+
     private static BuyExcursionService buyExcursionService = new BuyExcursionService();
 
     private BuyExcursionService() {
@@ -19,35 +21,19 @@ public class BuyExcursionService {
         return buyExcursionService;
     }
 
-    public ArrayList<Port> getExcursionsForPurchase(int ticketId) {
-        TicketDao ticketDao = DaoFactory.getTicketDao();
-        PortDao portDao = DaoFactory.getPortDao();
-        ExcursionDao excursionDao = DaoFactory.getExcursionDao();
-        ArrayList<Port> ports = new ArrayList<>();
-
-        try {
-            int userIdFromDao = ticketDao.getUserIdByTicketId(ticketId);
-            if (userIdFromDao > 0) {
-                ports = (portDao.getPortsByShipId(ticketDao.getShipByTicketId(ticketId)));
-
-                for (int i = 0; i < ports.size(); i++) {
-                    ports.get(i).setExcursions(
-                            excursionDao.getAllExcursionsForPort(ports.get(i).getPortId()));
-                }
-                return ports;
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        return ports;
-    }
 
     public void buyExcursionForTicket(int ticketId, int excursionId) {
         TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
         try {
-            ticketsExcursionsDao.getAllFreeTickets(ticketId, excursionId);
-        } catch (SQLException e) {
-            log.error(e.getMessage());
+            int result = ticketsExcursionsDao.addExcursionToTicket(ticketId, excursionId);
+            if (result == 1) {
+                log.debug("Buy excursion query executed");
+            } else {
+                log.debug("Buy excursion query fault");
+            }
+        } catch (SQLException | DaoException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
+
 }
