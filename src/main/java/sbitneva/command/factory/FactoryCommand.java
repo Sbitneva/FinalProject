@@ -7,6 +7,7 @@ import sbitneva.command.common.LoginCommand;
 import sbitneva.command.common.LogoutCommand;
 import sbitneva.command.common.RegistrationCommand;
 import sbitneva.command.common.ShowServicesCommand;
+import sbitneva.command.ship.admin.ApplyDiscountCommand;
 import sbitneva.command.ship.admin.ShowShipTicketsCommand;
 import sbitneva.command.ship.admin.ShowStaffCommand;
 
@@ -20,16 +21,18 @@ public class FactoryCommand {
 
     private static final String PARAM_NAME_COMMAND = "command";
 
-    public static final String LOGIN = "login";
-    public static final String REGISTRATION = "registration";
-    public static final String LOGOUT = "logout";
-    public static final String CLIENT = "client";
+    public static final String LOGIN            = "login";
+    public static final String REGISTRATION     = "registration";
+    public static final String LOGOUT           = "logout";
+    public static final String CLIENT           = "client";
     public static final String SHOW_AVAILABLE_TICKETS = "getTickets";
     public static final String SHOW_AVAILABLE_CRUISES = "getCruises";
-    public static final String SHOW_SERVICES = "getServices";
-    public static final String SHOW_SHIP_COMMAND = "showShip";
-    public static final String BUY_TICKET = "buyTicket";
-    public static final String SHOW_STAFF = "getStaff";
+    public static final String SHOW_SERVICES    = "getServices";
+    public static final String SHOW_SHIP        = "showShip";
+    public static final String BUY_TICKET       = "buyTicket";
+    public static final String SHOW_STAFF       = "getStaff";
+    public static final String APPLY_DISCOUNT   = "setDiscount";
+
     public static final FactoryCommand factoryCommand = new FactoryCommand();
 
     private Map<String, Command> commandMap = new HashMap<>();
@@ -39,11 +42,11 @@ public class FactoryCommand {
         commandMap.put(LOGOUT, new LogoutCommand());
         commandMap.put(REGISTRATION, new RegistrationCommand());
         commandMap.put(CLIENT, new ShowClientInfoCommand());
-        //commandMap.put(BUY_TICKET, new AddTicketToCartCommand());
+        commandMap.put(APPLY_DISCOUNT, new ApplyDiscountCommand());
         //commandMap.put(SHOW_AVAILABLE_TICKETS, new ShowTicketsCommand());
         commandMap.put(SHOW_AVAILABLE_CRUISES, new ShowCruisesCommand());
         commandMap.put(SHOW_STAFF, new ShowStaffCommand());
-        commandMap.put(SHOW_SHIP_COMMAND, new ShowShipTicketsCommand());
+        commandMap.put(SHOW_SHIP, new ShowShipTicketsCommand());
         commandMap.put(SHOW_SERVICES, new ShowServicesCommand());
     }
 

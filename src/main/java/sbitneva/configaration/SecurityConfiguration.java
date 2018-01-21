@@ -23,12 +23,13 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.REGISTRATION, ALL_ACCESS);
         grant.put(FactoryCommand.LOGOUT, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.CLIENT, CLIENT_ACCESS);
-        grant.put(FactoryCommand.SHOW_SHIP_COMMAND, GENERAL_LOG_ACCESS);
+        grant.put(FactoryCommand.SHOW_SHIP, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.BUY_TICKET, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.SHOW_AVAILABLE_CRUISES, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_SERVICES, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.SHOW_STAFF, SHIP_ADMIN_TYPE);
+        grant.put(FactoryCommand.APPLY_DISCOUNT, SHIP_ADMIN_TYPE);
     }
 
     public static SecurityConfiguration getConfig() {

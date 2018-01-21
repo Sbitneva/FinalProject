@@ -7,8 +7,8 @@
     font-size: 18px;
     font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
     border-collapse: collapse;
-    width: 100%;
-    padding-bottom: 20px;
+    width: 50%;
+    margin-bottom: 15px;
 }
 
 #tickets_table td, #tickets_table th {
@@ -25,8 +25,8 @@
 }
 
 #tickets_table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     text-align: left;
     background-color: #4CAF50;
     color: white;

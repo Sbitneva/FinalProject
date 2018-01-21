@@ -34,6 +34,7 @@ public class UserDao {
         } catch (SQLException e) {
             log.error(e.getMessage());
         }
+        connection.close();
         return shipId;
     }
 

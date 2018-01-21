@@ -37,8 +37,8 @@ public class TicketDao {
     private static final String GET_AVAILABLE_TICKETS_NUMBER =
             "select count (*) from tickets where (ship_id_ships = ? and user_id_users is null)";
 
-    private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS = "select * from tickets where " +
-            "(ship_id_ships = ? and user_id_users is null) offset ? limit ?";
+    private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
+            "select * from tickets where (ship_id_ships = ? and user_id_users is null) order by ticket_id offset ? limit ?";
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
@@ -166,9 +166,11 @@ public class TicketDao {
             statement.setInt(1, discount);
             statement.setInt(2, ticketId);
             result = statement.executeUpdate();
+            //connection.setAutoCommit(true);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
+        connection.close();
         return result;
     }
 
