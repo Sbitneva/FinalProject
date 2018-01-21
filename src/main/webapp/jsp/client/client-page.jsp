@@ -57,12 +57,14 @@
 
 <table id="excursions_table">
     <tr>
+        <th>Ticket Id</th>
         <th>Excursion Name</th>
         <th>Cruise Ship Name</th>
         <th>Port</th>
     </tr>
     <c:forEach items="${client.excursions}" var="excursion">
         <tr>
+            <td>${excursion.ticketId}</td>
             <td>${excursion.excursionName}</td>
             <td>${excursion.shipName}</td>
             <td>${excursion.portName}</td>
