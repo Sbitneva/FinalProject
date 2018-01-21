@@ -17,7 +17,7 @@ public class RegistrationCommand implements Command {
 
     static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
-    public static StringBuffer errors = new StringBuffer();
+    private StringBuffer errors = new StringBuffer();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
