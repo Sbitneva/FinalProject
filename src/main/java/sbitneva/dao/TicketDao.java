@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketDao {
-    private static Logger log = Logger.getLogger(TicketDao.class.getName());
-
     private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE ticket_id = ?";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
@@ -25,7 +23,7 @@ public class TicketDao {
             "SELECT count (*) FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL)";
     private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
             "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) ORDER BY ticket_id OFFSET ? LIMIT ?";
-
+    private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
@@ -57,7 +55,7 @@ public class TicketDao {
     }
 
 
-    public int buySelectedItem(int userId, int ticketId) throws SQLException {
+    public int buySelectedItem(int userId, int ticketId) throws SQLException, DaoException {
         return BasicDao.updateCell(BUY_TICKET, userId, ticketId);
     }
 

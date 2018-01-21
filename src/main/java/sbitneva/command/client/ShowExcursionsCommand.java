@@ -2,9 +2,8 @@ package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
 import sbitneva.command.factory.Command;
-import sbitneva.entity.Excursion;
 import sbitneva.entity.Port;
-import sbitneva.services.client.ShowExcutsionsService;
+import sbitneva.services.client.ShowExcursionsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,10 +21,11 @@ public class ShowExcursionsCommand implements Command {
         log.debug("ShowExcursionsCommand execution started");
         int ticketId = getTicketId(request);
         if (ticketId > 0) {
-            ShowExcutsionsService showExcutsionsService = ShowExcutsionsService.getShowExcutsionsService();
-            ArrayList<Port> ports = showExcutsionsService.getExcursions(ticketId);
-            if(ports != null){
+            ShowExcursionsService showExcursionsService = ShowExcursionsService.getShowExcursionsService();
+            ArrayList<Port> ports = showExcursionsService.getExcursions(ticketId);
+            if (ports != null) {
                 request.setAttribute(PORTS, ports);
+                request.setAttribute(TICKET_ID, ticketId);
                 request.getRequestDispatcher(EXCURSIONS_PAGE).forward(request, response);
             }
         }

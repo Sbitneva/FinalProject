@@ -1,6 +1,7 @@
 package sbitneva.command.factory;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.client.BuyExcursionCommand;
 import sbitneva.command.client.ShowClientInfoCommand;
 import sbitneva.command.client.ShowCruisesCommand;
 import sbitneva.command.client.ShowExcursionsCommand;
@@ -16,22 +17,28 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FactoryCommand {
+/**
+ * Commands factory
+ */
 
-    public static final String LOGIN = "login";
+public class FactoryCommand {
+    /**
+     * Commands parameters :
+     */
+
     public static final String REGISTRATION = "registration";
+    public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
-    public static final String CLIENT = "client";
-    public static final String SHOW_AVAILABLE_TICKETS = "getTickets";
-    public static final String SHOW_AVAILABLE_CRUISES = "getCruises";
-    public static final String SHOW_SERVICES = "getServices";
+    public static final String GET_SERVICES = "getServices";
     public static final String SHOW_SHIP = "showShip";
-    //public static final String BUY_TICKET       = "buyTicket";
-    public static final String SHOW_STAFF = "getStaff";
-    public static final String APPLY_DISCOUNT = "setDiscount";
-    public static final String SHOW_EXCURSIONS = "getExcursions";
-    public static final FactoryCommand factoryCommand = new FactoryCommand();
+    public static final String CLIENT = "client";
+    public static final String GET_CRUISES = "getCruises";
+    public static final String GET_EXCURSIONS = "getExcursions";
+    public static final String BUY_EXCURSION = "buyExcursion";
+    public static final String GET_STAFF = "getStaff";
+    public static final String SET_DISCOUNT = "setDiscount";
     private static final String PARAM_NAME_COMMAND = "command";
+    private static final FactoryCommand factoryCommand = new FactoryCommand();
     private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
     private Map<String, Command> commandMap = new HashMap<>();
 
@@ -40,12 +47,13 @@ public class FactoryCommand {
         commandMap.put(LOGOUT, new LogoutCommand());
         commandMap.put(REGISTRATION, new RegistrationCommand());
         commandMap.put(CLIENT, new ShowClientInfoCommand());
-        commandMap.put(APPLY_DISCOUNT, new ApplyDiscountCommand());
-        commandMap.put(SHOW_EXCURSIONS, new ShowExcursionsCommand());
-        commandMap.put(SHOW_AVAILABLE_CRUISES, new ShowCruisesCommand());
-        commandMap.put(SHOW_STAFF, new ShowStaffCommand());
+        commandMap.put(SET_DISCOUNT, new ApplyDiscountCommand());
+        commandMap.put(GET_EXCURSIONS, new ShowExcursionsCommand());
+        commandMap.put(GET_CRUISES, new ShowCruisesCommand());
+        commandMap.put(GET_STAFF, new ShowStaffCommand());
         commandMap.put(SHOW_SHIP, new ShowShipTicketsCommand());
-        commandMap.put(SHOW_SERVICES, new ShowServicesCommand());
+        commandMap.put(GET_SERVICES, new ShowServicesCommand());
+        commandMap.put(BUY_EXCURSION, new BuyExcursionCommand());
     }
 
     public static FactoryCommand getInstance() {

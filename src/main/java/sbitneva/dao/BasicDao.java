@@ -1,6 +1,7 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
+import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -24,7 +25,7 @@ public class BasicDao {
                 comfortLevels.put(resultSet.getInt(1), resultSet.getString(2));
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         con.close();
         return comfortLevels;
@@ -42,7 +43,7 @@ public class BasicDao {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         con.close();
         return name;
@@ -59,13 +60,13 @@ public class BasicDao {
                 id = resultSet.getInt(1);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         connection.close();
         return id;
     }
 
-    public static int updateCell(String sql, int parameter1, int parameter2) throws SQLException{
+    public static int updateCell(String sql, int parameter1, int parameter2) throws SQLException, DaoException {
         int result = 0;
         Connection connection = ConnectionPool.getConnection();
         try {
@@ -73,8 +74,11 @@ public class BasicDao {
             statement.setInt(1, parameter1);
             statement.setInt(2, parameter2);
             result = statement.executeUpdate();
+            if (result != 1) {
+                throw new DaoException("Query " + statement.toString() + " not executed");
+            }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         connection.close();
         return result;

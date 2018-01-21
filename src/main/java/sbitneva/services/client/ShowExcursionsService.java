@@ -1,24 +1,26 @@
 package sbitneva.services.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.dao.*;
-import sbitneva.entity.Excursion;
+import sbitneva.dao.DaoFactory;
+import sbitneva.dao.ExcursionDao;
+import sbitneva.dao.PortDao;
+import sbitneva.dao.TicketDao;
 import sbitneva.entity.Port;
 import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShowExcutsionsService {
+public class ShowExcursionsService {
     private static Logger log = Logger.getLogger(ShowCruisesService.class.getName());
-    private static ShowExcutsionsService showExcutsionsService = new ShowExcutsionsService();
+    private static ShowExcursionsService showExcursionsService = new ShowExcursionsService();
 
-    private ShowExcutsionsService() {
+    private ShowExcursionsService() {
 
     }
 
-    public static ShowExcutsionsService getShowExcutsionsService() {
-        return showExcutsionsService;
+    public static ShowExcursionsService getShowExcursionsService() {
+        return showExcursionsService;
     }
 
     public ArrayList<Port> getExcursions(int ticketId) {
@@ -26,12 +28,12 @@ public class ShowExcutsionsService {
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
             int shipId = ticketDao.getShipByTicketId(ticketId);
-            if(shipId > 0) {
+            if (shipId > 0) {
                 PortDao portDao = DaoFactory.getPortDao();
                 ports = portDao.getPortsByShipId(shipId);
-                if(ports != null) {
+                if (ports != null) {
                     ExcursionDao excursionDao = DaoFactory.getExcursionDao();
-                    for(Port port : ports) {
+                    for (Port port : ports) {
                         port.setExcursions(excursionDao.getAllExcursionsForPort(port.getPortId()));
                         port.setPortName(portDao.getPortNameById(port.getPortId()));
                     }
