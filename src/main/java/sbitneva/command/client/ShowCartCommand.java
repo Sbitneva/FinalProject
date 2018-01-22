@@ -27,6 +27,7 @@ public class ShowCartCommand implements Command {
             if(cart != null){
                 success = true;
                 request.setAttribute(CART, cart);
+                request.setAttribute("deleted", cart.getDeletedTickets().size());
                 request.getRequestDispatcher(USER_CART_PAGE).forward(request, response);
             }
         }
