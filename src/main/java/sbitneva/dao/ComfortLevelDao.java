@@ -13,6 +13,8 @@ import java.util.Map;
 
 public class ComfortLevelDao {
 
+    private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
+
     public static final String GET_COMFORT_LEVELS = "select * from comfort_levels";
     public static final String GET_COMFORT_LEVEL_NAME =
             "select comfort_level_name from comfort_levels where (comfort_level_id = ?)";
@@ -20,7 +22,7 @@ public class ComfortLevelDao {
             "many_services_has_many_comfort_levels ON" +
             " (services.service_id = many_services_has_many_comfort_levels.service_id_services " +
             "AND many_services_has_many_comfort_levels.comfort_level_id_comfort_levels = ?)";
-    private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
+
 
     public ArrayList<Service> getComfortLevelInfo(int comfortLevelId) throws SQLException {
         ArrayList<Service> services = new ArrayList<>();
