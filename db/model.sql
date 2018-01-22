@@ -34,6 +34,40 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: carts; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE carts (
+    id bigint NOT NULL,
+    user_id_carts bigint,
+    ticket_id bigint NOT NULL
+);
+
+
+ALTER TABLE carts OWNER TO postgres;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE carts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE carts_id_seq OWNER TO postgres;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE carts_id_seq OWNED BY carts.id;
+
+
+--
 -- Name: comfort_levels; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -348,6 +382,13 @@ ALTER SEQUENCE users_user_id_seq OWNED BY users.user_id;
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY carts ALTER COLUMN id SET DEFAULT nextval('carts_id_seq'::regclass);
+
+
+--
 -- Name: comfort_level_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -401,6 +442,25 @@ ALTER TABLE ONLY tickets ALTER COLUMN ticket_id SET DEFAULT nextval('tickets_tic
 --
 
 ALTER TABLE ONLY users ALTER COLUMN user_id SET DEFAULT nextval('users_user_id_seq'::regclass);
+
+
+--
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY carts (id, user_id_carts, ticket_id) FROM stdin;
+4	2	45
+5	2	44
+17	2	41
+18	2	2
+\.
+
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('carts_id_seq', 18, true);
 
 
 --
@@ -502,6 +562,10 @@ COPY many_tickets_has_many_excursions (ticket_id_tickets, excursion_id_excursion
 5	3
 7	5
 4	3
+1	2
+4	4
+23	5
+3	5
 \.
 
 
@@ -605,23 +669,13 @@ COPY tickets (ticket_id, discount, price, comfort_level_id_comfort_levels, ship_
 10	\N	6500	2	2	2
 5	\N	4000	2	1	2
 4	0	4000	2	1	2
-41	\N	4000	2	1	\N
-42	\N	4000	2	1	\N
-43	\N	4000	2	1	\N
-20	\N	4000	2	1	\N
 21	\N	4000	2	1	\N
 22	\N	4000	2	1	\N
 16	\N	4000	2	1	\N
-17	\N	4000	2	1	\N
-18	\N	4000	2	1	\N
-19	\N	4000	2	1	\N
 28	\N	4000	2	1	\N
 29	\N	4000	2	1	\N
-30	\N	4000	2	1	\N
 31	\N	4000	2	1	\N
 24	\N	4000	2	1	\N
-25	\N	4000	2	1	\N
-26	\N	4000	2	1	\N
 27	\N	4000	2	1	\N
 12	\N	4000	2	1	\N
 13	\N	4000	2	1	\N
@@ -632,13 +686,23 @@ COPY tickets (ticket_id, discount, price, comfort_level_id_comfort_levels, ship_
 38	\N	4000	2	1	\N
 39	\N	4000	2	1	\N
 32	\N	4000	2	1	\N
-33	\N	4000	2	1	\N
 34	\N	4000	2	1	\N
 35	\N	4000	2	1	\N
 44	\N	4000	2	1	\N
-45	\N	4000	2	1	\N
-46	\N	4000	2	1	\N
-40	\N	4000	2	1	\N
+40	16	4000	2	1	\N
+45	36	4000	2	1	\N
+46	5	4000	2	1	\N
+30	30	4000	2	1	\N
+19	10	4000	2	1	\N
+43	16	4000	2	1	\N
+42	16	4000	2	1	\N
+25	13	4000	2	1	\N
+18	18	4000	2	1	\N
+20	5	4000	2	1	\N
+26	15	4000	2	1	\N
+17	15	4000	2	1	\N
+33	16	4000	2	1	\N
+41	16	4000	2	1	3
 \.
 
 
@@ -654,10 +718,11 @@ SELECT pg_catalog.setval('tickets_ticket_id_seq', 46, true);
 --
 
 COPY users (user_id, first_name, last_name, email, password, ship_id_ships) FROM stdin;
+3	Christian           	Dior                	cd@gmail.com                            	1234                	2
 2	Alina               	Vasilenko           	alina.vasilenko@gmail.com               	1234                	\N
 1	Maria               	Sbitneva            	masha.sbitneva@gmail.com                	1234                	1
-3	Christian           	Dior                	cd@gmail.com                            	1234                	\N
 4	Egor                	Sbitnev             	egor@gmail.com                          	1234                	\N
+795	Петр                	Первый              	peter.first@mail.ru                     	1234                	\N
 5	Stepan              	Sbitnev             	stepan@gmail.com                        	1234                	\N
 6	Николай             	Носков              	kolya@gmail.com                         	1234                	\N
 7	Василий             	Пупкин              	vasiliy@gmail.com                       	1234                	\N
@@ -670,7 +735,15 @@ COPY users (user_id, first_name, last_name, email, password, ship_id_ships) FROM
 -- Name: users_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('users_user_id_seq', 794, true);
+SELECT pg_catalog.setval('users_user_id_seq', 795, true);
+
+
+--
+-- Name: carts_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT carts_pk PRIMARY KEY (id);
 
 
 --
@@ -850,11 +923,27 @@ ALTER TABLE ONLY staff
 
 
 --
+-- Name: ticket_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT ticket_id FOREIGN KEY (ticket_id) REFERENCES tickets(ticket_id) MATCH FULL;
+
+
+--
 -- Name: tickets_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY many_tickets_has_many_excursions
     ADD CONSTRAINT tickets_fk FOREIGN KEY (ticket_id_tickets) REFERENCES tickets(ticket_id) MATCH FULL ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY carts
+    ADD CONSTRAINT user_id FOREIGN KEY (user_id_carts) REFERENCES users(user_id) MATCH FULL;
 
 
 --
