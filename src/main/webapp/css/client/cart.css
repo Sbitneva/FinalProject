@@ -21,6 +21,52 @@
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
+    background-color: gray;
+    color: white;
+}
+
+#checkout_button{
+    display: inline-block;
+    height: 40px;
+    width: 100%;
+    color: crimson;
+}
+
+#subtotal {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 20%;
+    margin-top: 20px;
+    margin-left: 50%;
+}
+
+#subtotal td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#subtotal tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#subtotal tr:hover {
+    background-color: #ddd;
+}
+
+#subtotal th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
     background-color: crimson;
     color: white;
 }
+
+#subtotal_row{
+    color : crimson;
+}
+
+.tables-class{
+    align-items: left;
+}
+
+
