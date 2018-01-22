@@ -1,6 +1,7 @@
 package sbitneva.dao;
 
 import org.apache.log4j.Logger;
+import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPool;
@@ -12,18 +13,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketDao {
+    private static Logger log = Logger.getLogger(TicketDao.class.getName());
+
     private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE ticket_id = ?";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
     private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ? WHERE ticket_id = ?";
+
     private static final String GET_ALL_CLIENT_TICKETS =
             "SELECT * FROM tickets INNER JOIN ships ON (tickets.user_id_users=? " +
                     "AND tickets.ship_id_ships = ships.ship_id);";
+
     private static final String GET_AVAILABLE_TICKETS_NUMBER =
             "SELECT count (*) FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL)";
+
     private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
             "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) ORDER BY ticket_id OFFSET ? LIMIT ?";
-    private static Logger log = Logger.getLogger(TicketDao.class.getName());
+
+    private static final String GET_TICKET_PROPERTIES = "select * from tickets inner join ships on " +
+            "(tickets.ship_id_ships = ships.ship_id and ticket_id = ?)";
+
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
@@ -125,5 +134,36 @@ public class TicketDao {
         }
         connection.close();
         return tickets;
+    }
+
+    public void setTicketProperties(Ticket ticket) throws SQLException{
+        Connection connection = ConnectionPool.getConnection();
+        try{
+            PreparedStatement statement = connection.prepareStatement(GET_TICKET_PROPERTIES);
+            statement.setInt(1, ticket.getTicketId());
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()) {
+                ticket.setDiscount(resultSet.getInt(2));
+                log.debug(resultSet.getInt(2));
+                ticket.setPrice(resultSet.getInt(3));
+                ticket.setComfortLevel(resultSet.getInt(4));
+                ticket.setShipId(resultSet.getInt(5));
+                ticket.setOwnerId(resultSet.getInt(6));
+                ticket.setShipName(resultSet.getString(8));
+                ticket.setCruiseDuration(resultSet.getInt(9));
+            }
+
+        }catch (SQLException e) {
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
+            e.printStackTrace();
+        }
+        connection.close();
+    }
+
+    public boolean cleanCart(Cart cart) {
+        boolean result = true;
+        for(Ticket ticket : cart.getDeletedTickets()) {
+
+        }
     }
 }

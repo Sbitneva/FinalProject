@@ -8,10 +8,9 @@ public class CommandsHelper {
     public static final String USER_ID_SESSION_ATTRIBUTE = "id";
     public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
     //request parameters names
-    public static final String USER_ID = "id";
-    public static final String USER = "user";
-    public static final String TICKETS = "tickets";
+;
     public static final String SHIP_ID = "shipId";
+    public static final String CART = "cart";
     public static final String TICKET_ID = "ticketId";
     public static final String SHIP = "ship";
     public static final String SHIPS = "ships";
@@ -34,6 +33,7 @@ public class CommandsHelper {
     public static final String CRUISES_LIST_PAGE = "jsp/client/cruises.jsp";
     public static final String MAIN_PAGE = "index.jsp";
     public static final String EXCURSIONS_PAGE = "jsp/client/excursions.jsp";
+    public static final String USER_CART_PAGE = "jsp/client/cart.jsp";
     // common pages
     public static final String SERVICES_PAGE = "comfort-level-services.jsp";
     public static final String TICKETS_PAGE = "jsp/client/tickets.jsp";
@@ -42,14 +42,10 @@ public class CommandsHelper {
     public static final String SHIP_STAFF_PAGE = "jsp/ship-administrator/staff.jsp";
     public static final String SHIP_INFO_PAGE = "jsp/ship-administrator/ship-info.jsp";
     // client commands
-    public static final String SHOW_EXCURSIONS_COMMAND = "?command=getExcursions&ticketId=";
-    public static final String SHOW_TICKETS_COMMAND = "?command=getTickets";
-    public static final String SHOW_CRUISES_COMMAND = "?command=getCruises";
+
     public static final String CLIENT_COMMAND = "?command=client";
     // common commands
-    public static final String LOGIN_COMMAND = "?command=login";
-    public static final String LOGOUT_COMMAND = "?command=logout";
-    public static final String REGISTRATION_COMMAND = "?command=registration";
+
     public static final String SHOW_SHIP_COMMAND = "?command=showShip";
 
     private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
