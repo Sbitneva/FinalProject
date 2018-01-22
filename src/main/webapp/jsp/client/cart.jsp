@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -13,8 +14,6 @@
 </head>
 <body>
 <h1>Your Cart: </h1>
-
-
 <div class="tables-class">
     <table id="tickets_table">
         <tr>
@@ -62,23 +61,25 @@
         </tr>
     </table>
 </div>
-<br> <h1>This tickets are not available anymore and deleted from your cart :</h1>
+    <c:if test="${deleted > 0}">
+        <br> <h1>This tickets are not available anymore and deleted from your cart :</h1>
 
-<table id="deleted_tickets_table">
-    <tr>
-        <th>Ticket Id</th>
-        <th>Ship Name</th>
-        <th>Cruise Duration</th>
-        <th>Comfort Level</th>
+        <table id="deleted_tickets_table">
+            <tr>
+                <th>Ticket Id</th>
+                <th>Ship Name</th>
+                <th>Cruise Duration</th>
+                <th>Comfort Level</th>
 
-    </tr>
-    <c:forEach items="${cart.deletedTickets}" var="ticket">
-        <tr>
-            <td>${ticket.ticketId}</td>
-            <td>${ticket.shipName}</td>
-            <td>${ticket.cruiseDuration}</td>
-            <td>${ticket.comfortLevelName}</td>
-        </tr>
-    </c:forEach>
-</table>
+            </tr>
+            <c:forEach items="${cart.deletedTickets}" var="ticket">
+                <tr>
+                    <td>${ticket.ticketId}</td>
+                    <td>${ticket.shipName}</td>
+                    <td>${ticket.cruiseDuration}</td>
+                    <td>${ticket.comfortLevelName}</td>
+                </tr>
+            </c:forEach>
+        </table>
+    </c:if>
 </body>
