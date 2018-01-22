@@ -45,7 +45,7 @@
                 <td>${ticket.price}</td>
                 <td style="width:25%;">
                     <form id="add_to_cart_form"
-                          action="/?command=buyTicket&action=buyTicket&ticketId=${ticket.ticketId}"
+                          action="/Cruise?command=add&ticketId=${ticket.ticketId}"
                           method="post">
                         <button id="add_to_cart_button" type="submit">Add to cart</button>
                     </form>

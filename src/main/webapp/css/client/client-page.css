@@ -63,4 +63,10 @@
     color: #696969;
     border-radius: 4px;
 }
+.functions-class{
+    display: inline;
+}
+#logout{
+    margin-right: fill;
+}
 

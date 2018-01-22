@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import static sbitneva.command.CommandsHelper.MAIN_PAGE;
 import static sbitneva.command.CommandsHelper.USER_ID_SESSION_ATTRIBUTE;
+import static sbitneva.command.CommandsHelper.USER_TYPE_SESSION_ATTRIBUTE;
 
 public class LogoutCommand implements Command {
 
@@ -21,7 +22,7 @@ public class LogoutCommand implements Command {
         log.debug("LogoutCommand execution started");
         HttpSession session = request.getSession();
         removeSessionAttribute(USER_ID_SESSION_ATTRIBUTE, session);
-        removeSessionAttribute(USER_ID_SESSION_ATTRIBUTE, session);
+        removeSessionAttribute(USER_TYPE_SESSION_ATTRIBUTE, session);
         response.sendRedirect(MAIN_PAGE);
     }
 

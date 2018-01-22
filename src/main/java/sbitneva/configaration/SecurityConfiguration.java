@@ -29,12 +29,13 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.CLIENT, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_SHIP, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.BUY_EXCURSION, CLIENT_ACCESS);
-        //grant.put(FactoryCommand.SHOW_AVAILABLE_TICKETS, GENERAL_LOG_ACCESS);
+        grant.put(FactoryCommand.ADD_TO_CART, CLIENT_ACCESS);
         grant.put(FactoryCommand.GET_CRUISES, CLIENT_ACCESS);
         grant.put(FactoryCommand.GET_SERVICES, GENERAL_LOG_ACCESS);
         grant.put(FactoryCommand.GET_STAFF, SHIP_ADMIN_ACCESS);
         grant.put(FactoryCommand.SET_DISCOUNT, SHIP_ADMIN_ACCESS);
         grant.put(FactoryCommand.GET_EXCURSIONS, CLIENT_ACCESS);
+        grant.put(FactoryCommand.SHOW_CART, CLIENT_ACCESS);
     }
 
     public static SecurityConfiguration getConfig() {

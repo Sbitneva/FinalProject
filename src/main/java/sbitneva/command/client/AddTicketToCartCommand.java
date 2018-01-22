@@ -13,6 +13,6 @@ public class AddTicketToCartCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        log.debug("AddTicketToCartCommand execution started "  + request.getQueryString());
     }
 }

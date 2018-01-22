@@ -13,6 +13,6 @@ public class ShowCartCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        log.debug("ShowCartCommand execution started");
     }
 }
