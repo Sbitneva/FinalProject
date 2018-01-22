@@ -160,10 +160,5 @@ public class TicketDao {
         connection.close();
     }
 
-    public boolean cleanCart(Cart cart) {
-        boolean result = true;
-        for(Ticket ticket : cart.getDeletedTickets()) {
 
-        }
-    }
 }

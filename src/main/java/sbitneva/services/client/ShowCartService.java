@@ -31,10 +31,13 @@ public class ShowCartService {
         try{
             cart = cartDao.getUserCart(userId);
             if(cart != null){
-                setTicketsInfo(cart);
+                boolean isVerified = false;
+                while(!isVerified) {
+                    setTicketsInfo(cart);
+                    isVerified = verifyCart(cart, userId);
+                }
                 setCheckout(cart);
                 setDiscountedCheckout(cart);
-                verifyCart(cart);
             }
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
@@ -82,7 +85,8 @@ public class ShowCartService {
         }
     }
 
-    private void verifyCart(Cart cart){
+    private boolean verifyCart(Cart cart, int userId){
+
         for(Ticket ticket : cart.getTickets()) {
             if(ticket.getOwnerId() > 0) {
                 try {
@@ -92,16 +96,25 @@ public class ShowCartService {
                 }
             }
         }
+
         ArrayList<Ticket> tickets = cart.getTickets();
         for(int i = 0; i < tickets.size(); i++) {
 
             if(tickets.get(i).getOwnerId() > 0){
                 tickets.remove(i);
+                --i;
             }
             log.debug("size = "+ tickets.size() + " i = " + i);
         }
 
         CartDao cartDao = DaoFactory.getCartDao();
-        boolean result = cartDao.cleanCart(cart);
+        boolean result = false;
+        try {
+           result = cartDao.cleanCart(cart, userId);
+        } catch (SQLException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+
+        return result;
     }
 }
