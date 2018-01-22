@@ -9,9 +9,13 @@
     <link href="../../css/main.css" type="text/css" rel="stylesheet">
     <link href="../../css/all-backgrounds.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../css/client/client-page.css" >
+    <link rel="stylesheet" type="text/css" href="../../css/client/cart.css" >
 </head>
 <body>
 <h1>Your Cart: </h1>
+
+
+
 <table id="tickets_table">
     <tr>
         <th>Ticket Id</th>
@@ -40,4 +44,24 @@
 <form id="checkout_form" action="" method="post">
     <button id="checkout_button" type="submit"> CHECK OUT </button>
 </form>
+
+<br> <h1>This tickets are not available anymore and deleted from your cart :</h1>
+
+<table id="deleted_tickets_table">
+    <tr>
+        <th>Ticket Id</th>
+        <th>Ship Name</th>
+        <th>Cruise Duration</th>
+        <th>Comfort Level</th>
+
+    </tr>
+    <c:forEach items="${cart.deletedTickets}" var="ticket">
+        <tr>
+            <td>${ticket.ticketId}</td>
+            <td>${ticket.shipName}</td>
+            <td>${ticket.cruiseDuration}</td>
+            <td>${ticket.comfortLevelName}</td>
+        </tr>
+    </c:forEach>
+</table>
 </body>

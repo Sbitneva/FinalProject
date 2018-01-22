@@ -1,0 +1,26 @@
+#deleted_tickets_table {
+    font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+#deleted_tickets_table td, #ships_table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#deleted_tickets_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#deleted_tickets_table tr:hover {
+    background-color: #ddd;
+}
+
+#deleted_tickets_table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: crimson;
+    color: white;
+}
