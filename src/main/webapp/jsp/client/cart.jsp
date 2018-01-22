@@ -15,36 +15,53 @@
 <h1>Your Cart: </h1>
 
 
-
-<table id="tickets_table">
-    <tr>
-        <th>Ticket Id</th>
-        <th>Ship Name</th>
-        <th>Cruise Duration</th>
-        <th>Comfort Level</th>
-        <th>Price</th>
-        <th>Discount</th>
-        <th>Discounted Price</th>
-    </tr>
-    <c:forEach items="${cart.tickets}" var="ticket">
+<div class="tables-class">
+    <table id="tickets_table">
         <tr>
-            <td>${ticket.ticketId}</td>
-            <td>${ticket.shipName}</td>
-            <td>${ticket.cruiseDuration}</td>
-            <td>${ticket.comfortLevelName}</td>
-            <td>${ticket.price}</td>
-            <td>${ticket.discount}</td>
-            <td>${ticket.discountedPrice}</td>
+            <th>Ticket Id</th>
+            <th>Ship Name</th>
+            <th>Cruise Duration</th>
+            <th>Comfort Level</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Discounted Price</th>
         </tr>
-    </c:forEach>
-</table>
-<b>Subtotal : ${cart.checkout}</b>
-<br><b>Subtotal with discounts: ${cart.discountedCheckout}</b>
+        <c:forEach items="${cart.tickets}" var="ticket">
+            <tr>
+                <td>${ticket.ticketId}</td>
+                <td>${ticket.shipName}</td>
+                <td>${ticket.cruiseDuration}</td>
+                <td>${ticket.comfortLevelName}</td>
+                <td>${ticket.price}</td>
+                <td>${ticket.discount}</td>
+                <td>${ticket.discountedPrice}</td>
+            </tr>
+        </c:forEach>
 
-<form id="checkout_form" action="" method="post">
-    <button id="checkout_button" type="submit"> CHECK OUT </button>
-</form>
+    </table>
 
+    <table id="subtotal">
+        <tr>
+            <th>Subtotal</th>
+        </tr>
+        <tr>
+            <td>${cart.checkout}</td>
+        </tr>
+        <tr>
+            <th>Subtotal with discount</th>
+        </tr>
+        <tr>
+            <td id="subtotal_row"><b>${cart.discountedCheckout}</b></td>
+        </tr>
+        <tr>
+            <td>
+                <form id="checkout_form" action="" method="post">
+                    <button id="checkout_button" type="submit"> CHECK OUT </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
 <br> <h1>This tickets are not available anymore and deleted from your cart :</h1>
 
 <table id="deleted_tickets_table">
