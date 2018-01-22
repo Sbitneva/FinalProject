@@ -35,9 +35,9 @@ public class AuthenticationFilter implements Filter {
         log.debug("auth filter work");
         boolean errorRedirect = false;
         HttpSession session = ((HttpServletRequest) request).getSession(true);
+        String command = getCommandFromRequest(request);
         if ((!(hasAttributes(session)))) {
             log.debug("session has no any attributes");
-            String command = getCommandFromRequest(request);
             if(securityConfiguration.isCommandForNotAuth(command) || command == null) {
                 log.debug("command goes through the filter");
                 filterChain.doFilter(request, response);
@@ -45,7 +45,6 @@ public class AuthenticationFilter implements Filter {
         } else if (isAttributesValid(session)) {
             log.debug("session attributes are full");
             int accessId = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
-            String command = getCommandFromRequest(request);
             if (command != null) {
                 log.debug("request has command parameter");
                 SecurityConfiguration securityConfiguration = SecurityConfiguration.getConfig();
@@ -74,8 +73,8 @@ public class AuthenticationFilter implements Filter {
         }
         if (errorRedirect) {
 
-            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-            httpServletResponse.sendRedirect(MAIN_PAGE);
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            httpServletRequest.getRequestDispatcher(MAIN_PAGE).forward(request, response);
 
         }
 

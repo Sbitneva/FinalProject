@@ -1,10 +1,7 @@
 package sbitneva.command.factory;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.client.BuyExcursionCommand;
-import sbitneva.command.client.ShowClientInfoCommand;
-import sbitneva.command.client.ShowCruisesCommand;
-import sbitneva.command.client.ShowExcursionsCommand;
+import sbitneva.command.client.*;
 import sbitneva.command.common.LoginCommand;
 import sbitneva.command.common.LogoutCommand;
 import sbitneva.command.common.RegistrationCommand;
@@ -22,6 +19,10 @@ import java.util.Map;
  */
 
 public class FactoryCommand {
+
+    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
+
+    private static final String PARAM_NAME_COMMAND = "command";
     /**
      * Commands parameters :
      */
@@ -37,9 +38,11 @@ public class FactoryCommand {
     public static final String BUY_EXCURSION = "buyExcursion";
     public static final String GET_STAFF = "getStaff";
     public static final String SET_DISCOUNT = "setDiscount";
-    private static final String PARAM_NAME_COMMAND = "command";
+    public static final String ADD_TO_CART = "add";
+    public static final String SHOW_CART = "cart";
+
     private static final FactoryCommand factoryCommand = new FactoryCommand();
-    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
+
     private Map<String, Command> commandMap = new HashMap<>();
 
     private FactoryCommand() {
@@ -54,6 +57,8 @@ public class FactoryCommand {
         commandMap.put(SHOW_SHIP, new ShowShipTicketsCommand());
         commandMap.put(GET_SERVICES, new ShowServicesCommand());
         commandMap.put(BUY_EXCURSION, new BuyExcursionCommand());
+        commandMap.put(ADD_TO_CART, new AddTicketToCartCommand());
+        commandMap.put(SHOW_CART, new ShowCartCommand());
     }
 
     public static FactoryCommand getInstance() {
