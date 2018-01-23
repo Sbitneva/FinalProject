@@ -1,6 +1,6 @@
 package sbitneva.entity;
 
-public class Ticket implements Cloneable{
+public class Ticket implements Cloneable {
     private int ticketId;
     private int shipId;
     private String shipName;
@@ -13,23 +13,20 @@ public class Ticket implements Cloneable{
     private int ownerId;
     private int cart = 1;
 
+    public Ticket() {
+
+    }
+
+    public Ticket(int ticketId) {
+        this.ticketId = ticketId;
+    }
+
     public int getCart() {
         return cart;
     }
 
     public void setCart(int cart) {
         this.cart = cart;
-    }
-
-    public Ticket(){
-
-    }
-
-    public Ticket(int ticketId){
-        this.ticketId = ticketId;
-    }
-    public void setDiscountedPrice(int discountedPrice) {
-        this.discountedPrice = discountedPrice;
     }
 
     public int getOwnerId() {
@@ -108,9 +105,14 @@ public class Ticket implements Cloneable{
 
         return discountedPrice;
     }
+
+    public void setDiscountedPrice(int discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
+
     public void setDiscountedPrice() {
-        if(this.discount > 0){
-            discountedPrice = price - (price/100 * discount);
+        if (this.discount > 0) {
+            discountedPrice = price - (price / 100 * discount);
         } else {
             this.discountedPrice = price;
         }

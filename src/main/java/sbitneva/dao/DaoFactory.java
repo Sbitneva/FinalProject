@@ -14,12 +14,12 @@ public class DaoFactory {
     private static BasicDao basicDao = new BasicDao();
     private static CartDao cartDao = new CartDao();
 
-    public static CartDao getCartDao() {
-        return cartDao;
-    }
-
     private DaoFactory() {
 
+    }
+
+    public static CartDao getCartDao() {
+        return cartDao;
     }
 
     public static DaoFactory getInstance() {

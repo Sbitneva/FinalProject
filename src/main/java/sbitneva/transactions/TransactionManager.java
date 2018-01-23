@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class TransactionManager {
     private static ThreadLocal<ConnectionPoolWrapper> threadLocal = new ThreadLocal<>();
+
     private TransactionManager() {
     }
 
@@ -16,7 +17,7 @@ public class TransactionManager {
             throw new TransactionException("ThreadLocal for begin transaction is not empty");
         Connection connection = ConnectionPool.getConnection();
         connection.setAutoCommit(false);
-        ConnectionPoolWrapper wrapper = new ConnectionPoolWrapper(connection,true);
+        ConnectionPoolWrapper wrapper = new ConnectionPoolWrapper(connection, true);
         threadLocal.set(wrapper);
     }
 
@@ -45,9 +46,11 @@ public class TransactionManager {
     }
 
     public static ConnectionPoolWrapper getConnection() throws SQLException {
-        if (Objects.isNull(threadLocal.get())){
+        if (Objects.isNull(threadLocal.get())) {
             Connection connection = ConnectionPool.getConnection();
-            return new ConnectionPoolWrapper(connection,false);
-        } else {return threadLocal.get();}
+            return new ConnectionPoolWrapper(connection, false);
+        } else {
+            return threadLocal.get();
+        }
     }
 }

@@ -25,7 +25,7 @@
     color: white;
 }
 
-#checkout_button{
+#checkout_button {
     display: inline-block;
     height: 40px;
     width: 100%;
@@ -61,11 +61,11 @@
     color: white;
 }
 
-#subtotal_row{
-    color : crimson;
+#subtotal_row {
+    color: crimson;
 }
 
-.tables-class{
+.tables-class {
     align-items: left;
 }
 

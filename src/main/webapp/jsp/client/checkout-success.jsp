@@ -5,9 +5,9 @@
     <link href="../../css/all-backgrounds.css" type="text/css" rel="stylesheet">
 </head>
 <body>
- <h1>CHECKOUT Completed!</h1>
+<h1>CHECKOUT Completed!</h1>
 
-     <form id="continue_shopping" action="/Cruise?command=client" method="post">
-         <button id="continue_shopping_button" type="submit"> CONTINUE SHOPPING </button>
-     </form>
+<form id="continue_shopping" action="/Cruise?command=client" method="post">
+    <button id="continue_shopping_button" type="submit"> CONTINUE SHOPPING</button>
+</form>
 </body>

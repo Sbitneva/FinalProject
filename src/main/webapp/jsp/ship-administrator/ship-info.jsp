@@ -47,23 +47,23 @@
                 </form>
             </td>
             <td>
-                ${ticket.price}
+                    ${ticket.price}
             <td>
         </tr>
     </c:forEach>
     <br>
     <b>Current page : ${page}</b>
-    </table>
-        <table id="pagination_table">
-            <tr align="center">
-                <c:forEach var = "i" begin="1" end="${pages}">
-                    <form id="pagination_form" action="/Cruise?command=showShip" method="post" >
-                    <td>
-                        <button name="page" type="submit" type="text" value="${i}">${i}</button>
-                    </td>
-                    </form>
-                </c:forEach>
-            </tr>
-        </table>
-    </body>
+</table>
+<table id="pagination_table">
+    <tr align="center">
+        <c:forEach var="i" begin="1" end="${pages}">
+            <form id="pagination_form" action="/Cruise?command=showShip" method="post">
+                <td>
+                    <button name="page" type="submit" type="text" value="${i}">${i}</button>
+                </td>
+            </form>
+        </c:forEach>
+    </tr>
+</table>
+</body>
 </html>

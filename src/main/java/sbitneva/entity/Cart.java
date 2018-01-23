@@ -17,7 +17,7 @@ public class Cart {
         this.tickets = tickets;
     }
 
-    public void addTicketWithId(int id){
+    public void addTicketWithId(int id) {
         this.tickets.add(new Ticket(id));
     }
 

@@ -17,12 +17,12 @@ public class AddTicketToCartCommand implements Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("AddTicketToCartCommand execution started "  + request.getQueryString());
+        log.debug("AddTicketToCartCommand execution started " + request.getQueryString());
         int page = getPageAttribute(request);
         int shipId = getParameter(request, SHIP_ID);
         int ticketId = getParameter(request, TICKET_ID);
         int userId = CommandsHelper.getUserId(request);
-        if((shipId > 0) && (ticketId > 0)) {
+        if ((shipId > 0) && (ticketId > 0)) {
             AddTicketToCartService addTicketToCartService = AddTicketToCartService.getAddTicketToCartService();
             addTicketToCartService.add(userId, ticketId);
             //TODO: add ticket to db
@@ -37,10 +37,10 @@ public class AddTicketToCartCommand implements Command {
         int page = 1;
 
 
-        if(request.getParameter(PAGE) != null){
-            try{
+        if (request.getParameter(PAGE) != null) {
+            try {
                 page = Integer.parseInt(request.getParameter(PAGE));
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
 
             }
         }
@@ -49,10 +49,10 @@ public class AddTicketToCartCommand implements Command {
 
     private int getParameter(HttpServletRequest request, String parameter) {
         int value = 0;
-        if(request.getParameter(parameter) != null){
-            try{
+        if (request.getParameter(parameter) != null) {
+            try {
                 value = Integer.parseInt(request.getParameter(parameter));
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }

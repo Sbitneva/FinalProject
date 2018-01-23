@@ -12,7 +12,7 @@ public class AddTicketToCartService {
 
     private static AddTicketToCartService addTicketToCartService = new AddTicketToCartService();
 
-    private AddTicketToCartService(){
+    private AddTicketToCartService() {
 
     }
 
@@ -24,7 +24,7 @@ public class AddTicketToCartService {
         CartDao cartDao = DaoFactory.getCartDao();
         try {
             cartDao.addTicketToCart(userId, ticketId);
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
