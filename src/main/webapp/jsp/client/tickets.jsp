@@ -11,7 +11,29 @@
     <link href="../../css/client/tickets.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <h2>${ship.shipName}</h2>
+
+    <table id="menu-table">
+        <tr>
+            <td id="ship_name_td"><h2>${ship.shipName}</h2></td>
+            <td id="cart_td">
+                <form id="show_cart" class="functions-class" action="/Cruise?command=cart" method="post">
+                    <button id="show_cart_button" type="submit">Tickets Cart</button>
+                </form>
+            </td>
+
+            <td id="buy_td">
+                <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
+                    <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
+                </form>
+            </td>
+
+            <td id="logout_td">
+                <form id="logout" class="functions-class"action="/Cruise?command=logout" method="post">
+                    <button id="logout_button" type="submit">logout</button>
+                </form>
+            </td>
+        </tr>
+    </table>
     <form id="ship_form">
         <b>Ports:</b>
         <c:forEach items="${ship.ports}" var="port">
