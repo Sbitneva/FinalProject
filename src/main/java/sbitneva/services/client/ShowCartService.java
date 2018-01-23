@@ -44,7 +44,7 @@ public class ShowCartService {
         return cart;
     }
 
-    private void setTicketsInfo(Cart cart) {
+    static void setTicketsInfo(Cart cart) {
         ArrayList<Ticket> tickets = cart.getTickets();
         if(tickets.size() > 0) {
             try {
@@ -109,7 +109,7 @@ public class ShowCartService {
         CartDao cartDao = DaoFactory.getCartDao();
         boolean result = false;
         try {
-           result = cartDao.cleanCart(cart, userId);
+           result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }

@@ -34,6 +34,8 @@ public class CommandsHelper {
     public static final String MAIN_PAGE = "index.jsp";
     public static final String EXCURSIONS_PAGE = "jsp/client/excursions.jsp";
     public static final String USER_CART_PAGE = "jsp/client/cart.jsp";
+    public static final String CHECKOUT_SUCCESS_PAGE = "jsp/client/checkout-success.jsp";
+
     // common pages
     public static final String SERVICES_PAGE = "comfort-level-services.jsp";
     public static final String TICKETS_PAGE = "jsp/client/tickets.jsp";
@@ -44,6 +46,7 @@ public class CommandsHelper {
     // client commands
 
     public static final String CLIENT_COMMAND = "?command=client";
+    public static final String CART_COMMAND = "?command=cart";
     // common commands
 
     public static final String SHOW_SHIP_COMMAND = "?command=showShip";

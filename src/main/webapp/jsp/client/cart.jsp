@@ -54,7 +54,7 @@
         </tr>
         <tr>
             <td>
-                <form id="checkout_form" action="" method="post">
+                <form id="checkout_form" action="/Cruise?command=checkout" method="post">
                     <button id="checkout_button" type="submit"> CHECK OUT </button>
                 </form>
             </td>
