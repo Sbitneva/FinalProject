@@ -11,7 +11,7 @@
 <form name="authorization" action="Cruise?command=login" onsubmit="required()" method="post">
     <table id="login_table">
         <tbody>
-        <tr id="error_messages" >
+        <tr id="error_messages">
             <td align="center">${errors}</td>
         </tr>
         <tr>

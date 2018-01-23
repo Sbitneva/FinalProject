@@ -6,7 +6,6 @@ import sbitneva.configaration.SecurityConfiguration;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
@@ -38,7 +37,7 @@ public class AuthenticationFilter implements Filter {
         String command = getCommandFromRequest(request);
         if ((!(hasAttributes(session)))) {
             log.debug("session has no any attributes");
-            if(securityConfiguration.isCommandForNotAuth(command) || command == null) {
+            if (securityConfiguration.isCommandForNotAuth(command) || command == null) {
                 log.debug("command goes through the filter");
                 filterChain.doFilter(request, response);
             }

@@ -9,9 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.MAIN_PAGE;
-import static sbitneva.command.CommandsHelper.USER_ID_SESSION_ATTRIBUTE;
-import static sbitneva.command.CommandsHelper.USER_TYPE_SESSION_ATTRIBUTE;
+import static sbitneva.command.CommandsHelper.*;
 
 public class LogoutCommand implements Command {
 

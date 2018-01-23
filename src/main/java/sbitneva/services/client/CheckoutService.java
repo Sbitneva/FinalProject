@@ -16,12 +16,12 @@ public class CheckoutService {
 
     private static CheckoutService checkoutService = new CheckoutService();
 
-    public static CheckoutService getCheckoutService() {
-        return checkoutService;
+    private CheckoutService() {
+
     }
 
-    private CheckoutService(){
-
+    public static CheckoutService getCheckoutService() {
+        return checkoutService;
     }
 
     public boolean doCheckout(int userId) {

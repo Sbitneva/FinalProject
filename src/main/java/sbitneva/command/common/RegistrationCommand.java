@@ -24,12 +24,12 @@ public class RegistrationCommand implements Command {
         log.debug("RegistrationCommand execution started");
         String firstName = getParameter(request, FIRST_NAME);
         String lastName = getParameter(request, LAST_NAME);
-        String email = getParameter(request,EMAIL);
-        String password = getParameter(request,PASSWORD);
+        String email = getParameter(request, EMAIL);
+        String password = getParameter(request, PASSWORD);
 
         boolean isValid = validateParameters(firstName, lastName, email, password);
         boolean success = false;
-        if(isValid) {
+        if (isValid) {
 
             RegistrationService registrationService = RegistrationService.getRegistrationService();
 
@@ -46,7 +46,7 @@ public class RegistrationCommand implements Command {
                 errors.append(e.getMessage());
             }
         }
-        if(!success) {
+        if (!success) {
             request.setAttribute(ERRORS, errors.toString());
             request.getRequestDispatcher(REGISTRATION_PAGE).forward(request, response);
         }
@@ -55,19 +55,19 @@ public class RegistrationCommand implements Command {
 
     private String getParameter(HttpServletRequest request, String parameter) {
         String value = new String();
-        if(request.getParameter(parameter) != null) {
+        if (request.getParameter(parameter) != null) {
             value = request.getParameter(parameter);
-            if(value.isEmpty()){
+            if (value.isEmpty()) {
                 errors.append(parameter + " field must contain a value\n");
             }
         }
         return value;
     }
 
-    private boolean validateParameters(String...params){
+    private boolean validateParameters(String... params) {
         boolean isValid = true;
-        for(int i = 0; i < params.length; i++) {
-            if(params[i].isEmpty()){
+        for (int i = 0; i < params.length; i++) {
+            if (params[i].isEmpty()) {
                 isValid = false;
             }
         }

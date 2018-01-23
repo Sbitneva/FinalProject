@@ -18,6 +18,7 @@ public class ShowCartService {
 
     private static Logger log = Logger.getLogger(ShowCartService.class.getName());
     private static ShowCartService showCartService = new ShowCartService();
+
     private ShowCartService() {
 
     }
@@ -26,14 +27,32 @@ public class ShowCartService {
         return showCartService;
     }
 
-    public Cart getCart(int userId){
+    static void setTicketsInfo(Cart cart) {
+        ArrayList<Ticket> tickets = cart.getTickets();
+        if (tickets.size() > 0) {
+            try {
+                ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
+                Map<Integer, String> comfortLevels = comfortLevelDao.getComfortLevels();
+                for (Ticket ticket : tickets) {
+                    TicketDao ticketDao = DaoFactory.getTicketDao();
+                    ticketDao.setTicketProperties(ticket);
+                    ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
+                    ticket.setDiscountedPrice();
+                }
+            } catch (SQLException e) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
+        }
+    }
+
+    public Cart getCart(int userId) {
         Cart cart = null;
         CartDao cartDao = DaoFactory.getCartDao();
-        try{
+        try {
             cart = cartDao.getUserCart(userId);
-            if(cart != null){
+            if (cart != null) {
                 boolean isVerified = false;
-                while(!isVerified) {
+                while (!isVerified) {
                     setTicketsInfo(cart);
                     isVerified = verifyCart(cart, userId);
                 }
@@ -46,29 +65,11 @@ public class ShowCartService {
         return cart;
     }
 
-    static void setTicketsInfo(Cart cart) {
+    private void setDiscountedCheckout(Cart cart) {
         ArrayList<Ticket> tickets = cart.getTickets();
-        if(tickets.size() > 0) {
-            try {
-                ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-                Map<Integer, String> comfortLevels = comfortLevelDao.getComfortLevels();
-                for(Ticket ticket : tickets){
-                    TicketDao ticketDao = DaoFactory.getTicketDao();
-                    ticketDao.setTicketProperties(ticket);
-                    ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
-                    ticket.setDiscountedPrice();
-                }
-            }catch (SQLException e) {
-                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
-            }
-        }
-    }
-
-    private void setDiscountedCheckout(Cart cart){
-        ArrayList<Ticket> tickets = cart.getTickets();
-        if(tickets.size() > 0) {
+        if (tickets.size() > 0) {
             int sum = 0;
-            for(Ticket ticket : tickets) {
+            for (Ticket ticket : tickets) {
                 sum += ticket.getDiscountedPrice();
             }
             cart.setDiscountedCheckout(sum);
@@ -77,19 +78,19 @@ public class ShowCartService {
 
     private void setCheckout(Cart cart) {
         ArrayList<Ticket> tickets = cart.getTickets();
-        if(tickets.size() > 0) {
+        if (tickets.size() > 0) {
             int sum = 0;
-            for(Ticket ticket : tickets) {
+            for (Ticket ticket : tickets) {
                 sum += ticket.getPrice();
             }
             cart.setCheckout(sum);
         }
     }
 
-    private boolean verifyCart(Cart cart, int userId){
+    private boolean verifyCart(Cart cart, int userId) {
 
-        for(Ticket ticket : cart.getTickets()) {
-            if(ticket.getOwnerId() > 0) {
+        for (Ticket ticket : cart.getTickets()) {
+            if (ticket.getOwnerId() > 0) {
                 try {
                     cart.addDeletedTicket((Ticket) ticket.clone());
                 } catch (CloneNotSupportedException e) {
@@ -99,9 +100,9 @@ public class ShowCartService {
         }
 
         ArrayList<Ticket> tickets = cart.getTickets();
-        for(int i = 0; i < tickets.size(); i++) {
-            log.debug("size = "+ tickets.size() + " i = " + i);
-            if(tickets.get(i).getOwnerId() > 0){
+        for (int i = 0; i < tickets.size(); i++) {
+            log.debug("size = " + tickets.size() + " i = " + i);
+            if (tickets.get(i).getOwnerId() > 0) {
                 tickets.remove(i);
                 --i;
             }

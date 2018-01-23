@@ -26,7 +26,7 @@
                 <form id="show_tickets_form"
                       action="/Cruise?command=showShip&shipId=${ship.shipId}"
                       method="post">
-                    <button id="show_tickets_button" type="submit"> Show tickets </button>
+                    <button id="show_tickets_button" type="submit"> Show tickets</button>
                 </form>
             </td>
         </tr>

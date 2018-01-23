@@ -22,17 +22,17 @@ public class ShowCartCommand implements Command {
         int userId = CommandsHelper.getUserId(request);
         boolean success = false;
         Cart cart = null;
-        if(userId > 0) {
+        if (userId > 0) {
             ShowCartService showCartService = ShowCartService.getShowCartService();
             cart = showCartService.getCart(userId);
-            if(cart != null){
+            if (cart != null) {
                 success = true;
                 request.setAttribute(CART, cart);
                 request.setAttribute("deleted", cart.getDeletedTickets().size());
                 request.getRequestDispatcher(USER_CART_PAGE).forward(request, response);
             }
         }
-        if(!success) {
+        if (!success) {
             request.getRequestDispatcher(MAIN_PAGE).forward(request, response);
         }
     }

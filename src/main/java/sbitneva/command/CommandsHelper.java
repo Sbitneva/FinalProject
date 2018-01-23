@@ -63,7 +63,7 @@ public class CommandsHelper {
 
     public static int getUserId(HttpServletRequest request) {
         int userId = 0;
-        if(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE) != null) {
+        if (request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE) != null) {
             try {
                 userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
             } catch (NumberFormatException e) {
