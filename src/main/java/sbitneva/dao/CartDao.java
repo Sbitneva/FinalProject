@@ -5,6 +5,8 @@ import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.TransactionException;
 import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CartDao {
+
     private static Logger log = Logger.getLogger(CartDao.class.getName());
 
     private static final String GET_TICKETS_IDs_FROM_CART =
@@ -46,11 +49,11 @@ public class CartDao {
         return cart;
     }
 
-    public boolean cleanCart(ArrayList<Ticket> tickets, int userId) throws SQLException{
+    public boolean cleanCart(ArrayList<Ticket> tickets, int userId) throws SQLException, TransactionException{
         boolean result = true;
-        Connection connection = ConnectionPool.getConnection();
-        connection.setAutoCommit(false);
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try{
+
             for(Ticket ticket : tickets) {
                 PreparedStatement statement = connection.prepareStatement(DELETE_CART_ROW);
                 statement.setInt(1, userId);
@@ -60,10 +63,8 @@ public class CartDao {
                     throw new TransactionException("Can't delete row from carts table");
                 }
             }
-            connection.commit();
         } catch (SQLException | TransactionException e){
-            result = false;
-            connection.rollback();
+            TransactionManager.rollbackTransaction();
         }
         connection.close();
         return result;

@@ -26,7 +26,7 @@ public class ConnectionPoolWrapper {
         }
     }
 
-    public PreparedStatement preparedStatement(String sql) throws SQLException {
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
         return connection.prepareStatement(sql);
     }
 }

@@ -5,6 +5,8 @@ import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
 import sbitneva.entity.Cart;
+import sbitneva.exception.TransactionException;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
@@ -23,18 +25,22 @@ public class CheckoutService {
     }
 
     public boolean doCheckout(int userId) {
-        boolean isSuccessful = false;
+        boolean isSuccessful = true;
 
         CartDao cartDao = DaoFactory.getCartDao();
         try {
             Cart cart = cartDao.getUserCart(userId);
-
             TicketDao ticketDao = DaoFactory.getTicketDao();
-            isSuccessful = ticketDao.buyTickets(userId, cart);
-            if(isSuccessful) {
-                isSuccessful = cartDao.cleanCart(cart.getTickets(), userId);
-            }
-        } catch (SQLException e) {
+
+            TransactionManager.beginTransaction();
+
+            ticketDao.buyTickets(userId, cart);
+            cartDao.cleanCart(cart.getTickets(), userId);
+
+            TransactionManager.endTransaction();
+
+        } catch (SQLException | TransactionException e) {
+            isSuccessful = false;
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return isSuccessful;

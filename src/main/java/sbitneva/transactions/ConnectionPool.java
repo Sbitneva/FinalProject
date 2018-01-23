@@ -27,7 +27,7 @@ public class ConnectionPool {
     }
 
     private static BasicDataSource initDataSource() {
-        BasicDataSource dataSource = new BasicDataSource();
+
         try {
             String environmentVar = System.getenv("DATABASE_URL");
             String dbUrl;
@@ -51,11 +51,7 @@ public class ConnectionPool {
             connectionPool.setDriverClassName(DB_DRIVER);
             connectionPool.setUrl(dbUrl);
             connectionPool.setInitialSize(1);
-            try {
-                connectionPool.getConnection().setAutoCommit(false);
-            } catch (SQLException e) {
-                log.error(e.getMessage());
-            }
+
         } catch (URISyntaxException e) {
 
         }
