@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../../css/client/client-page.css" >
     </head>
     <body>
+
         <div class="functions-class">
             <h1 id="hello_string" class="functions-class">Hello, ${client.firstName} ${client.lastName} </h1>
             <form id="show_cart" class="functions-class" action="/Cruise?command=cart" method="post">

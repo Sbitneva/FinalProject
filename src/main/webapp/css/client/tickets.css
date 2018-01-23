@@ -31,3 +31,23 @@
     padding-bottom: 12px;
 }
 
+#menu-table{
+    width:100%;
+    background-color: #4CAF50;
+}
+
+#cart_td{
+    width: 10%;
+}
+
+#buy_td{
+    width: 10%;
+}
+#logout_td{
+    width:65%;
+    text-align: right;
+}
+#ship_name_td {
+    width: 15%;
+}
+
