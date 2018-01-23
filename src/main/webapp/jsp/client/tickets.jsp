@@ -44,16 +44,21 @@
                 <td style="width:20%;">${ticket.discount}</td>
                 <td>${ticket.price}</td>
                 <td>
-                    <form id="add_to_cart_form"
-                          action="/Cruise?command=add&ticketId=${ticket.ticketId}"
-                          method="post">
-                        <b>${ticket.cart}</b>
-                        <button id="add_to_cart_button" type="submit">Add to cart</button>
-                    </form>
+                    <c:choose>
+                        <c:when test="${ticket.cart == 0}">
+                        <form id="add_to_cart_form"
+                              action="/Cruise?command=add&ticketId=${ticket.ticketId}"
+                              method="post">
+                            <button id="add_to_cart_button" type="submit">Add to cart</button>
+                        </form>
+                        </c:when>
+                        <c:otherwise>In cart</c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>
     </table>
+    <b>Current Page : ${page}</b>
 
     <table id="pagination_table">
         <tr align="center">

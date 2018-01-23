@@ -44,6 +44,7 @@ public class ShowShipTicketsCommand implements Command {
                 Ship ship = showTicketsService.getShipForClient(shipId, currentPage);
                 if (ship != null) {
                     showTicketsService.isInCart(ship.getTickets() , CommandsHelper.getUserId(request));
+                    request.setAttribute(PAGE, currentPage);
                     sendData(request, response, ship, TICKETS_PAGE);
                 }
             } catch (Exception e) {
