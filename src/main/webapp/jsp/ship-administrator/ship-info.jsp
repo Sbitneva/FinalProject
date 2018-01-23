@@ -18,7 +18,7 @@
         Show ships staff
     </button>
 </form>
-<b>Current page = ${page}</b>
+
 
 <table id="tickets_table">
     <tr>
@@ -52,6 +52,7 @@
         </tr>
     </c:forEach>
     <br>
+    <b>Current page : ${page}</b>
     </table>
         <table id="pagination_table">
             <tr align="center">

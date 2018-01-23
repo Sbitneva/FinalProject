@@ -98,12 +98,12 @@ public class ShowCartService {
 
         ArrayList<Ticket> tickets = cart.getTickets();
         for(int i = 0; i < tickets.size(); i++) {
-
+            log.debug("size = "+ tickets.size() + " i = " + i);
             if(tickets.get(i).getOwnerId() > 0){
                 tickets.remove(i);
                 --i;
             }
-            log.debug("size = "+ tickets.size() + " i = " + i);
+
         }
 
         CartDao cartDao = DaoFactory.getCartDao();

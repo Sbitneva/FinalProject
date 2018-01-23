@@ -68,7 +68,7 @@ public class CartDao {
         byte isInCart = 0;
         Connection connection = ConnectionPool.getConnection();
         try{
-            PreparedStatement statement = connection.prepareStatement(DELETE_CART_ROW);
+            PreparedStatement statement = connection.prepareStatement(GET_TICKET_FROM_CART);
             statement.setInt(1, userId);
             statement.setInt(2, ticketId);
             ResultSet resultSet = statement.executeQuery();
