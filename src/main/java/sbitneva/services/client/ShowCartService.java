@@ -7,6 +7,8 @@ import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
 import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
+import sbitneva.exception.TransactionException;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -109,8 +111,10 @@ public class ShowCartService {
         CartDao cartDao = DaoFactory.getCartDao();
         boolean result = false;
         try {
-           result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
-        } catch (SQLException e) {
+            TransactionManager.beginTransaction();
+            result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
+            TransactionManager.endTransaction();
+        } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
 

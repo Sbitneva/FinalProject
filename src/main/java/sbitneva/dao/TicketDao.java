@@ -6,6 +6,8 @@ import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
 import sbitneva.exception.TransactionException;
 import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -65,11 +67,8 @@ public class TicketDao {
         return tickets;
     }
 
-
-    public boolean buyTickets(int userId, Cart cart) throws SQLException {
-        boolean result = false;
-        Connection connection = ConnectionPool.getConnection();
-        connection.setAutoCommit(false);
+    public void buyTickets(int userId, Cart cart) throws SQLException, TransactionException {
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             for(Ticket ticket : cart.getTickets()) {
                 PreparedStatement statement = connection.prepareStatement(BUY_TICKET);
@@ -80,15 +79,11 @@ public class TicketDao {
                     throw new TransactionException("Can't buy ticket");
                 }
             }
-            result = true;
-            connection.commit();
         } catch (SQLException | TransactionException e) {
-            connection.rollback();
+            TransactionManager.rollbackTransaction();
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
-        connection.close();
-        return result;
-    }
+   }
 
     public int getUserIdByTicketId(int ticketId) throws SQLException {
         return BasicDao.getId(GET_USER_ID_BY_TICKET_ID, ticketId);
