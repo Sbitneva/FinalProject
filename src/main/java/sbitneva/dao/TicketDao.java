@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
+import sbitneva.exception.TransactionException;
 import sbitneva.transactions.ConnectionPool;
 
 import java.sql.Connection;
@@ -15,7 +16,8 @@ import java.util.ArrayList;
 public class TicketDao {
     private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
-    private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE ticket_id = ?";
+    private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE " +
+            "(ticket_id = ? and user_id_users is null)";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
     private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ? WHERE ticket_id = ?";
@@ -64,8 +66,28 @@ public class TicketDao {
     }
 
 
-    public int buySelectedItem(int userId, int ticketId) throws SQLException, DaoException {
-        return BasicDao.updateCell(BUY_TICKET, userId, ticketId);
+    public boolean buyTickets(int userId, Cart cart) throws SQLException {
+        boolean result = false;
+        Connection connection = ConnectionPool.getConnection();
+        connection.setAutoCommit(false);
+        try {
+            for(Ticket ticket : cart.getTickets()) {
+                PreparedStatement statement = connection.prepareStatement(BUY_TICKET);
+                statement.setInt(1, userId);
+                statement.setInt(2, ticket.getTicketId());
+                int rows = statement.executeUpdate();
+                if (rows != 1) {
+                    throw new TransactionException("Can't buy ticket");
+                }
+            }
+            result = true;
+            connection.commit();
+        } catch (SQLException | TransactionException e) {
+            connection.rollback();
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+        connection.close();
+        return result;
     }
 
     public int getUserIdByTicketId(int ticketId) throws SQLException {

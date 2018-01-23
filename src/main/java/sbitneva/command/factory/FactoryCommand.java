@@ -40,6 +40,7 @@ public class FactoryCommand {
     public static final String SET_DISCOUNT = "setDiscount";
     public static final String ADD_TO_CART = "add";
     public static final String SHOW_CART = "cart";
+    public static final String CHECKOUT = "checkout";
 
     private static final FactoryCommand factoryCommand = new FactoryCommand();
 
@@ -59,6 +60,7 @@ public class FactoryCommand {
         commandMap.put(BUY_EXCURSION, new BuyExcursionCommand());
         commandMap.put(ADD_TO_CART, new AddTicketToCartCommand());
         commandMap.put(SHOW_CART, new ShowCartCommand());
+        commandMap.put(CHECKOUT, new CheckoutCommand());
     }
 
     public static FactoryCommand getInstance() {

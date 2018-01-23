@@ -23,11 +23,12 @@ public class CartDao {
 
     public Cart getUserCart(int userId) throws SQLException{
         Connection connection = ConnectionPool.getConnection();
-        Cart cart = new Cart();
+        Cart cart = null;
         try{
             PreparedStatement statement = connection.prepareStatement(GET_TICKETS_IDs_FROM_CART);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
+            cart = new Cart();
             while(resultSet.next()) {
                 cart.addTicketWithId(resultSet.getInt(1));
             }
@@ -37,12 +38,12 @@ public class CartDao {
         return cart;
     }
 
-    public boolean cleanCart(Cart cart, int userId) throws SQLException{
+    public boolean cleanCart(ArrayList<Ticket> tickets, int userId) throws SQLException{
         boolean result = true;
         Connection connection = ConnectionPool.getConnection();
         connection.setAutoCommit(false);
         try{
-            for(Ticket ticket : cart.getDeletedTickets()) {
+            for(Ticket ticket : tickets) {
                 PreparedStatement statement = connection.prepareStatement(DELETE_CART_ROW);
                 statement.setInt(1, userId);
                 statement.setInt(2, ticket.getTicketId());
@@ -58,4 +59,6 @@ public class CartDao {
         }
         return result;
     }
+
+
 }

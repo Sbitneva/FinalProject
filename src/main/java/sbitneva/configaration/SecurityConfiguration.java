@@ -36,6 +36,7 @@ public class SecurityConfiguration {
         grant.put(FactoryCommand.SET_DISCOUNT, SHIP_ADMIN_ACCESS);
         grant.put(FactoryCommand.GET_EXCURSIONS, CLIENT_ACCESS);
         grant.put(FactoryCommand.SHOW_CART, CLIENT_ACCESS);
+        grant.put(FactoryCommand.CHECKOUT, CLIENT_ACCESS);
     }
 
     public static SecurityConfiguration getConfig() {
