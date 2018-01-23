@@ -47,7 +47,7 @@
                     <c:choose>
                         <c:when test="${ticket.cart == 0}">
                         <form id="add_to_cart_form"
-                              action="/Cruise?command=add&ticketId=${ticket.ticketId}"
+                              action="/Cruise?command=add&ticketId=${ticket.ticketId}&page=${page}&shipId=${ship.shipId}"
                               method="post">
                             <button id="add_to_cart_button" type="submit">Add to cart</button>
                         </form>
