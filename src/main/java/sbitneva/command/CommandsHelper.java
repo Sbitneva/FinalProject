@@ -2,13 +2,15 @@ package sbitneva.command;
 
 import org.apache.log4j.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class CommandsHelper {
     public static final String SERVLET_NAME = "/Cruise";
     //session attributes names
     public static final String USER_ID_SESSION_ATTRIBUTE = "id";
     public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
     //request parameters names
-;
+
     public static final String SHIP_ID = "shipId";
     public static final String CART = "cart";
     public static final String TICKET_ID = "ticketId";
@@ -57,6 +59,18 @@ public class CommandsHelper {
 
     private CommandsHelper() {
 
+    }
+
+    public static int getUserId(HttpServletRequest request) {
+        int userId = 0;
+        if(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE) != null) {
+            try {
+                userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
+            } catch (NumberFormatException e) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
+        }
+        return userId;
     }
 
 
