@@ -21,6 +21,9 @@ public class CartDao {
     private static final String DELETE_CART_ROW =
             "delete  from carts where(user_id_carts = ? and ticket_id = ?);";
 
+    private static final String GET_TICKET_FROM_CART =
+            "select user_id_carts from carts where (user_id_carts = ? and ticket_id = ?)";
+
     public Cart getUserCart(int userId) throws SQLException{
         Connection connection = ConnectionPool.getConnection();
         Cart cart = null;
@@ -57,7 +60,26 @@ public class CartDao {
             result = false;
             connection.rollback();
         }
+        connection.close();
         return result;
+    }
+
+    public byte isTicketInCart(int userId, int ticketId) throws SQLException{
+        byte isInCart = 0;
+        Connection connection = ConnectionPool.getConnection();
+        try{
+            PreparedStatement statement = connection.prepareStatement(DELETE_CART_ROW);
+            statement.setInt(1, userId);
+            statement.setInt(2, ticketId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                isInCart = 1;
+            }
+        } catch (SQLException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+        connection.close();
+        return isInCart;
     }
 
 
