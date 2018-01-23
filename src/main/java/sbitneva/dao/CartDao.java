@@ -42,6 +42,7 @@ public class CartDao {
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
+        connection.close();
         return cart;
     }
 
@@ -62,7 +63,6 @@ public class CartDao {
         } catch (SQLException | TransactionException e) {
             TransactionManager.rollbackTransaction();
         }
-        connection.close();
         return result;
     }
 
