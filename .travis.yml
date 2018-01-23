@@ -18,7 +18,7 @@ before_install:
 
 install: true
 script:
-  - compose/lint.sh
+  - scripts/docker-compose-lint.sh
   - mvn clean install
   - cd compose
   - docker network create back-end
