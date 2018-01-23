@@ -1,6 +1,7 @@
 package sbitneva.command.ship.admin;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.CommandsHelper;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Ship;
 import sbitneva.services.common.ShowTicketsService;
@@ -42,6 +43,7 @@ public class ShowShipTicketsCommand implements Command {
             try {
                 Ship ship = showTicketsService.getShipForClient(shipId, currentPage);
                 if (ship != null) {
+                    showTicketsService.isInCart(ship.getTickets() , CommandsHelper.getUserId(request));
                     sendData(request, response, ship, TICKETS_PAGE);
                 }
             } catch (Exception e) {

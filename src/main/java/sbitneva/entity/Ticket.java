@@ -11,6 +11,15 @@ public class Ticket implements Cloneable{
     private int cruiseDuration;
     private int discountedPrice;
     private int ownerId;
+    private int cart = 1;
+
+    public int getCart() {
+        return cart;
+    }
+
+    public void setCart(int cart) {
+        this.cart = cart;
+    }
 
     public Ticket(){
 
@@ -107,6 +116,7 @@ public class Ticket implements Cloneable{
         }
     }
 
+
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
@@ -120,8 +130,12 @@ public class Ticket implements Cloneable{
                 ", shipName='" + shipName + '\'' +
                 ", price=" + price +
                 ", comfortLevel=" + comfortLevel +
+                ", comfortLevelName='" + comfortLevelName + '\'' +
                 ", discount=" + discount +
                 ", cruiseDuration=" + cruiseDuration +
+                ", discountedPrice=" + discountedPrice +
+                ", ownerId=" + ownerId +
+                ", setIsInCart=" + cart +
                 '}';
     }
 }

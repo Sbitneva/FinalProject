@@ -34,8 +34,12 @@ public class ShowTicketsService {
                 ship = shipDao.getBasicShipData(shipId);
                 if (ship != null) {
                     ArrayList<Ticket> tickets = getTickets(shipId, pageId);
-                    ship.setTickets(tickets);
-                    ship.setPorts(getShipPorts(shipId));
+
+                    if(tickets != null) {
+                        ship.setTickets(tickets);
+                        ship.setPorts(getShipPorts(shipId));
+
+                    }
                 }
             }
         } catch (SQLException | DaoException e) {
@@ -69,6 +73,7 @@ public class ShowTicketsService {
                 itemsNumber = ITEMS_PER_PAGE;
             }
             tickets = ticketDao.getTicketsForPage(shipId, offset, itemsNumber);
+
             setComfortLevelNames(tickets);
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
@@ -115,6 +120,18 @@ public class ShowTicketsService {
             }
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+    }
+
+    public void isInCart(ArrayList<Ticket> tickets, int userId){
+        CartDao cartDao = DaoFactory.getCartDao();
+
+        for(Ticket ticket : tickets) {
+            try {
+                ticket.setCart(cartDao.isTicketInCart(userId, ticket.getTicketId()));
+            } catch (SQLException e){
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
         }
     }
 }
