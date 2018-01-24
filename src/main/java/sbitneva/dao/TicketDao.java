@@ -9,10 +9,7 @@ import sbitneva.transactions.ConnectionPool;
 import sbitneva.transactions.ConnectionPoolWrapper;
 import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class TicketDao {
@@ -63,6 +60,7 @@ public class TicketDao {
 
     public void buyTickets(int userId, Cart cart) throws SQLException, TransactionException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
+        Savepoint savepoint = connection.getConnection().setSavepoint("BuyTickets");
         try {
             for (Ticket ticket : cart.getTickets()) {
                 PreparedStatement statement = connection.prepareStatement(BUY_TICKET);
@@ -73,7 +71,7 @@ public class TicketDao {
                     throw new TransactionException("Can't buy ticket");
                 }
             }
-        } catch (SQLException | TransactionException e) {
+        } catch (SQLException e) {
             TransactionManager.rollbackTransaction();
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }

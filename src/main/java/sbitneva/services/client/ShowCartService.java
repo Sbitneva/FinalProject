@@ -115,8 +115,14 @@ public class ShowCartService {
             TransactionManager.beginTransaction();
             result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
             TransactionManager.endTransaction();
-        } catch (SQLException | TransactionException e) {
+        } catch (SQLException | TransactionException e)
+        {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            try {
+                TransactionManager.rollbackTransaction();
+            } catch (TransactionException e1) {
+                log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
+            }
         }
 
         return result;
