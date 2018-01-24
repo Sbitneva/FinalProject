@@ -1,8 +1,8 @@
 package sbitneva.servlets;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.Command;
-import sbitneva.command.FactoryCommand;
+import sbitneva.command.factory.Command;
+import sbitneva.command.factory.FactoryCommand;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,15 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/CruiseServlet")
+@WebServlet("/Cruise")
 
 public class ServletDispatcher extends HttpServlet {
     static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp);
         log.debug("Get");
+        processRequest(req, resp);
+
     }
 
     @Override
@@ -35,6 +37,7 @@ public class ServletDispatcher extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
+        log.debug("Servlet initialization");
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)

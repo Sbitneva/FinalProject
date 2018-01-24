@@ -9,16 +9,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ComfortLevelDao {
-    private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
 
-    private static final String GET_SERVICES_BY_COMFORT_LEVEL_ID = "select * from services inner join " +
-            "many_services_has_many_comfort_levels on" +
+    public static final String GET_COMFORT_LEVELS = "select * from comfort_levels";
+    public static final String GET_COMFORT_LEVEL_NAME =
+            "select comfort_level_name from comfort_levels where (comfort_level_id = ?)";
+    private static final String GET_SERVICES_BY_COMFORT_LEVEL_ID = "SELECT * FROM services INNER JOIN " +
+            "many_services_has_many_comfort_levels ON" +
             " (services.service_id = many_services_has_many_comfort_levels.service_id_services " +
-            "and many_services_has_many_comfort_levels.comfort_level_id_comfort_levels = ?)";
-    private static final String GET_COMFORT_LEVEL_NAME_BY_ID = "select comfort_level_name from comfort_levels " +
-            "where comfort_level_id = ?";
+            "AND many_services_has_many_comfort_levels.comfort_level_id_comfort_levels = ?)";
+    private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
 
     public ArrayList<Service> getComfortLevelInfo(int comfortLevelId) throws SQLException {
         ArrayList<Service> services = new ArrayList<>();
@@ -39,20 +41,8 @@ public class ComfortLevelDao {
         return services;
     }
 
-    public String getComfortLevelNameById(int comfortLevelId) throws SQLException {
-        String name = "";
-        Connection con = ConnectionPool.getConnection();
-        try {
-            PreparedStatement statement = con.prepareStatement(GET_COMFORT_LEVEL_NAME_BY_ID);
-            statement.setInt(1, comfortLevelId);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                name = resultSet.getString(1);
-            }
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        }
-        con.close();
-        return name;
+    public Map<Integer, String> getComfortLevels() throws SQLException {
+        return BasicDao.getIdNameDataFromTable(GET_COMFORT_LEVELS);
     }
+
 }

@@ -11,7 +11,8 @@
 </head>
 <body>
 <h1>${ship.shipName}</h1>
-<form id="staff_button" action="CruiseServlet?command=shipAdmin&action=staff&shipId=${ship.shipId}" type="submit"
+
+<form id="staff_button" action="/Cruise?command=getStaff&shipId=${ship.shipId}" type="submit"
       method="post">
     <button id="staff" type="submit">
         Show ships staff
@@ -26,19 +27,20 @@
         <th>Discount %</th>
         <th>Price</th>
     </tr>
+
     <c:forEach items="${ship.tickets}" var="ticket">
         <tr>
             <td>${ticket.ticketId}</td>
             <td>${ticket.comfortLevelName}
                 <form id="show_services"
-                      action="CruiseServlet?command=shipAdmin&action=services&comfortId=${ticket.comfortLevel}"
+                      action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
                     <button id="show" type="submit">Show services</button>
                 </form>
             </td>
             <td>
                 <form id="apply_discount"
-                      action="CruiseServlet?command=shipAdmin&action=apply&shipId=${ship.shipId}&ticketId=${ticket.ticketId}"
+                      action="/Cruise?command=setDiscount&ticketId=${ticket.ticketId}&page=${page}"
                       method="post">
                     <input type="text" name="discount" contenteditable="true" value="${ticket.discount}">
                     <button id="apply" type="submit">Apply discount</button>
@@ -49,6 +51,19 @@
             <td>
         </tr>
     </c:forEach>
+    <br>
+    <b>Current page : ${page}</b>
+</table>
+<table id="pagination_table">
+    <tr align="center">
+        <c:forEach var="i" begin="1" end="${pages}">
+            <form id="pagination_form" action="/Cruise?command=showShip" method="post">
+                <td>
+                    <button name="page" type="submit" type="text" value="${i}">${i}</button>
+                </td>
+            </form>
+        </c:forEach>
+    </tr>
 </table>
 </body>
 </html>

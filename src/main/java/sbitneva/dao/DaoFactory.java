@@ -12,8 +12,14 @@ public class DaoFactory {
     private static TicketsExcursionsDao ticketsExcursionsDao = new TicketsExcursionsDao();
     private static ComfortLevelDao comfortLevelDao = new ComfortLevelDao();
     private static BasicDao basicDao = new BasicDao();
+    private static CartDao cartDao = new CartDao();
 
     private DaoFactory() {
+
+    }
+
+    public static CartDao getCartDao() {
+        return cartDao;
     }
 
     public static DaoFactory getInstance() {
@@ -52,5 +58,7 @@ public class DaoFactory {
         return comfortLevelDao;
     }
 
-    public static BasicDao getBasicDao() {return basicDao;}
+    public static BasicDao getBasicDao() {
+        return basicDao;
+    }
 }

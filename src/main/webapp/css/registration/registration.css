@@ -119,3 +119,7 @@ textarea:focus {
     color: #999898;
     margin-bottom: 3px;
 }
+
+#error {
+    color: crimson;
+}

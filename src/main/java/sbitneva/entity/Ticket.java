@@ -1,6 +1,6 @@
 package sbitneva.entity;
 
-public class Ticket {
+public class Ticket implements Cloneable {
     private int ticketId;
     private int shipId;
     private String shipName;
@@ -9,6 +9,33 @@ public class Ticket {
     private String comfortLevelName;
     private int discount;
     private int cruiseDuration;
+    private int discountedPrice;
+    private int ownerId;
+    private int cart = 1;
+
+    public Ticket() {
+
+    }
+
+    public Ticket(int ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    public int getCart() {
+        return cart;
+    }
+
+    public void setCart(int cart) {
+        this.cart = cart;
+    }
+
+    public int getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(int ownerId) {
+        this.ownerId = ownerId;
+    }
 
     public int getTicketId() {
         return ticketId;
@@ -74,6 +101,29 @@ public class Ticket {
         this.comfortLevelName = comfortLevelName;
     }
 
+    public int getDiscountedPrice() {
+
+        return discountedPrice;
+    }
+
+    public void setDiscountedPrice(int discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
+
+    public void setDiscountedPrice() {
+        if (this.discount > 0) {
+            discountedPrice = price - (price / 100 * discount);
+        } else {
+            this.discountedPrice = price;
+        }
+    }
+
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -82,8 +132,12 @@ public class Ticket {
                 ", shipName='" + shipName + '\'' +
                 ", price=" + price +
                 ", comfortLevel=" + comfortLevel +
+                ", comfortLevelName='" + comfortLevelName + '\'' +
                 ", discount=" + discount +
                 ", cruiseDuration=" + cruiseDuration +
+                ", discountedPrice=" + discountedPrice +
+                ", ownerId=" + ownerId +
+                ", setIsInCart=" + cart +
                 '}';
     }
 }

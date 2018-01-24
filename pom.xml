@@ -128,7 +128,7 @@
                     </goals>
                     <configuration>
                         <workingDirectory>compose</workingDirectory>
-                        <executable>./pg_ready.sh</executable>
+                        <executable>../scripts/pg-ready.sh</executable>
                         <arguments>
                             <argument>docker-compose-immutable-psql.yml</argument>
                         </arguments>

@@ -1,8 +1,5 @@
-<!--
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
--->
-
 <html>
 <head>
     <title>Cruise Company</title>
@@ -11,9 +8,12 @@
 </head>
 <body onload="document.authorization.login.focus();">
 <script src="../js/check_empty_field.js"></script>
-<form name="authorization" action="CruiseServlet?command=login" onsubmit="required()" method="post">
+<form name="authorization" action="Cruise?command=login" onsubmit="required()" method="post">
     <table id="login_table">
         <tbody>
+        <tr id="error_messages">
+            <td align="center">${errors}</td>
+        </tr>
         <tr>
             <td>
                 <table cellpadding="0" cellspacing="20" width="400">
@@ -29,7 +29,8 @@
                         <td class="auth_cell">
                             <input name="password" style="width: 100%;" class="auth" type="password"/>
                         </td>
-                    </tr>
+
+                    <tr></tr>
                     <tr>
                         <td></td>
                         <td class="auth_submit" align="left">
@@ -45,6 +46,9 @@
                 </table>
             </td>
         </tr>
+        <form id="errors">
+
+        </form>
         </tbody>
     </table>
 </form>

@@ -57,4 +57,16 @@ public class Ship {
     public void setCruiseDuration(int cruiseDuration) {
         this.cruiseDuration = cruiseDuration;
     }
+
+    @Override
+    public String toString() {
+        return "Ship{" +
+                "shipId=" + shipId +
+                ", shipName='" + shipName + '\'' +
+                ", cruiseDuration=" + cruiseDuration +
+                ", shipStaff=" + shipStaff +
+                ", ports=" + ports +
+                ", tickets=" + tickets +
+                '}';
+    }
 }
