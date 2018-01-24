@@ -63,4 +63,50 @@ Untracked files:
 
 	[31msrc/test/java/services/client/AddTicketToCartServiceTest.java[m
 	[31msrc/test/java/services/client/BuyExcursionServiceTest.java[m
-	[31msrc/test/java/service
+	[31msrc/test/java/services/client/CheckoutServiceTest.java[m
+	[31msrc/test/java/services/client/ShowCartServiceTest.java[m
+	[31msrc/test/java/services/client/ShowClientInfoServiceTest.java[m
+	[31msrc/test/java/services/client/ShowExcursionsServiceTest.java[m
+	[31mtypescript[m
+
+]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git co[K[Kadd .
+]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git add .status 
+On branch tests
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	[32mmodified:   src/main/java/sbitneva/dao/TicketDao.java[m
+	[32mmodified:   src/main/java/sbitneva/dao/TicketsExcursionsDao.java[m
+	[32mmodified:   src/main/java/sbitneva/entity/Excursion.java[m
+	[32mdeleted:    src/main/java/sbitneva/services/client/BuyTicketService.java[m
+	[32mrenamed:    src/test/java/services/AddTicketToCartServiceTest.java -> src/test/java/services/client/AddTicketToCartServiceTest.java[m
+	[32mnew file:   src/test/java/services/client/BuyExcursionServiceTest.java[m
+	[32mrenamed:    src/test/java/services/CheckoutServiceTest.java -> src/test/java/services/client/CheckoutServiceTest.java[m
+	[32mrenamed:    src/test/java/services/ShowCartServiceTest.java -> src/test/java/services/client/ShowCartServiceTest.java[m
+	[32mrenamed:    src/test/java/services/ShowClientInfoServiceTest.java -> src/test/java/services/client/ShowClientInfoServiceTest.java[m
+	[32mrenamed:    src/test/java/services/ShowCruisesServiceTest.java -> src/test/java/services/client/ShowCruisesServiceTest.java[m
+	[32mrenamed:    src/test/java/services/ShowExcursionsServiceTest.java -> src/test/java/services/client/ShowExcursionsServiceTest.java[m
+	[32mnew file:   src/test/java/services/common/RegistrationServiceTest.java[m
+	[32mnew file:   src/test/java/services/common/ShowServicesServiceTest.java[m
+	[32mnew file:   typescript[m
+
+]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git ci[Kommit - [Km"[K "all clie[K[K[K[K[K[K[K[KClient services tests compl[K[K[K[K[K[K[K[K[K[K[Kunit-tests completed/ [K[K. Common services unit-tests implementation started/\[K[K. 40% covarage"[C covarage"c covarage"o covarage"d covarage"e covarage"[C covarage"
+[tests 93f9dc6] Client services unit-tests completed. Common services unit-tests implementation started. 40% code  covarage
+ 14 files changed, 228 insertions(+), 26 deletions(-)
+ delete mode 100644 src/main/java/sbitneva/services/client/BuyTicketService.java
+ rename src/test/java/services/{ => client}/AddTicketToCartServiceTest.java (98%)
+ create mode 100644 src/test/java/services/client/BuyExcursionServiceTest.java
+ rename src/test/java/services/{ => client}/CheckoutServiceTest.java (98%)
+ rename src/test/java/services/{ => client}/ShowCartServiceTest.java (98%)
+ rename src/test/java/services/{ => client}/ShowClientInfoServiceTest.java (97%)
+ rename src/test/java/services/{ => client}/ShowCruisesServiceTest.java (81%)
+ rename src/test/java/services/{ => client}/ShowExcursionsServiceTest.java (83%)
+ create mode 100644 src/test/java/services/common/RegistrationServiceTest.java
+ create mode 100644 src/test/java/services/common/ShowServicesServiceTest.java
+ create mode 100644 typescript
+]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git push origin tests 
+Username for 'https://github.com': Sbitneva
+Password for 'https://Sbitneva@github.com': 
+Counting objects: 28, done.
+Delta compression using up to 4 threads.
+Compressing objects:   4% (1/25)   Compressing objects:   8% (2/25)   Compressing objects:  12% (3/25)   Compressing objects:  16% (4/25)   Compressing objects:  

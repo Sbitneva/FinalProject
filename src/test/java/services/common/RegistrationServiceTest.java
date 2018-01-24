@@ -4,10 +4,14 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.UserDao;
+import sbitneva.entity.Excursion;
 import sbitneva.services.client.ShowCruisesService;
 import sbitneva.services.common.RegistrationService;
 
 import java.sql.SQLException;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 public class RegistrationServiceTest {
 
@@ -28,17 +32,50 @@ public class RegistrationServiceTest {
         /**
          * Init data for user registration with already existed email
          */
+        /*
         email = "alina.vasilenko@gmail.com";
         password = "5678";
 
-        UserDao userDao = DaoFactory.getUserDao();
+        //UserDao userDao = DaoFactory.getUserDao();
         try {
-            userDao.addNewUser(firstName, lastName, email, password);
-        } catch (SQLException e) {
+            int userId = registrationService.register(firstName, lastName, email, password);
+            assertEquals(0, userId);
+            //userDao.addNewUser(firstName, lastName, email, password);
+        } catch (Exception e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+        */
+    }
+
+    /**
+     * Register user with wrong email string
+     */
+    @Test
+    public void registerTestNotEmailString() {
+        email = "alina.vasilenko@gmail";
+        password = "5678";
+
+        try {
+            int userId = registrationService.register(firstName, lastName, email, password);
+            assertEquals(0, userId);
+        } catch (Exception e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
 
     }
 
-
+    /**
+     * Register user with right data
+     */
+    @Test
+    public void registerTestRightData() {
+        email = "katya@gmail.com";
+        password = "5678";
+        try {
+            int userId = registrationService.register(firstName, lastName, email, password);
+            assertTrue(userId > 0);
+        } catch (Exception e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+        }
+    }
 }
