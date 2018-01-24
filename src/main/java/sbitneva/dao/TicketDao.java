@@ -60,7 +60,8 @@ public class TicketDao {
 
     public void buyTickets(int userId, Cart cart) throws SQLException, TransactionException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
-        Savepoint savepoint = connection.getConnection().setSavepoint("BuyTickets");
+        connection.getConnection().setAutoCommit(false);
+        connection.getConnection().setSavepoint();
         try {
             for (Ticket ticket : cart.getTickets()) {
                 PreparedStatement statement = connection.prepareStatement(BUY_TICKET);

@@ -1,4 +1,4 @@
-package services;
+package services.client;
 
 import org.junit.Test;
 import sbitneva.entity.Client;
