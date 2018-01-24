@@ -1,10 +1,9 @@
-package services.client;
+package services;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
-import sbitneva.dao.TicketsExcursionsDao;
 import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.TransactionException;

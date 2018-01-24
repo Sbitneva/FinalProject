@@ -1,14 +1,8 @@
-package services.common;
+package services;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import sbitneva.dao.DaoFactory;
-import sbitneva.dao.UserDao;
-import sbitneva.entity.Excursion;
-import sbitneva.services.client.ShowCruisesService;
 import sbitneva.services.common.RegistrationService;
-
-import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;

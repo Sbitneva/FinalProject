@@ -1,4 +1,4 @@
-package services.client;
+package services;
 
 import org.junit.Test;
 import sbitneva.dao.DaoFactory;

@@ -1,4 +1,4 @@
-package services.common;
+package services;
 
 import org.junit.Test;
 import sbitneva.entity.Ship;
