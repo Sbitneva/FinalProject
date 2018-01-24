@@ -24,13 +24,13 @@ public class ShowStaffService {
     }
 
     public ArrayList<Staff> getStaff(int shipId) {
-        ArrayList<Staff> staff = null;
+        ArrayList<Staff> staff;
         StaffDao staffDao = DaoFactory.getStaffDao();
         try {
             staff = staffDao.getStaff(shipId);
-
         } catch (SQLException e) {
-
+            staff = null;
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return staff;
     }
