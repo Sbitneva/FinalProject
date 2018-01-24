@@ -1,0 +1,123 @@
+# client/cart.jsp
+
+client.cart.tickets_table.title=Your Cart:
+client.cart.tickets_table.ticket_id=Ticket Id
+client.cart.tickets_table.ship_name=Ship Name
+client.cart.tickets_table.cruise_duration=Cruise Duration
+client.cart.tickets_table.comfort_level=Comfort Level
+client.cart.tickets_table.price=Price
+client.cart.tickets_table.discount=Discount
+client.cart.tickets_table.discounted_price=Discounted Price
+
+client.cart.subtotal.title=Subtotal
+client.cart.subtotal.subtotal_with_discount=Subtotal with discount
+
+client.cart.checkout_form.checkout_button=CHECK OUT
+
+client.cart.deleted_tickets_table.title=This tickets are not available anymore and deleted from your cart:
+client.cart.deleted_tickets_table.ticket_id=Ticket Id
+client.cart.deleted_tickets_table.ship_name=Ship Name
+client.cart.deleted_tickets_table.cruise_duration=Cruise Duration
+client.cart.deleted_tickets_table.comfort_level=Comfort Level
+
+# client/checkout-success.jsp
+
+client.checkout-success.continue_shopping.title=CHECKOUT Completed!
+client.checkout-success.continue_shopping.continue_shopping_button=CONTINUE SHOPPING
+
+# client/client-page.jsp
+
+client.client-page.show_cart.show_cart_button=Tickets Cart
+client.client-page.logout.logout_button=logout
+client.client-page.buy_ticket_form.buy_ticket_button=Buy new Ticket
+
+client.client-page.tickets_table.titile=Your purchased tickets:
+client.client-page.tickets_table.ticket_id=Ticket Id
+client.client-page.tickets_table.ship_name=Ship Name
+client.client-page.tickets_table.cruise_duration=Cruise Duration
+client.client-page.tickets_table.comfort_level=Comfort Level
+client.client-page.tickets_table.additional_properties=Additional properties
+client.client-page.tickets_table.show_services.show=Show services
+client.client-page.tickets_table.buy_excursion_form.buy_excursion_button=Buy new Excursion
+
+client.client-page.excursions_table.title=Your purchased excursions:
+client.client-page.excursions_table.ticket_id=Ticket Id
+client.client-page.excursions_table.excursion_name=Excursion Name
+client.client-page.excursions_table.ship_name=Cruise Ship Name
+client.client-page.excursions_table.port=Port
+
+# client/cruises.jsp
+
+client.cruises.ships_table.title=Available cruises:
+client.cruises.ships_table.ship_id=Ship Id
+client.cruises.ships_table.ship_name=Ship Name
+client.cruises.ships_table.cruise_duration=Cruise Duration
+client.cruises.ships_table.additional_properties=Additional properties
+client.cruises.ships_table.show_tickets_form.show_tickets_button=Show tickets
+
+# client/excursions.jsp
+
+client.excursions.excursions_table.title=Select Excursions:
+client.excursions.excursions_table.excursion_name=Excursion Name
+client.excursions.excursions_table.port_name=Port Name
+client.excursions.excursions_table.price=Price
+client.excursions.excursions_table.additional_properties=Additional properties
+client.excursions.excursions_table.buy_excursion_form.buy_excursion_button=Buy new Excursion
+
+# client/tickets.jsp
+
+client.tickets.menu-table.show_cart.show_cart_button=Tickets Cart
+client.tickets.menu-table.buy_ticket_form.buy_ticket_button=Buy new Ticket
+client.tickets.menu-table.logout.logout_button=logout
+
+client.tickets.ship_form.cruise_duration=Cruise duration: 
+
+client.tickets.ship_table.ticket_id=Ticket Id
+client.tickets.ship_table.comfort_level=Comfort Level
+client.tickets.ship_table.discount=Discount
+client.tickets.ship_table.price=Price
+client.tickets.ship_table.check_to_buy=Check to Buy
+client.tickets.ship_table.show_services.show=Show services
+client.tickets.ship_table.add_to_cart_form.add_to_cart_button=Add to cart
+client.tickets.ship_table.add_to_cart_form.add_to_cart_button.in_cart=In cart
+client.tickets.ship_table.current_page=Current Page
+
+# registration/registration.jsp
+
+registration.title=Registration
+registration.first_name=First Name
+registration.last_name=Last Name
+registration.email=Email
+registration.password=Password
+registration.send=Send
+
+# ship-administrator/ship-info.jsp
+
+ship-administrator.ship-info.staff_button.staff=Show ships staff
+ship-administrator.ship-info.tickets_table.ticket_id=Ticket Id
+ship-administrator.ship-info.tickets_table.comfort_level=Comfort Level
+ship-administrator.ship-info.tickets_table.discount=Discount %
+ship-administrator.ship-info.tickets_table.price=Price
+ship-administrator.ship-info.tickets_table.show_services.show=Show services
+ship-administrator.ship-info.tickets_table.apply_discount.submit=Apply discount
+ship-administrator.ship-info.tickets_table.current_page=Current page
+
+# ship-administrator/staff.jsp
+
+ship-administrator.staff.staff_table.title=Ship staff
+ship-administrator.staff.staff_table.id=Id
+ship-administrator.staff.staff_table.first_name=First name
+ship-administrator.staff.staff_table.last_name=Last name
+ship-administrator.staff.staff_table.position=Position
+
+# comfort-level-services.jsp
+
+comfort-level-services.services_table.title=Comfort level
+comfort-level-services.services_table.services=Services
+
+# index.jsp
+
+authorization.login_table.email=Email
+authorization.login_table.password=Password
+authorization.login_table.auth_submit_button=Sign in
+authorization.login_table.registration=Registration
