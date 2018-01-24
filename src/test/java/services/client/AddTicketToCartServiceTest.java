@@ -1,8 +1,10 @@
 package services.client;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
+import sbitneva.dao.TicketsExcursionsDao;
 import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.TransactionException;
@@ -15,9 +17,12 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class AddTicketToCartServiceTest {
+
+    private static Logger log = Logger.getLogger(AddTicketToCartServiceTest.class.getName());
+
     private AddTicketToCartService addTicketToCartService = AddTicketToCartService.getAddTicketToCartService();
     private ArrayList<Ticket> tickets = new ArrayList<>();
-    private int userId = 3;
+    private int userId = 6;
 
     @Test
     public void addTest(){
@@ -58,7 +63,7 @@ public class AddTicketToCartServiceTest {
             TransactionManager.endTransaction();
 
         }catch (SQLException | TransactionException e){
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 }
