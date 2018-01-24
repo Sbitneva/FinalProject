@@ -41,6 +41,11 @@ public class CheckoutService {
 
         } catch (SQLException | TransactionException e) {
             isSuccessful = false;
+            try {
+                TransactionManager.rollbackTransaction();
+            } catch (TransactionException e1){
+                log.error(e1.getClass().getSimpleName() + " : " + e.getMessage());
+            }
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         return isSuccessful;

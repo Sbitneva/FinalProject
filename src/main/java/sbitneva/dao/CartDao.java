@@ -60,8 +60,8 @@ public class CartDao {
                     throw new TransactionException("Can't delete row from carts table");
                 }
             }
-        } catch (SQLException | TransactionException e) {
-            TransactionManager.rollbackTransaction();
+        } catch (SQLException e) {
+
         }
         return result;
     }

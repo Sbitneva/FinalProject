@@ -12,9 +12,10 @@ public class ConnectionPoolWrapper {
     public ConnectionPoolWrapper(Connection connection, boolean isTransaction) throws SQLException {
         this.connection = ConnectionPool.getConnection();
         this.isTransaction = isTransaction;
+
     }
 
-    Connection getConnection() {
+    public Connection getConnection() {
         return connection;
     }
 
@@ -27,4 +28,5 @@ public class ConnectionPoolWrapper {
     public PreparedStatement prepareStatement(String sql) throws SQLException {
         return connection.prepareStatement(sql);
     }
+
 }
