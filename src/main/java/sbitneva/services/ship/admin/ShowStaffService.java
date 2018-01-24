@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ShowStaffService {
 
-    private static Logger log = Logger.getLogger(ShipAdminService.class.getName());
+    private static Logger log = Logger.getLogger(ShowStaffService.class.getName());
 
     private static ShowStaffService showStaffService = new ShowStaffService();
 

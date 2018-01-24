@@ -27,7 +27,7 @@ public class AddTicketToCartServiceTest {
              * Getting user cart from db
              */
             Cart cart = cartDao.getUserCart(userId);
-            assertEquals(4, cart.getTickets().size());
+            assertEquals(5, cart.getTickets().size());
 
             /**
              * Add new ticket into array list
@@ -47,7 +47,7 @@ public class AddTicketToCartServiceTest {
             /**
              * Expecting cart size increasing after previous operations
              */
-            assertEquals(5, cart.getTickets().size());
+            assertEquals(6, cart.getTickets().size());
 
             /**
              * Restoring db state

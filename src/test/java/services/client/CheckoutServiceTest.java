@@ -25,7 +25,7 @@ public class CheckoutServiceTest {
              * Users cart before checking out
              */
             Cart cartBeforeCheckout =  cartDao.getUserCart(USER_ID);
-            assertEquals(4, cartBeforeCheckout.getTickets().size());
+            assertEquals(5, cartBeforeCheckout.getTickets().size());
 
             TicketDao ticketDao = DaoFactory.getTicketDao();
             int ticketsShip1Before = ticketDao.getAvailableTicketsNumber(1);

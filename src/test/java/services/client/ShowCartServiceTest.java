@@ -28,7 +28,7 @@ public class ShowCartServiceTest {
         //getting cart by userId
         Cart cart = showCartService.getCart(USER_ID);
         assertEquals(2, cart.getTickets().size());
-        assertEquals(2, cart.getDeletedTickets().size());
+        assertEquals(3, cart.getDeletedTickets().size());
 
         CartDao cartDao = DaoFactory.getCartDao();
         try {

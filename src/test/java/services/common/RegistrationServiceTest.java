@@ -32,19 +32,18 @@ public class RegistrationServiceTest {
         /**
          * Init data for user registration with already existed email
          */
-        /*
+
         email = "alina.vasilenko@gmail.com";
         password = "5678";
 
-        //UserDao userDao = DaoFactory.getUserDao();
         try {
             int userId = registrationService.register(firstName, lastName, email, password);
             assertEquals(0, userId);
-            //userDao.addNewUser(firstName, lastName, email, password);
         } catch (Exception e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
-        */
+
+
     }
 
     /**

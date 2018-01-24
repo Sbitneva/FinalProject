@@ -1,112 +1,0 @@
-Script started on ср, 24-січ-2018 13:15:58 +0200
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git checkout master ]]]]]]]]]]]]][K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kscripts
-No command 'scripts' found, did you mean:
- Command 'script6' from package 'ipv6toolkit' (universe)
- Command 'script' from package 'bsdutils' (main)
-scripts: command not found
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ scriptsgit checkout master [6Ppull --all[Kstatusreset --hard origin/commands-cleanup pull [Kstatus[1Ppull [32@reset --hard origin/commands-cleanup[Cpull [Kstatusbranch --set-upstream-to=origin/commands-cleanup commands-cleanup [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpull --all[K[4Pstatusrm reset-immutable-db.sh [15Pgit statusrm reset-immutable-db.sh [15Pgit statusrm app.log*[1Pgit statuscd ~/Documents/MavenProjects/FinalProject/../../[Kjava -jar target/cruise-company-1.0-SNAPSHOT.jar [K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Kdb ..[K[K[1@c[C[1@d[1@ 
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/db[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/db[00m$ cd db scriptsgit checkout master [6Ppull --all[Kstatusreset --hard origin/commands-cleanup pull [Kstatusbranch --set-upstream-to=origin/commands-cleanup commands-cleanup [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpull --all[K[4Pstatusrm reset-immutable-db.sh [15Pgit statusrm app.log*[1Pgit statuscd ~/Documents/MavenProjects/FinalProject/git status[Krm app.log*[1Pgit statusrm app.log*[1Pgit statuscd ~/Documents/MavenProjects/FinalProject/../../[Kjava -jar target/cruise-company-1.0-SNAPSHOT.jar cd ..[Kjava -jar ../target/cruise-company-1.0-SNAPSHOT.jar [19P../scripts/immutable-db-reset.sh[C
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-c [31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-^C]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/db[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/db[00m$ cd ..
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ scr\\\\[K[K[K[K[K[K[Kcd scripts/
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/scripts[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/scripts[00m$ cd scripts/..[K../scripts/immutable-db-reset.sh 
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-[31mERROR[0m: .IOError: [Errno 2] No such file or directory: u'./docker-compose-immutable-psql.yml'
-^C]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/scripts[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/scripts[00m$ ../scripts/immutable-db-reset.sh [22Pcd scripts/cd[K[K[K[K[K[K[K[K[K[K[K[K[Kcd ../
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ cd compose/
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/compose[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/compose[00m$ cd compose[K[K[K[K[K[K[Kimm[K[K[K[K[K[Kcd compose/[5P../../scripts/immutable-db-reset.sh [22Pcd scripts/../scripts/immutable-db-reset.sh 
-Stopping postgres ... 
-[1A[2KStopping postgres ... [32mdone[0m[1BRemoving postgres ... 
-[1A[2KRemoving postgres ... [32mdone[0m[1BRemoving network compose_default
-Creating network "compose_default" with the default driver
-Creating postgres ... 
-[1A[2KCreating postgres ... [32mdone[0m[1B/var/run/postgresql:5432 - no response
-/var/run/postgresql:5432 - no response
-/var/run/postgresql:5432 - accepting connections
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject/compose[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject/compose[00m$ cd //[K[K../
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git a[Kstatus 
-On branch tests
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	[32mdeleted:    src/main/java/sbitneva/services/client/BuyTicketService.java[m
-	[32mnew file:   src/test/java/services/BuyExcursionServiceTest.java[m
-	[32mrenamed:    src/test/java/services/ShowCruisesServiceTest.java -> src/test/java/services/client/ShowCruisesServiceTest.java[m
-	[32mnew file:   src/test/java/services/common/RegistrationServiceTest.java[m
-	[32mnew file:   src/test/java/services/common/ShowServicesServiceTest.java[m
-
-Changes not staged for commit:
-  (use "git add/rm <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	[31mmodified:   src/main/java/sbitneva/dao/TicketDao.java[m
-	[31mmodified:   src/main/java/sbitneva/dao/TicketsExcursionsDao.java[m
-	[31mmodified:   src/main/java/sbitneva/entity/Excursion.java[m
-	[31mdeleted:    src/test/java/services/AddTicketToCartServiceTest.java[m
-	[31mdeleted:    src/test/java/services/BuyExcursionServiceTest.java[m
-	[31mdeleted:    src/test/java/services/CheckoutServiceTest.java[m
-	[31mdeleted:    src/test/java/services/ShowCartServiceTest.java[m
-	[31mdeleted:    src/test/java/services/ShowClientInfoServiceTest.java[m
-	[31mdeleted:    src/test/java/services/ShowExcursionsServiceTest.java[m
-	[31mmodified:   src/test/java/services/client/ShowCruisesServiceTest.java[m
-	[31mmodified:   src/test/java/services/common/RegistrationServiceTest.java[m
-	[31mmodified:   src/test/java/services/common/ShowServicesServiceTest.java[m
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	[31msrc/test/java/services/client/AddTicketToCartServiceTest.java[m
-	[31msrc/test/java/services/client/BuyExcursionServiceTest.java[m
-	[31msrc/test/java/services/client/CheckoutServiceTest.java[m
-	[31msrc/test/java/services/client/ShowCartServiceTest.java[m
-	[31msrc/test/java/services/client/ShowClientInfoServiceTest.java[m
-	[31msrc/test/java/services/client/ShowExcursionsServiceTest.java[m
-	[31mtypescript[m
-
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git co[K[Kadd .
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git add .status 
-On branch tests
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	[32mmodified:   src/main/java/sbitneva/dao/TicketDao.java[m
-	[32mmodified:   src/main/java/sbitneva/dao/TicketsExcursionsDao.java[m
-	[32mmodified:   src/main/java/sbitneva/entity/Excursion.java[m
-	[32mdeleted:    src/main/java/sbitneva/services/client/BuyTicketService.java[m
-	[32mrenamed:    src/test/java/services/AddTicketToCartServiceTest.java -> src/test/java/services/client/AddTicketToCartServiceTest.java[m
-	[32mnew file:   src/test/java/services/client/BuyExcursionServiceTest.java[m
-	[32mrenamed:    src/test/java/services/CheckoutServiceTest.java -> src/test/java/services/client/CheckoutServiceTest.java[m
-	[32mrenamed:    src/test/java/services/ShowCartServiceTest.java -> src/test/java/services/client/ShowCartServiceTest.java[m
-	[32mrenamed:    src/test/java/services/ShowClientInfoServiceTest.java -> src/test/java/services/client/ShowClientInfoServiceTest.java[m
-	[32mrenamed:    src/test/java/services/ShowCruisesServiceTest.java -> src/test/java/services/client/ShowCruisesServiceTest.java[m
-	[32mrenamed:    src/test/java/services/ShowExcursionsServiceTest.java -> src/test/java/services/client/ShowExcursionsServiceTest.java[m
-	[32mnew file:   src/test/java/services/common/RegistrationServiceTest.java[m
-	[32mnew file:   src/test/java/services/common/ShowServicesServiceTest.java[m
-	[32mnew file:   typescript[m
-
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git ci[Kommit - [Km"[K "all clie[K[K[K[K[K[K[K[KClient services tests compl[K[K[K[K[K[K[K[K[K[K[Kunit-tests completed/ [K[K. Common services unit-tests implementation started/\[K[K. 40% covarage"[C covarage"c covarage"o covarage"d covarage"e covarage"[C covarage"
-[tests 93f9dc6] Client services unit-tests completed. Common services unit-tests implementation started. 40% code  covarage
- 14 files changed, 228 insertions(+), 26 deletions(-)
- delete mode 100644 src/main/java/sbitneva/services/client/BuyTicketService.java
- rename src/test/java/services/{ => client}/AddTicketToCartServiceTest.java (98%)
- create mode 100644 src/test/java/services/client/BuyExcursionServiceTest.java
- rename src/test/java/services/{ => client}/CheckoutServiceTest.java (98%)
- rename src/test/java/services/{ => client}/ShowCartServiceTest.java (98%)
- rename src/test/java/services/{ => client}/ShowClientInfoServiceTest.java (97%)
- rename src/test/java/services/{ => client}/ShowCruisesServiceTest.java (81%)
- rename src/test/java/services/{ => client}/ShowExcursionsServiceTest.java (83%)
- create mode 100644 src/test/java/services/common/RegistrationServiceTest.java
- create mode 100644 src/test/java/services/common/ShowServicesServiceTest.java
- create mode 100644 typescript
-]0;mariia@V5-573G: ~/Documents/MavenProjects/FinalProject[01;32mmariia@V5-573G[00m:[01;34m~/Documents/MavenProjects/FinalProject[00m$ git push origin tests 
-Username for 'https://github.com': Sbitneva
-Password for 'https://Sbitneva@github.com': 
-Counting objects: 28, done.
-Delta compression using up to 4 threads.
-Compressing objects:   4% (1/25)   Compressing objects:   8% (2/25)   Compressing objects:  12% (3/25)   Compressing objects:  16% (4/25)   Compressing objects:  
