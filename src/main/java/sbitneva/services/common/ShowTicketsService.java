@@ -34,11 +34,9 @@ public class ShowTicketsService {
                 ship = shipDao.getBasicShipData(shipId);
                 if (ship != null) {
                     ArrayList<Ticket> tickets = getTickets(shipId, pageId);
-
                     if (tickets != null) {
                         ship.setTickets(tickets);
                         ship.setPorts(getShipPorts(shipId));
-
                     }
                 }
             }
