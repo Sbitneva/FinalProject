@@ -453,6 +453,7 @@ COPY carts (id, user_id_carts, ticket_id) FROM stdin;
 5	2	44
 17	2	41
 18	2	2
+19	2	3
 \.
 
 
@@ -460,7 +461,7 @@ COPY carts (id, user_id_carts, ticket_id) FROM stdin;
 -- Name: carts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('carts_id_seq', 18, true);
+SELECT pg_catalog.setval('carts_id_seq', 19, true);
 
 
 --
@@ -752,6 +753,14 @@ ALTER TABLE ONLY carts
 
 ALTER TABLE ONLY comfort_levels
     ADD CONSTRAINT comfort_levels_pk PRIMARY KEY (comfort_level_id);
+
+
+--
+-- Name: email_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT email_pk UNIQUE (email);
 
 
 --
