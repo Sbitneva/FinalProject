@@ -3,7 +3,6 @@ package commands.ship.admin;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.servlets.ServletDispatcher;
 
 import javax.servlet.RequestDispatcher;
@@ -14,10 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static sbitneva.command.CommandsHelper.*;
+import static org.mockito.Mockito.*;
+import static sbitneva.command.CommandsHelper.SHIP_ID;
 import static sbitneva.command.factory.FactoryCommand.GET_STAFF;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 
@@ -31,7 +28,7 @@ public class ShowStaffCommandTest {
 
 
     @Before
-    public void setUp(){
+    public void setUp() {
         when(request.getSession()).thenReturn(session);
         when(request.getParameter(PARAM_NAME_COMMAND)).thenReturn(GET_STAFF);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);

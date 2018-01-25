@@ -7,12 +7,13 @@ import sbitneva.services.client.ShowClientInfoService;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ShowClientInfoServiceTest {
-    private ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
     private final int USER_ID = 2;
     private final int ADMIN_ID = 1;
+    private ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
 
     @Test
     public void getClientTest() {
@@ -28,7 +29,7 @@ public class ShowClientInfoServiceTest {
              */
             client = showClientInfoService.getClient(ADMIN_ID);
             assertNull(client);
-        }catch (SQLException | DaoException e) {
+        } catch (SQLException | DaoException e) {
 
         }
     }

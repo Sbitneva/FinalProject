@@ -10,16 +10,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static sbitneva.command.CommandsHelper.COMFORT_ID;
 import static sbitneva.command.factory.FactoryCommand.GET_SERVICES;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
-import static sbitneva.command.CommandsHelper.*;
 
 public class ShowServicesCommandTest {
 
@@ -31,14 +28,14 @@ public class ShowServicesCommandTest {
     private RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         when(request.getSession()).thenReturn(session);
         when(request.getParameter(PARAM_NAME_COMMAND)).thenReturn(GET_SERVICES);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
     }
 
     @Test
-    public void executeWithNotExistedComfortLevelId() throws ServletException, IOException{
+    public void executeWithNotExistedComfortLevelId() throws ServletException, IOException {
         when(request.getParameter(COMFORT_ID)).thenReturn(null);
         ServletDispatcher servletDispatcher = new ServletDispatcher();
         servletDispatcher.init();
@@ -46,7 +43,7 @@ public class ShowServicesCommandTest {
     }
 
     @Test
-    public void executeWithCorrectParameters() throws ServletException, IOException{
+    public void executeWithCorrectParameters() throws ServletException, IOException {
         when(request.getParameter(COMFORT_ID)).thenReturn("16");
         ServletDispatcher servletDispatcher = new ServletDispatcher();
         servletDispatcher.init();
@@ -54,7 +51,7 @@ public class ShowServicesCommandTest {
     }
 
     @Test
-    public void executeWithBadCorrectParameters() throws ServletException, IOException{
+    public void executeWithBadCorrectParameters() throws ServletException, IOException {
         when(request.getParameter(COMFORT_ID)).thenReturn("kuhijo454");
         ServletDispatcher servletDispatcher = new ServletDispatcher();
         servletDispatcher.init();

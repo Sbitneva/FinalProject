@@ -12,13 +12,13 @@ import static org.junit.Assert.assertEquals;
 public class ShowServicesServiceTest {
 
 
-    private ShowServicesService showServicesService = ShowServicesService.getShowTicketsService();
     private final int COMFORT_LEVEL_ID = 1;
+    private ShowServicesService showServicesService = ShowServicesService.getShowTicketsService();
 
     @Test
     public void getServicesTest() {
         ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-        try{
+        try {
             int expectedServicesNumber = comfortLevelDao.getComfortLevelInfo(COMFORT_LEVEL_ID).size();
             int actualServicesNumber = showServicesService.getServices(COMFORT_LEVEL_ID).getServices().size();
             assertEquals(expectedServicesNumber, actualServicesNumber);

@@ -24,9 +24,9 @@ public class AddTicketToCartServiceTest {
     private int userId = 6;
 
     @Test
-    public void addTest(){
+    public void addTest() {
         CartDao cartDao = DaoFactory.getCartDao();
-        try{
+        try {
             /**
              * Getting user cart from db
              */
@@ -61,7 +61,7 @@ public class AddTicketToCartServiceTest {
             cartDao.cleanCart(tickets, userId);
             TransactionManager.endTransaction();
 
-        }catch (SQLException | TransactionException e){
+        } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }

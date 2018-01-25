@@ -5,26 +5,24 @@ import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
 import sbitneva.entity.Cart;
-import sbitneva.entity.Ticket;
-import sbitneva.exception.TransactionException;
 import sbitneva.services.client.CheckoutService;
-import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 
 public class CheckoutServiceTest {
-    CheckoutService checkoutService = CheckoutService.getCheckoutService();
     private final int USER_ID = 2;
+    CheckoutService checkoutService = CheckoutService.getCheckoutService();
+
     @Test
-    public void doCheckout(){
+    public void doCheckout() {
         CartDao cartDao = DaoFactory.getCartDao();
-        try{
+        try {
             /**
              * Users cart before checking out
              */
-            Cart cartBeforeCheckout =  cartDao.getUserCart(USER_ID);
+            Cart cartBeforeCheckout = cartDao.getUserCart(USER_ID);
             assertEquals(5, cartBeforeCheckout.getTickets().size());
 
             TicketDao ticketDao = DaoFactory.getTicketDao();
@@ -39,10 +37,10 @@ public class CheckoutServiceTest {
             assertEquals(ticketsShip1Before, ticketsShip1After);
             assertEquals(ticketsShip2Before, ticketsShip2After);
 
-            Cart cartAfterCheckout =  cartDao.getUserCart(USER_ID);
+            Cart cartAfterCheckout = cartDao.getUserCart(USER_ID);
             assertEquals(cartBeforeCheckout.getTickets().size(), cartAfterCheckout.getTickets().size());
 
-        }catch (SQLException e) {
+        } catch (SQLException e) {
 
         }
 

@@ -19,21 +19,21 @@ public class ShowTicketsServiceTest {
     private int SHIP_ID = 1;
 
     @Test
-    public void getShipTest(){
+    public void getShipTest() {
         Ship ship = showTicketsService.getShip(ADMIN_ID, PAGE);
         assertNotNull(ship);
         assertEquals(9, ship.getTickets().size());
     }
 
     @Test
-    public void getShipForClientTest(){
+    public void getShipForClientTest() {
         Ship ship = showTicketsService.getShipForClient(SHIP_ID, 1);
         assertNotNull(ship);
         assertEquals(9, ship.getTickets().size());
     }
 
     @Test
-    public void getShipForClientWrongShipIdTest(){
+    public void getShipForClientWrongShipIdTest() {
         Ship ship = showTicketsService.getShipForClient(7, 1);
         assertNull(ship);
     }

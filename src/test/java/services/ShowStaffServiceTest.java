@@ -14,7 +14,7 @@ public class ShowStaffServiceTest {
     private ShowStaffService showStaffService = ShowStaffService.getShowStaffService();
 
     @Test
-    public void getStaffWithCorrectShipId(){
+    public void getStaffWithCorrectShipId() {
         int SHIP_ID = 1;
         ArrayList<Staff> staff = showStaffService.getStaff(SHIP_ID);
         assertNotNull(staff);
@@ -22,7 +22,7 @@ public class ShowStaffServiceTest {
     }
 
     @Test
-    public void getStaffWithWrongShipId(){
+    public void getStaffWithWrongShipId() {
         int SHIP_ID = 5;
         ArrayList<Staff> staff = showStaffService.getStaff(SHIP_ID);
         assertEquals(0, staff.size());
