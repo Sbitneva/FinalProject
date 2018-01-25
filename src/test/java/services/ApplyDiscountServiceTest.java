@@ -3,9 +3,12 @@ package services;
 import org.junit.Test;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
+import sbitneva.entity.Ticket;
 import sbitneva.services.ship.admin.ApplyDiscountService;
 
 import java.sql.SQLException;
+
+import static org.junit.Assert.assertEquals;
 
 public class ApplyDiscountServiceTest {
 
@@ -20,8 +23,15 @@ public class ApplyDiscountServiceTest {
         discount = 10;
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
-            //ticketDao.
+            Ticket ticket = new Ticket(ticketId);
+            ticketDao.setTicketProperties(ticket);
+            int discountBefore = ticket.getDiscount();
             applyDiscountService.setDiscount(ticketId, discount);
+            ticketDao.setTicketProperties(ticket);
+            int discountAfter = ticket.getDiscount();
+            assertEquals(0, discountBefore);
+            assertEquals(discount, discountAfter);
+
         } catch(Exception e) {
 
         }
