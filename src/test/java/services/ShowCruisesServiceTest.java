@@ -1,10 +1,8 @@
 package services;
 
-import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.entity.Ship;
 import sbitneva.services.client.ShowCruisesService;
-import sbitneva.transactions.ConnectionPool;
 
 import java.util.ArrayList;
 
@@ -16,7 +14,7 @@ public class ShowCruisesServiceTest {
     ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
 
     @Test
-    public void getCruiseShipsTest(){
+    public void getCruiseShipsTest() {
         ArrayList<Ship> ships = showCruisesService.getCruiseShips();
         assertEquals(2, ships.size());
     }

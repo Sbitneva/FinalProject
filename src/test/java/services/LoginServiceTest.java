@@ -23,7 +23,7 @@ public class LoginServiceTest {
         Client client = loginService.getUser(email, password);
 
         assertNotNull(client);
-        if(client != null) {
+        if (client != null) {
             assertEquals(2, client.getClientId());
         }
     }

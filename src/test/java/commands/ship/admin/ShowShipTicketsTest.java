@@ -11,15 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
+import static org.mockito.Mockito.*;
 import static sbitneva.command.CommandsHelper.*;
+import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 import static sbitneva.command.factory.FactoryCommand.SHOW_SHIP;
 
 public class ShowShipTicketsTest {
@@ -32,14 +29,14 @@ public class ShowShipTicketsTest {
     private RequestDispatcher requestDispatcher = mock(RequestDispatcher.class);
 
     @Before
-    public void setUp(){
+    public void setUp() {
         when(request.getSession()).thenReturn(session);
         when(request.getParameter(PARAM_NAME_COMMAND)).thenReturn(SHOW_SHIP);
         when(request.getRequestDispatcher(anyString())).thenReturn(requestDispatcher);
     }
 
     @Test
-    public void executeWithCorrectClientParameters() throws ServletException, IOException{
+    public void executeWithCorrectClientParameters() throws ServletException, IOException {
         when(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE)).thenReturn(2);
         when(request.getParameter(SHIP_ID)).thenReturn("2");
         when(request.getSession().getAttribute(USER_TYPE_SESSION_ATTRIBUTE)).thenReturn(SecurityConfiguration.CLIENT_TYPE);
@@ -49,7 +46,7 @@ public class ShowShipTicketsTest {
     }
 
     @Test
-    public void executeWithCorrectShipAdminParameters() throws ServletException, IOException{
+    public void executeWithCorrectShipAdminParameters() throws ServletException, IOException {
         when(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE)).thenReturn(1);
         when(request.getParameter(SHIP_ID)).thenReturn("1");
         when(request.getSession().getAttribute(USER_TYPE_SESSION_ATTRIBUTE)).thenReturn(SecurityConfiguration.SHIP_ADMIN_TYPE);
@@ -59,7 +56,7 @@ public class ShowShipTicketsTest {
     }
 
     @Test
-    public void executeWithWrongClientParameters() throws ServletException, IOException{
+    public void executeWithWrongClientParameters() throws ServletException, IOException {
         when(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE)).thenReturn("iejioejfio");
         when(request.getParameter(SHIP_ID)).thenReturn("1");
         when(request.getSession().getAttribute(USER_TYPE_SESSION_ATTRIBUTE)).thenReturn(null);
@@ -69,7 +66,7 @@ public class ShowShipTicketsTest {
     }
 
     @Test
-    public void executeWithWrongShipAdminParameters() throws ServletException, IOException{
+    public void executeWithWrongShipAdminParameters() throws ServletException, IOException {
         when(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE)).thenReturn(1);
         /**
          * Wrong shipId

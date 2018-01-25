@@ -10,16 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static sbitneva.command.factory.FactoryCommand.LOGOUT;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
-import static sbitneva.command.factory.FactoryCommand.REGISTRATION;
 
 public class LogoutCommandTest {
 
@@ -38,7 +34,7 @@ public class LogoutCommandTest {
     }
 
     @Test
-    public void logoutTestWithoutSessionParameters() throws ServletException, IOException{
+    public void logoutTestWithoutSessionParameters() throws ServletException, IOException {
         when(request.getSession().getAttribute(anyString())).thenReturn(null);
         ServletDispatcher servletDispatcher = new ServletDispatcher();
         servletDispatcher.init();

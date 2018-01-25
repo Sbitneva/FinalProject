@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class ShowCartServiceTest {
+    private final int USER_ID = 4;
     private ShowCartService showCartService = ShowCartService.getShowCartService();
     private ArrayList<Ticket> tickets = new ArrayList<>();
-    private final int USER_ID = 4;
 
     @Test
-    public void getCartTest(){
+    public void getCartTest() {
         /**
          * Init Not available tickets for adding to cart
          */
@@ -40,7 +40,7 @@ public class ShowCartServiceTest {
             /**
              * Adding tickets to user cart
              */
-            for(Ticket ticket : tickets){
+            for (Ticket ticket : tickets) {
                 cartDao.addTicketToCart(USER_ID, ticket.getTicketId());
             }
             /**
@@ -62,7 +62,7 @@ public class ShowCartServiceTest {
             cart = cartDao.getUserCart(USER_ID);
             assertEquals(0, cart.getTickets().size());
 
-        } catch (SQLException | TransactionException e){
+        } catch (SQLException | TransactionException e) {
 
         }
     }
