@@ -34,6 +34,7 @@ public class StaffDao {
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
+        connection.close();
         return staff;
     }
 }
