@@ -46,7 +46,7 @@ public class PortDao {
                 ports.add(port);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return ports;

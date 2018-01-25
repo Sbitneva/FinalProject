@@ -32,7 +32,7 @@ public class StaffDao {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         return staff;
     }

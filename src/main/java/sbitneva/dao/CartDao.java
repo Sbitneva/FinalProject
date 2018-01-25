@@ -61,7 +61,7 @@ public class CartDao {
                 }
             }
         } catch (SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         return result;
     }

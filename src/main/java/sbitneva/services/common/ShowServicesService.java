@@ -24,9 +24,8 @@ public class ShowServicesService {
     public ComfortLevel getServices(int comfortLevelId) {
         ComfortLevel comfortLevel = null;
         ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
-        BasicDao basicDao = DaoFactory.getBasicDao();
         try {
-            String clName = basicDao.getNameById(GET_COMFORT_LEVEL_NAME, comfortLevelId);
+            String clName = BasicDao.getNameById(GET_COMFORT_LEVEL_NAME, comfortLevelId);
             if (clName != null) {
                 comfortLevel = new ComfortLevel();
                 comfortLevel.setComfortLevelId(comfortLevelId);

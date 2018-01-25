@@ -38,7 +38,7 @@ public class ExcursionDao {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         con.close();
         return excursions;
@@ -62,7 +62,7 @@ public class ExcursionDao {
                 excursions.add(excursion);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
 
         }
         connection.close();
