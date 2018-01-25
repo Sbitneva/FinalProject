@@ -19,10 +19,11 @@ public class LoginCommand implements Command {
     private static Logger log = Logger.getLogger(LoginCommand.class.getName());
 
     private StringBuffer errors = new StringBuffer();
-    private boolean isFullRequest = false;
+    public static boolean isFullRequest = false;
+
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws LoginException {
+    public void execute(HttpServletRequest request, HttpServletResponse response) {
         log.debug("Login command starts execution");
         String email = request.getParameter(CommandsHelper.EMAIL);
         String password = request.getParameter(CommandsHelper.PASSWORD);
@@ -54,7 +55,7 @@ public class LoginCommand implements Command {
                     default:
                         errors.append("Service has no users with given login and password");
                 }
-            } catch (IOException | ServletException e) {
+            } catch (IOException | ServletException | LoginException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }

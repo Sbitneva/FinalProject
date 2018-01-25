@@ -3,6 +3,8 @@ package sbitneva.services.ship.admin;
 import org.apache.log4j.Logger;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
+import sbitneva.exception.TransactionException;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
@@ -20,12 +22,12 @@ public class ApplyDiscountService {
         return applyDiscountService;
     }
 
-    public boolean setDiscount(int ticketId, int discount) {
+    public boolean setDiscount(int ticketId, int discount, int shipId) {
         boolean result = false;
         if ((discount >= 0) && (discount <= 99)) {
             TicketDao ticketDao = DaoFactory.getTicketDao();
             try {
-                int n = ticketDao.updateDiscount(ticketId, discount);
+                int n = ticketDao.updateDiscount(ticketId, discount, shipId);
                 if (n == 1) {
                     result = true;
                 }

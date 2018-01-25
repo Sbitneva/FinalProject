@@ -13,11 +13,15 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class TicketDao {
+
+    private static Logger log = Logger.getLogger(TicketDao.class.getName());
+
     private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE " +
             "(ticket_id = ? and user_id_users is null)";
     private final static String GET_USER_ID_BY_TICKET_ID = "select user_id_users from tickets where ticket_id = ?";
     private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
-    private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ? WHERE ticket_id = ?";
+    private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ?" +
+            " WHERE (ticket_id = ? and ship_id_ships = ?)";
     private static final String GET_ALL_CLIENT_TICKETS =
             "SELECT * FROM tickets INNER JOIN ships ON (tickets.user_id_users=? " +
                     "AND tickets.ship_id_ships = ships.ship_id);";
@@ -27,7 +31,7 @@ public class TicketDao {
             "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) ORDER BY ticket_id OFFSET ? LIMIT ?";
     private static final String GET_TICKET_PROPERTIES = "select * from tickets inner join ships on " +
             "(tickets.ship_id_ships = ships.ship_id and ticket_id = ?)";
-    private static Logger log = Logger.getLogger(TicketDao.class.getName());
+
 
     public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
@@ -86,13 +90,14 @@ public class TicketDao {
         return BasicDao.getId(GET_SHIP_ID_BY_TICKET_ID, ticketId);
     }
 
-    public int updateDiscount(int ticketId, int discount) throws SQLException {
+    public int updateDiscount(int ticketId, int discount, int shipId) throws SQLException {
         Connection connection = ConnectionPool.getConnection();
         int result = 0;
         try {
             PreparedStatement statement = connection.prepareStatement(UPDATE_TICKET_DISCOUNT);
             statement.setInt(1, discount);
             statement.setInt(2, ticketId);
+            statement.setInt(3, shipId);
             result = statement.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());

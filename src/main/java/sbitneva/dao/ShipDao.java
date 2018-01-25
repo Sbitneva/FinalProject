@@ -33,7 +33,7 @@ public class ShipDao {
                 ship.setCruiseDuration(resultSet.getInt(3));
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return ship;
@@ -55,7 +55,7 @@ public class ShipDao {
                 ships.add(ship);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return ships;

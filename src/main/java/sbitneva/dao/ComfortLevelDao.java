@@ -35,7 +35,7 @@ public class ComfortLevelDao {
                 services.add(service);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         con.close();
         return services;

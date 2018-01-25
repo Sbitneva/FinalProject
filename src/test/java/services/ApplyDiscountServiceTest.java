@@ -4,7 +4,9 @@ import org.junit.Test;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
 import sbitneva.entity.Ticket;
+import sbitneva.exception.TransactionException;
 import sbitneva.services.ship.admin.ApplyDiscountService;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
@@ -18,7 +20,7 @@ public class ApplyDiscountServiceTest {
     private int discount;
 
     @Test
-    public void setDiscountTestCorrectDiscountAndTicketId(){
+    public void setDiscountTestCorrectDiscountAndTicketId() throws TransactionException{
         ticketId = 23;
         discount = 10;
         TicketDao ticketDao = DaoFactory.getTicketDao();
@@ -26,12 +28,14 @@ public class ApplyDiscountServiceTest {
             Ticket ticket = new Ticket(ticketId);
             ticketDao.setTicketProperties(ticket);
             int discountBefore = ticket.getDiscount();
-            applyDiscountService.setDiscount(ticketId, discount);
+            applyDiscountService.setDiscount(ticketId, discount, 1);
+
             ticketDao.setTicketProperties(ticket);
             int discountAfter = ticket.getDiscount();
-            assertEquals(0, discountBefore);
-            assertEquals(discount, discountAfter);
 
+            assertEquals(0, discountBefore);
+
+            assertEquals(discount, discountAfter);
         } catch(Exception e) {
 
         }

@@ -40,7 +40,7 @@ public class ServletDispatcher extends HttpServlet {
         log.debug("Servlet initialization");
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+    public void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         FactoryCommand factoryCommand = FactoryCommand.getInstance();
         Command command = factoryCommand.getCommand(request);

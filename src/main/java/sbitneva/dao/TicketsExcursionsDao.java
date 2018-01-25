@@ -38,7 +38,7 @@ public class TicketsExcursionsDao {
             }
 
         } catch(SQLException e){
-
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return excursions;

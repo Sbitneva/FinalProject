@@ -17,6 +17,7 @@ import java.util.Map;
 public class ShowCartService {
 
     private static Logger log = Logger.getLogger(ShowCartService.class.getName());
+
     private static ShowCartService showCartService = new ShowCartService();
 
     private ShowCartService() {
