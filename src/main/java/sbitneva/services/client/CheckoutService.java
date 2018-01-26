@@ -33,6 +33,7 @@ public class CheckoutService {
             TicketDao ticketDao = DaoFactory.getTicketDao();
 
             TransactionManager.beginTransaction();
+            TransactionManager.getConnection().getConnection().setSavepoint();
 
             ticketDao.buyTickets(userId, cart);
             cartDao.cleanCart(cart.getTickets(), userId);
@@ -43,7 +44,7 @@ public class CheckoutService {
             isSuccessful = false;
             try {
                 TransactionManager.rollbackTransaction();
-            } catch (TransactionException e1){
+            } catch (TransactionException e1) {
                 log.error(e1.getClass().getSimpleName() + " : " + e.getMessage());
             }
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());

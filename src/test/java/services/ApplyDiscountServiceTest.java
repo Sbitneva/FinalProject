@@ -1,5 +1,6 @@
 package services;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.DaoFactory;
 import sbitneva.dao.TicketDao;
@@ -10,6 +11,7 @@ import sbitneva.services.ship.admin.ApplyDiscountService;
 import static org.junit.Assert.assertEquals;
 
 public class ApplyDiscountServiceTest {
+    private static Logger log = Logger.getLogger(ApplyDiscountServiceTest.class.getName());
 
     private ApplyDiscountService applyDiscountService = ApplyDiscountService.getApplyDiscountService();
 
@@ -34,7 +36,7 @@ public class ApplyDiscountServiceTest {
 
             assertEquals(discount, discountAfter);
         } catch (Exception e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 }

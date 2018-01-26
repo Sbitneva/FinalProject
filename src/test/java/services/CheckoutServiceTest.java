@@ -1,5 +1,6 @@
 package services;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
@@ -12,6 +13,9 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 
 public class CheckoutServiceTest {
+
+    private static Logger log = Logger.getLogger(CheckoutServiceTest.class.getName());
+
     private final int USER_ID = 2;
     CheckoutService checkoutService = CheckoutService.getCheckoutService();
 
@@ -41,7 +45,7 @@ public class CheckoutServiceTest {
             assertEquals(cartBeforeCheckout.getTickets().size(), cartAfterCheckout.getTickets().size());
 
         } catch (SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
 
     }

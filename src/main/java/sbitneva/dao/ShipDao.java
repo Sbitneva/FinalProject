@@ -2,9 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Ship;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class ShipDao {
     public Ship getBasicShipData(int shipId) throws SQLException {
         Ship ship = null;
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_SHIP_INFO);
             statement.setInt(1, shipId);
@@ -42,7 +42,7 @@ public class ShipDao {
     public ArrayList<Ship> getAllShips() throws SQLException {
 
         ArrayList<Ship> ships = new ArrayList<>();
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_SHIPS);
             ResultSet resultSet = statement.executeQuery();

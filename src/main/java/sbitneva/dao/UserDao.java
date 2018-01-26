@@ -3,9 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class UserDao {
 
     public int getUserShipId(int userId) throws SQLException, DaoException {
         int shipId = 0;
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_USER_SHIPID);
             statement.setInt(1, userId);
@@ -39,7 +39,7 @@ public class UserDao {
 
     public Client getClientByEmailAndPassword(String email, String password) throws SQLException, DaoException {
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
@@ -58,7 +58,7 @@ public class UserDao {
 
     public Client getUserById(int userId) throws SQLException, DaoException {
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_ID);
@@ -92,7 +92,7 @@ public class UserDao {
     public int addNewUser(String firstName, String lastName, String email, String password) throws SQLException {
         int result = 0;
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_USER);
             statement.setString(1, firstName);

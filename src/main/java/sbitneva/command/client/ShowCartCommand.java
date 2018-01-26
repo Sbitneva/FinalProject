@@ -21,10 +21,10 @@ public class ShowCartCommand implements Command {
         log.debug("ShowCartCommand execution started");
         int userId = CommandsHelper.getUserId(request);
         boolean success = false;
-        Cart cart = null;
+
         if (userId > 0) {
             ShowCartService showCartService = ShowCartService.getShowCartService();
-            cart = showCartService.getCart(userId);
+            Cart cart = showCartService.getCart(userId);
             if (cart != null) {
                 success = true;
                 request.setAttribute(CART, cart);

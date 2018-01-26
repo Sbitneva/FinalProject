@@ -16,11 +16,9 @@ import java.io.IOException;
 import static sbitneva.command.CommandsHelper.*;
 
 public class LoginCommand implements Command {
-    private static Logger log = Logger.getLogger(LoginCommand.class.getName());
-
-    private StringBuffer errors = new StringBuffer();
     public static boolean isFullRequest = false;
-
+    private static Logger log = Logger.getLogger(LoginCommand.class.getName());
+    private StringBuffer errors = new StringBuffer();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {

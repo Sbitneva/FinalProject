@@ -2,9 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,11 +13,11 @@ import java.util.Map;
 
 public class BasicDao {
 
-    private static Logger log = Logger.getLogger(ComfortLevelDao.class.getName());
+    private static Logger log = Logger.getLogger(BasicDao.class.getName());
 
     public static Map<Integer, String> getIdNameDataFromTable(String sql) throws SQLException {
         Map<Integer, String> comfortLevels = new HashMap<>();
-        Connection con = ConnectionPool.getConnection();
+        ConnectionPoolWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -33,7 +33,7 @@ public class BasicDao {
 
     public static String getNameById(String sql, int id) throws SQLException {
         String name = null;
-        Connection con = ConnectionPool.getConnection();
+        ConnectionPoolWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, id);
@@ -51,7 +51,7 @@ public class BasicDao {
 
     public static int getId(String sql, int parameter) throws SQLException {
         int id = 0;
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, parameter);
@@ -68,7 +68,9 @@ public class BasicDao {
 
     public static int updateCell(String sql, int parameter1, int parameter2) throws SQLException, DaoException {
         int result = 0;
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
+        //connection.getConnection().setAutoCommit(false);
+        log.debug(connection.getConnection().toString());
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, parameter1);

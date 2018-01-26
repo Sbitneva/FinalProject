@@ -40,8 +40,7 @@ public class ApplyDiscountCommand implements Command {
         if (request.getParameter(TICKET_ID) != null) {
             try {
                 ticketId = Integer.parseInt(request.getParameter(TICKET_ID));
-            }
-            catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
             }
             log.debug("ticketId = " + ticketId);

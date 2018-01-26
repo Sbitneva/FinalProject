@@ -123,7 +123,6 @@ public class ShowTicketsService {
 
     public void isInCart(ArrayList<Ticket> tickets, int userId) {
         CartDao cartDao = DaoFactory.getCartDao();
-
         for (Ticket ticket : tickets) {
             try {
                 ticket.setCart(cartDao.isTicketInCart(userId, ticket.getTicketId()));

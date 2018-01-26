@@ -1,5 +1,6 @@
 package services;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
@@ -15,12 +16,16 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 
 public class ShowCartServiceTest {
+
+    private static Logger log = Logger.getLogger(ShowCartServiceTest.class.getName());
+
     private final int USER_ID = 4;
     private ShowCartService showCartService = ShowCartService.getShowCartService();
     private ArrayList<Ticket> tickets = new ArrayList<>();
 
     @Test
     public void getCartTest() {
+
         /**
          * Init Not available tickets for adding to cart
          */
@@ -37,12 +42,14 @@ public class ShowCartServiceTest {
 
         CartDao cartDao = DaoFactory.getCartDao();
         try {
+            TransactionManager.beginTransaction();
             /**
              * Adding tickets to user cart
              */
             for (Ticket ticket : tickets) {
                 cartDao.addTicketToCart(USER_ID, ticket.getTicketId());
             }
+            TransactionManager.endTransaction();
             /**
              * Getting cart of the same user
              */
@@ -50,20 +57,14 @@ public class ShowCartServiceTest {
             assertEquals(3, cart.getTickets().size());
             assertEquals(2, cart.getDeletedTickets().size());
 
-            /**
-             * Restoring db state
-             */
-            TransactionManager.beginTransaction();
-            cartDao.cleanCart(tickets, USER_ID);
-            TransactionManager.endTransaction();
-
-            assertEquals(0, showCartService.getCart(USER_ID).getTickets().size());
-
-            cart = cartDao.getUserCart(USER_ID);
-            assertEquals(0, cart.getTickets().size());
 
         } catch (SQLException | TransactionException e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            try{
+                TransactionManager.endTransaction();
+            }catch(SQLException | TransactionException e1) {
+                log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
+            }
         }
     }
 }

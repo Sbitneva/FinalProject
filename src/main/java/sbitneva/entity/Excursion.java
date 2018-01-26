@@ -9,11 +9,12 @@ public class Excursion {
     private String portName;
     private int price;
     private int ticketId;
-    public Excursion(){
+
+    public Excursion() {
 
     }
 
-    public Excursion(int excursionId){
+    public Excursion(int excursionId) {
         this.excursionId = excursionId;
     }
 
