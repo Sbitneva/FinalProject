@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class TicketsExcursionsDao {
+    private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
 
     private final static String ADD_EXCURSION_AND_TICKET = "INSERT INTO many_tickets_has_many_excursions VALUES (?, ?)";
     private final static String GET_ALL_TICKET_EXCURSIONS =
             "select * from many_tickets_has_many_excursions where ticket_id_tickets = ?";
-    private static Logger log = Logger.getLogger(TicketsExcursionsDao.class.getName());
 
     public int addExcursionToTicket(int ticketId, int excursionId) throws SQLException, DaoException {
 
