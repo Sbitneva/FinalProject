@@ -52,13 +52,29 @@ public class BuyExcursionCommandTest {
 
         TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
         try {
-            //TransactionManager.beginTransaction();
             int excursionsBefore = ticketsExcursionsDao.getAllExcursionsByTicketId(39).size();
             dispatcher.init();
             dispatcher.processRequest(request, response);
             int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(39).size();
-            //TransactionManager.endTransaction();
             assertEquals(excursionsBefore + 1, excursionsAfter);
+        } catch (SQLException  e) {
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
+        }
+    }
+
+    @Test
+    public void executionTestWithWrongParameters() throws ServletException, IOException {
+        when(request.getParameter(TICKET_ID)).thenReturn("90");
+        when(request.getParameter(EXCURSION_ID)).thenReturn("2");
+        ServletDispatcher dispatcher = new ServletDispatcher();
+
+        TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
+        try {
+            int excursionsBefore = ticketsExcursionsDao.getAllExcursionsByTicketId(90).size();
+            dispatcher.init();
+            dispatcher.processRequest(request, response);
+            int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(90).size();
+            assertEquals(excursionsBefore, excursionsAfter);
         } catch (SQLException  e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
