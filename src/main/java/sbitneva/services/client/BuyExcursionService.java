@@ -36,12 +36,7 @@ public class BuyExcursionService {
                 log.debug("Buy excursion query fault");
             }
         } catch (SQLException | DaoException | TransactionException e) {
-            try {
-                TransactionManager.endTransaction();
-                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
-            } catch (TransactionException | SQLException e1) {
-                log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
-            }
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 
