@@ -1,0 +1,123 @@
+# client/cart.jsp
+
+client.cart.tickets_table.title=Ваша корзина
+client.cart.tickets_table.ticket_id=Номер билета
+client.cart.tickets_table.ship_name=Название корабля
+client.cart.tickets_table.cruise_duration=Продолжительность круиза
+client.cart.tickets_table.comfort_level=Класс
+client.cart.tickets_table.price=Цена
+client.cart.tickets_table.discount=Скидка
+client.cart.tickets_table.discounted_price=Цена со скидкой
+
+client.cart.subtotal.title=Итого
+client.cart.subtotal.subtotal_with_discount=Итого со скидкой
+
+client.cart.checkout_form.checkout_button=КУПИТЬ
+
+client.cart.deleted_tickets_table.title=Эти билеты больше недоступны и удалены из корзины
+client.cart.deleted_tickets_table.ticket_id=Номер билета
+client.cart.deleted_tickets_table.ship_name=Название корабля
+client.cart.deleted_tickets_table.cruise_duration=Продолжительность круиза
+client.cart.deleted_tickets_table.comfort_level=Класс
+
+# client/checkout-success.jsp
+
+client.checkout-success.continue_shopping.title=ПОКУПКА завершена
+client.checkout-success.continue_shopping.continue_shopping_button=ПРОДОЛЖИТЬ ПОКУПКИ
+
+# client/client-page.jsp
+
+client.client-page.show_cart.show_cart_button=Корзина
+client.client-page.logout.logout_button=Выйти
+client.client-page.buy_ticket_form.buy_ticket_button=Купить новый Билет
+
+client.client-page.tickets_table.titile=Купленные билеты
+client.client-page.tickets_table.ticket_id=Номер билета
+client.client-page.tickets_table.ship_name=Название корабля
+client.client-page.tickets_table.cruise_duration=Продолжительность круиза
+client.client-page.tickets_table.comfort_level=Класс
+client.client-page.tickets_table.additional_properties=Дополнительно
+client.client-page.tickets_table.show_services.show=Показать услуги
+client.client-page.tickets_table.buy_excursion_form.buy_excursion_button=Купить новую экскурсию
+
+client.client-page.excursions_table.title=Купленные билеты
+client.client-page.excursions_table.ticket_id=Номе билета
+client.client-page.excursions_table.excursion_name=Название экскурсии
+client.client-page.excursions_table.ship_name=Название корабля
+client.client-page.excursions_table.port=Порт
+
+# client/cruises.jsp
+
+client.cruises.ships_table.title=Доступные круизы
+client.cruises.ships_table.ship_id=Номер корабля
+client.cruises.ships_table.ship_name=Название корабля
+client.cruises.ships_table.cruise_duration=Продолжительность круиза
+client.cruises.ships_table.additional_properties=Дополнительно
+client.cruises.ships_table.show_tickets_form.show_tickets_button=Показать билеты
+
+# client/excursions.jsp
+
+client.excursions.excursions_table.title=Выбор экскурсий
+client.excursions.excursions_table.excursion_name=Название экскурсии
+client.excursions.excursions_table.port_name=Название порта
+client.excursions.excursions_table.price=Цена
+client.excursions.excursions_table.additional_properties=Дополнительно
+client.excursions.excursions_table.buy_excursion_form.buy_excursion_button=Купить новую Экскурсию
+
+# client/tickets.jsp
+
+client.tickets.menu-table.show_cart.show_cart_button=Корзина Билетов
+client.tickets.menu-table.buy_ticket_form.buy_ticket_button=Купить новый Билет
+client.tickets.menu-table.logout.logout_button=Выйти
+
+client.tickets.ship_form.cruise_duration=Продолжительность круиза
+
+client.tickets.ship_table.ticket_id=Номер билета
+client.tickets.ship_table.comfort_level=Класс
+client.tickets.ship_table.discount=Скидка
+client.tickets.ship_table.price=Цена
+client.tickets.ship_table.check_to_buy=Купить
+client.tickets.ship_table.show_services.show=Показать сервисы
+client.tickets.ship_table.add_to_cart_form.add_to_cart_button=Добавить в корзину
+client.tickets.ship_table.add_to_cart_form.add_to_cart_button.in_cart=В корзине
+client.tickets.ship_table.current_page=Текущая страница
+
+# registration/registration.jsp
+
+registration.title=Регистрация
+registration.first_name=Имя
+registration.last_name=Фамилия
+registration.email=Электронная Почта
+registration.password=Пароль
+registration.send=Отправить
+
+# ship-administrator/ship-info.jsp
+
+ship-administrator.ship-info.staff_button.staff=Команда корабля
+ship-administrator.ship-info.tickets_table.ticket_id=Номер билета
+ship-administrator.ship-info.tickets_table.comfort_level=Класс
+ship-administrator.ship-info.tickets_table.discount=Скидка
+ship-administrator.ship-info.tickets_table.price=Цена
+ship-administrator.ship-info.tickets_table.show_services.show=Показать сервисы
+ship-administrator.ship-info.tickets_table.apply_discount.submit=Применить скидку
+ship-administrator.ship-info.tickets_table.current_page=Текущая страница
+
+# ship-administrator/staff.jsp
+
+ship-administrator.staff.staff_table.title=Команда корабля
+ship-administrator.staff.staff_table.id=Номер
+ship-administrator.staff.staff_table.first_name=Имя
+ship-administrator.staff.staff_table.last_name=Фамилия
+ship-administrator.staff.staff_table.position=Позиция
+
+# comfort-level-services.jsp
+
+comfort-level-services.services_table.title=Класс
+comfort-level-services.services_table.services=Сервисы
+
+# index.jsp
+
+authorization.login_table.email=Электронная Почта
+authorization.login_table.password=Пароль
+authorization.login_table.auth_submit_button=Войти
+authorization.login_table.registration=Регистрация
