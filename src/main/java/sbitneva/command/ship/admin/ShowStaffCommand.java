@@ -38,7 +38,7 @@ public class ShowStaffCommand implements Command {
         if (request.getParameter(SHIP_ID) != null) {
             try {
                 shipId = Integer.parseInt(request.getParameter(SHIP_ID));
-            }catch(NumberFormatException e) {
+            } catch (NumberFormatException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }

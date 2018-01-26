@@ -9,7 +9,6 @@ import sbitneva.services.common.ShowTicketsService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 import static sbitneva.command.CommandsHelper.*;
@@ -21,7 +20,7 @@ public class ShowShipTicketsCommand implements Command {
     private static Logger log = Logger.getLogger(ShowShipTicketsCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         log.debug("execution " + request.getQueryString());
 
         int userType = getSessionAttribute(request, USER_TYPE_SESSION_ATTRIBUTE);
@@ -43,13 +42,13 @@ public class ShowShipTicketsCommand implements Command {
                         sendData(request, response, ship, SHIP_INFO_PAGE);
                     }
                 }
-            } catch(Exception e){
+            } catch (Exception e) {
                 log.error(e.getMessage());
             }
 
         } else if (userType == CLIENT_TYPE) {
             int shipId = getShipIdFromClient(request);
-            if(shipId > 0) {
+            if (shipId > 0) {
                 try {
                     Ship ship = showTicketsService.getShipForClient(shipId, currentPage);
                     if (ship != null) {
@@ -64,13 +63,13 @@ public class ShowShipTicketsCommand implements Command {
             }
         }
 
-        if(!success) {
+        if (!success) {
             request.getRequestDispatcher(PAGE_NOT_FOUND_PAGE).forward(request, response);
         }
     }
 
     private void sendData(HttpServletRequest request, HttpServletResponse response, Ship ship, String page)
-            throws ServletException, IOException{
+            throws ServletException, IOException {
 
         ShowTicketsService showTicketsService = ShowTicketsService.getShowTicketsService();
         int pages = showTicketsService.getTicketsPages(ship.getShipId());
@@ -106,8 +105,8 @@ public class ShowShipTicketsCommand implements Command {
 
     private int getSessionAttribute(HttpServletRequest request, String attrName) {
         int value = 0;
-        if(request.getSession().getAttribute(attrName) != null){
-            try{
+        if (request.getSession().getAttribute(attrName) != null) {
+            try {
                 value = Integer.parseInt(request.getSession().getAttribute(attrName).toString());
             } catch (NumberFormatException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());

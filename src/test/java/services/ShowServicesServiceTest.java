@@ -1,5 +1,6 @@
 package services;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.dao.ComfortLevelDao;
 import sbitneva.dao.DaoFactory;
@@ -11,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ShowServicesServiceTest {
 
+    private static Logger log = Logger.getLogger(ShowServicesServiceTest.class.getName());
 
     private final int COMFORT_LEVEL_ID = 1;
     private ShowServicesService showServicesService = ShowServicesService.getShowTicketsService();
@@ -25,7 +27,7 @@ public class ShowServicesServiceTest {
             assertEquals(7, actualServicesNumber);
 
         } catch (SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
 
     }

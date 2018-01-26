@@ -3,6 +3,8 @@ package sbitneva.services.client;
 import org.apache.log4j.Logger;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
+import sbitneva.exception.TransactionException;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
@@ -23,8 +25,10 @@ public class AddTicketToCartService {
     public void add(int userId, int ticketId) {
         CartDao cartDao = DaoFactory.getCartDao();
         try {
+            TransactionManager.beginTransaction();
             cartDao.addTicketToCart(userId, ticketId);
-        } catch (SQLException e) {
+            TransactionManager.endTransaction();
+        } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }

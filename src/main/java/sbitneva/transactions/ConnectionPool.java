@@ -23,6 +23,7 @@ public class ConnectionPool {
     }
 
     public static Connection getConnection() throws SQLException {
+        log.debug("Active connections :" + connectionPool.getNumActive());
         return connectionPool.getConnection();
     }
 
@@ -51,6 +52,7 @@ public class ConnectionPool {
             connectionPool.setDriverClassName(DB_DRIVER);
             connectionPool.setUrl(dbUrl);
             connectionPool.setInitialSize(1);
+            connectionPool.setDefaultAutoCommit(false);
 
         } catch (URISyntaxException e) {
 

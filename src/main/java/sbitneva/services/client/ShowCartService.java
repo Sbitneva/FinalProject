@@ -29,9 +29,11 @@ public class ShowCartService {
     }
 
     static void setTicketsInfo(Cart cart) {
-        ArrayList<Ticket> tickets = cart.getTickets();
-        if (tickets.size() > 0) {
-            try {
+
+        try {
+
+            ArrayList<Ticket> tickets = cart.getTickets();
+            if (tickets.size() > 0) {
                 ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
                 Map<Integer, String> comfortLevels = comfortLevelDao.getComfortLevels();
                 for (Ticket ticket : tickets) {
@@ -40,9 +42,9 @@ public class ShowCartService {
                     ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
                     ticket.setDiscountedPrice();
                 }
-            } catch (SQLException e) {
-                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
+        } catch (SQLException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 
@@ -50,6 +52,7 @@ public class ShowCartService {
         Cart cart = null;
         CartDao cartDao = DaoFactory.getCartDao();
         try {
+            TransactionManager.beginTransaction();
             cart = cartDao.getUserCart(userId);
             if (cart != null) {
                 boolean isVerified = false;
@@ -60,8 +63,13 @@ public class ShowCartService {
                 setCheckout(cart);
                 setDiscountedCheckout(cart);
             }
-        } catch (SQLException e) {
-            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            TransactionManager.endTransaction();
+        } catch (SQLException | TransactionException e) {
+            try {
+                TransactionManager.endTransaction();
+            } catch (TransactionException | SQLException e1) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
         }
         return cart;
     }
@@ -113,15 +121,14 @@ public class ShowCartService {
         CartDao cartDao = DaoFactory.getCartDao();
         boolean result = false;
         try {
-            TransactionManager.beginTransaction();
+            //TransactionManager.beginTransaction();
             result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
-            TransactionManager.endTransaction();
-        } catch (SQLException | TransactionException e)
-        {
+            //TransactionManager.endTransaction();
+        } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             try {
-                TransactionManager.rollbackTransaction();
-            } catch (TransactionException e1) {
+                //TransactionManager.rollbackTransaction();
+            } catch (Exception e1) {
                 log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
             }
         }

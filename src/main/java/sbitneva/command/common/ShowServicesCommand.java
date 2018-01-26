@@ -30,7 +30,7 @@ public class ShowServicesCommand implements Command {
                 request.getRequestDispatcher(SERVICES_PAGE).forward(request, response);
             }
         }
-        if(!success) {
+        if (!success) {
             request.getRequestDispatcher(PAGE_NOT_FOUND_PAGE).forward(request, response);
         }
     }

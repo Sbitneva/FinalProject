@@ -2,11 +2,10 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Excursion;
-import sbitneva.entity.Ticket;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +25,9 @@ public class TicketsExcursionsDao {
 
     public ArrayList<Excursion> getAllExcursionsByTicketId(int ticketId) throws SQLException {
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         ArrayList<Excursion> excursions = new ArrayList<>();
-        try{
+        try {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_TICKET_EXCURSIONS);
             statement.setInt(1, ticketId);
 
@@ -37,7 +36,7 @@ public class TicketsExcursionsDao {
                 excursions.add(new Excursion(resultSet.getInt(2)));
             }
 
-        } catch(SQLException e){
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();

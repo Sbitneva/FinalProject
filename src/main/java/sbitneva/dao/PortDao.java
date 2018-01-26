@@ -3,9 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Port;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public class PortDao {
     public ArrayList<Port> getPortsByShipId(int shipId) throws SQLException {
         ArrayList<Port> ports = new ArrayList<>();
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_PORTS_BY_SHIP_ID);
             statement.setInt(1, shipId);
