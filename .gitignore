@@ -5,6 +5,6 @@ tomcat*/
 checkstyle-*
 *.class
 *.iml
-*.log
+*.log*
 *.dat
 
