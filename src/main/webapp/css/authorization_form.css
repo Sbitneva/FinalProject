@@ -46,3 +46,9 @@ input {
 #error_messages {
     color: #cc4400;
 }
+
+#lang_submit {
+    font-size: 16pt;
+    color: #696969;
+    display: inline-block;
+}

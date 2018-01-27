@@ -26,7 +26,7 @@ client.checkout-success.continue_shopping.title=ПОКУПКА завершен�
 client.checkout-success.continue_shopping.continue_shopping_button=ПРОДОЛЖИТЬ ПОКУПКИ
 
 # client/client-page.jsp
-
+client.client-page.hello_string=Добро пожаловать,
 client.client-page.show_cart.show_cart_button=Корзина
 client.client-page.logout.logout_button=Выйти
 client.client-page.buy_ticket_form.buy_ticket_button=Купить новый Билет
@@ -40,11 +40,11 @@ client.client-page.tickets_table.additional_properties=Дополнительн�
 client.client-page.tickets_table.show_services.show=Показать услуги
 client.client-page.tickets_table.buy_excursion_form.buy_excursion_button=Купить новую экскурсию
 
-client.client-page.excursions_table.title=Купленные билеты
-client.client-page.excursions_table.ticket_id=Номе билета
+client.client-page.excursions_table.title=Купленные экскурсии
+client.client-page.excursions_table.ticket_id=Номер билета
 client.client-page.excursions_table.excursion_name=Название экскурсии
 client.client-page.excursions_table.ship_name=Название корабля
-client.client-page.excursions_table.port=Порт
+client.client-page.excursions_table.port=Порты
 
 # client/cruises.jsp
 
@@ -65,7 +65,7 @@ client.excursions.excursions_table.additional_properties=Дополнитель�
 client.excursions.excursions_table.buy_excursion_form.buy_excursion_button=Купить новую Экскурсию
 
 # client/tickets.jsp
-
+client.tickets.menu-table.buy_ticket_form.ports=Порты:
 client.tickets.menu-table.show_cart.show_cart_button=Корзина Билетов
 client.tickets.menu-table.buy_ticket_form.buy_ticket_button=Купить новый Билет
 client.tickets.menu-table.logout.logout_button=Выйти

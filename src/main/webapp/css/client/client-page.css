@@ -2,12 +2,10 @@
     font-family: "Century Gothic", "Lucida Grande", Helvetica, Arial, sans serif;
     border-collapse: collapse;
     width: 70%;
-    padding-bottom: 20px;
 }
 
 #tickets_table td, #tickets_table th {
     border: 1px solid #ddd;
-    padding: 8px;
 }
 
 #tickets_table tr:nth-child(even) {
@@ -51,11 +49,6 @@
     text-align: left;
     background-color: #4CAF50;
     color: white;
-}
-
-#buy_ticket_form, #buy_excursion_form {
-    padding-top: 12px;
-    padding-bottom: 12px;
 }
 
 #buy_ticket_button, #buy_excursion_button, #show {

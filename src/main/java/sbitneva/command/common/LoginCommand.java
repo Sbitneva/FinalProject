@@ -16,8 +16,11 @@ import java.io.IOException;
 import static sbitneva.command.CommandsHelper.*;
 
 public class LoginCommand implements Command {
-    public static boolean isFullRequest = false;
+
     private static Logger log = Logger.getLogger(LoginCommand.class.getName());
+
+    public static boolean isFullRequest = false;
+
     private StringBuffer errors = new StringBuffer();
 
     @Override

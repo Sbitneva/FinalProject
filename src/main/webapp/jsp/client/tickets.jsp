@@ -2,7 +2,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="MessagesBundle"/>
 <html>
 <head>
     <title>Cruise Company</title>
@@ -17,40 +20,40 @@
         <td id="ship_name_td"><h2>${ship.shipName}</h2></td>
         <td id="cart_td">
             <form id="show_cart" class="functions-class" action="/Cruise?command=cart" method="post">
-                <button id="show_cart_button" type="submit">Tickets Cart</button>
+                <button id="show_cart_button" type="submit"><fmt:message key="client.tickets.menu-table.show_cart.show_cart_button"/></button>
             </form>
         </td>
 
         <td id="buy_td">
             <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
-                <button id="buy_ticket_button" type="submit"> Buy new Ticket</button>
+                <button id="buy_ticket_button" type="submit"> <fmt:message key="client.tickets.menu-table.buy_ticket_form.buy_ticket_button"/></button>
             </form>
         </td>
 
         <td id="logout_td">
             <form id="logout" class="functions-class" action="/Cruise?command=logout" method="post">
-                <button id="logout_button" type="submit">logout</button>
+                <button id="logout_button" type="submit"><fmt:message key="client.tickets.menu-table.logout.logout_button"/></button>
             </form>
         </td>
     </tr>
 </table>
 <form id="ship_form">
-    <b>Ports:</b>
+    <b><fmt:message key="client.client-page.excursions_table.port"/></b>
     <c:forEach items="${ship.ports}" var="port">
         <br>${port.portName}
     </c:forEach>
     <br>
-    <b>Cruise duration: ${ship.cruiseDuration} </b>
+    <b><fmt:message key="client.tickets.ship_form.cruise_duration"/> ${ship.cruiseDuration} </b>
     <br>
 </form>
 
 <table id="ship_table">
     <tr>
-        <th>Ticket Id</th>
-        <th>Comfort Level</th>
-        <th>Discount %</th>
-        <th>Price</th>
-        <th>Check to Buy</th>
+        <th><fmt:message key="client.tickets.ship_table.ticket_id"/></th>
+        <th><fmt:message key="client.tickets.ship_table.comfort_level"/></th>
+        <th><fmt:message key="client.tickets.ship_table.discount"/> %</th>
+        <th><fmt:message key="client.tickets.ship_table.price"/></th>
+        <th><fmt:message key="client.tickets.ship_table.check_to_buy"/></th>
 
     </tr>
     <c:forEach items="${ship.tickets}" var="ticket">
@@ -61,7 +64,7 @@
                       action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
                         ${ticket.comfortLevelName}
-                    <button id="show" type="submit">Show services</button>
+                    <button id="show" type="submit"><fmt:message key="client.tickets.ship_table.show_services.show"/></button>
                 </form>
             </td>
             <td style="width:20%;">${ticket.discount}</td>
@@ -72,16 +75,16 @@
                         <form id="add_to_cart_form"
                               action="/Cruise?command=add&ticketId=${ticket.ticketId}&page=${page}&shipId=${ship.shipId}"
                               method="post">
-                            <button id="add_to_cart_button" type="submit">Add to cart</button>
+                            <button id="add_to_cart_button" type="submit"><fmt:message key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button"/></button>
                         </form>
                     </c:when>
-                    <c:otherwise>In cart</c:otherwise>
+                    <c:otherwise><fmt:message key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button.in_cart"/></c:otherwise>
                 </c:choose>
             </td>
         </tr>
     </c:forEach>
 </table>
-<b>Current Page : ${page}</b>
+<b><fmt:message key="client.tickets.ship_table.current_page"/> ${page}</b>
 
 <table id="pagination_table">
     <tr align="center">

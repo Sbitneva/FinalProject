@@ -2,10 +2,7 @@ package sbitneva.command.factory;
 
 import org.apache.log4j.Logger;
 import sbitneva.command.client.*;
-import sbitneva.command.common.LoginCommand;
-import sbitneva.command.common.LogoutCommand;
-import sbitneva.command.common.RegistrationCommand;
-import sbitneva.command.common.ShowServicesCommand;
+import sbitneva.command.common.*;
 import sbitneva.command.ship.admin.ApplyDiscountCommand;
 import sbitneva.command.ship.admin.ShowShipTicketsCommand;
 import sbitneva.command.ship.admin.ShowStaffCommand;
@@ -16,6 +13,8 @@ import java.util.Map;
 
 
 public class FactoryCommand {
+
+    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
 
     /**
      * Commands parameters :
@@ -35,8 +34,9 @@ public class FactoryCommand {
     public static final String ADD_TO_CART = "add";
     public static final String SHOW_CART = "cart";
     public static final String CHECKOUT = "checkout";
+
     private static final FactoryCommand factoryCommand = new FactoryCommand();
-    private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
+
     private Map<String, Command> commandMap = new HashMap<>();
 
     private FactoryCommand() {

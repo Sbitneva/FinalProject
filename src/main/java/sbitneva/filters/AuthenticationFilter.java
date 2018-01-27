@@ -1,6 +1,7 @@
 package sbitneva.filters;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.CommandsHelper;
 import sbitneva.configaration.SecurityConfiguration;
 
 import javax.servlet.*;
@@ -61,7 +62,6 @@ public class AuthenticationFilter implements Filter {
                 }
             } else {
                 log.debug("request has no command parameter");
-                //errorRedirect = true;
                 filterChain.doFilter(request, response);
                 log.debug("command goes through the filter");
             }
@@ -115,6 +115,9 @@ public class AuthenticationFilter implements Filter {
 
     private boolean hasAttributes(HttpSession session) {
         boolean has = true;
+        if(session.getAttribute(CommandsHelper.LANGUAGE_SESSION_ATTRIBUTE) == null){
+            session.setAttribute(CommandsHelper.LANGUAGE_SESSION_ATTRIBUTE, "en_EN");
+        }
 
         if ((session.getAttribute(USER_ID_SESSION_ATTR_NAME) == null) &&
                 (session.getAttribute(ACCESS_SESSION_ATTR_NAME) == null)) {
