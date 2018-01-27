@@ -9,6 +9,7 @@ public class CommandsHelper {
     //session attributes names
     public static final String USER_ID_SESSION_ATTRIBUTE = "id";
     public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
+    public static final String LANGUAGE_SESSION_ATTRIBUTE = "language";
     //request parameters names
 
     public static final String SHIP_ID = "shipId";

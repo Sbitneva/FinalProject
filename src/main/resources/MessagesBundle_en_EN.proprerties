@@ -19,6 +19,7 @@ client.cart.deleted_tickets_table.comfort_level=Comfort Level
 client.checkout-success.continue_shopping.title=CHECKOUT Completed!
 client.checkout-success.continue_shopping.continue_shopping_button=CONTINUE SHOPPING
 # client/client-page.jsp
+client.client-page.hello_string=Hello, 
 client.client-page.show_cart.show_cart_button=Tickets Cart
 client.client-page.logout.logout_button=logout
 client.client-page.buy_ticket_form.buy_ticket_button=Buy new Ticket
@@ -51,9 +52,10 @@ client.excursions.excursions_table.additional_properties=Additional properties
 client.excursions.excursions_table.buy_excursion_form.buy_excursion_button=Buy new Excursion
 # client/tickets.jsp
 client.tickets.menu-table.show_cart.show_cart_button=Tickets Cart
+client.tickets.menu-table.buy_ticket_form.ports=Ports:
 client.tickets.menu-table.buy_ticket_form.buy_ticket_button=Buy new Ticket
 client.tickets.menu-table.logout.logout_button=logout
-client.tickets.ship_form.cruise_duration=Cruise duration: 
+client.tickets.ship_form.cruise_duration=Cruise duration:
 client.tickets.ship_table.ticket_id=Ticket Id
 client.tickets.ship_table.comfort_level=Comfort Level
 client.tickets.ship_table.discount=Discount
