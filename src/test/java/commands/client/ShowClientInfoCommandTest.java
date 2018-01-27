@@ -60,12 +60,5 @@ public class ShowClientInfoCommandTest {
         servletDispatcher.processRequest(request, response);
     }
 
-    @Test
-    public void executeTestWithWrongParameters2() throws IOException, ServletException {
-        when(request.getSession().getAttribute(anyString())).thenReturn(100);
-        when(request.getParameter(PAGE)).thenReturn("hthth1");
-        ServletDispatcher servletDispatcher = new ServletDispatcher();
-        servletDispatcher.init();
-        servletDispatcher.processRequest(request, response);
-    }
+
 }
