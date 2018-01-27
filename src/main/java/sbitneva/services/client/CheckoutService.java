@@ -29,10 +29,12 @@ public class CheckoutService {
 
         CartDao cartDao = DaoFactory.getCartDao();
         try {
-            Cart cart = cartDao.getUserCart(userId);
+
             TicketDao ticketDao = DaoFactory.getTicketDao();
 
             TransactionManager.beginTransaction();
+            Cart cart = cartDao.getUserCart(userId);
+            TransactionManager.getConnection().getConnection().setSavepoint();
 
             ticketDao.buyTickets(userId, cart);
             cartDao.cleanCart(cart.getTickets(), userId);
@@ -43,8 +45,8 @@ public class CheckoutService {
             isSuccessful = false;
             try {
                 TransactionManager.rollbackTransaction();
-            } catch (TransactionException e1){
-                log.error(e1.getClass().getSimpleName() + " : " + e.getMessage());
+            } catch (TransactionException e1) {
+                log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
             }
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }

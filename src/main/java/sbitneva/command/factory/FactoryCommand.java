@@ -14,16 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Commands factory
- */
 
 public class FactoryCommand {
 
     /**
      * Commands parameters :
      */
-
+    public static final String PARAM_NAME_COMMAND = "command";
     public static final String REGISTRATION = "registration";
     public static final String LOGIN = "login";
     public static final String LOGOUT = "logout";
@@ -38,7 +35,6 @@ public class FactoryCommand {
     public static final String ADD_TO_CART = "add";
     public static final String SHOW_CART = "cart";
     public static final String CHECKOUT = "checkout";
-    private static final String PARAM_NAME_COMMAND = "command";
     private static final FactoryCommand factoryCommand = new FactoryCommand();
     private static Logger log = Logger.getLogger(FactoryCommand.class.getName());
     private Map<String, Command> commandMap = new HashMap<>();

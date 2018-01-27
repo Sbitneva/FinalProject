@@ -4,11 +4,9 @@ import org.apache.log4j.Logger;
 import sbitneva.entity.Cart;
 import sbitneva.entity.Ticket;
 import sbitneva.exception.TransactionException;
-import sbitneva.transactions.ConnectionPool;
 import sbitneva.transactions.ConnectionPoolWrapper;
 import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +27,7 @@ public class CartDao {
     private static Logger log = Logger.getLogger(CartDao.class.getName());
 
     public Cart getUserCart(int userId) throws SQLException {
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Cart cart = null;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_TICKETS_IDs_FROM_CART);
@@ -61,14 +59,15 @@ public class CartDao {
                 }
             }
         } catch (SQLException e) {
-
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
+        connection.close();
         return result;
     }
 
     public byte isTicketInCart(int userId, int ticketId) throws SQLException {
         byte isInCart = 0;
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_TICKET_FROM_CART);
             statement.setInt(1, userId);
@@ -85,7 +84,8 @@ public class CartDao {
     }
 
     public void addTicketToCart(int userId, int ticketId) throws SQLException {
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
+
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_IF_NOT_EXISTS);
             statement.setInt(1, userId);

@@ -1,21 +1,27 @@
 package services;
 
+import org.apache.log4j.Logger;
 import org.junit.Test;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
+import sbitneva.exception.TransactionException;
 import sbitneva.services.client.ShowClientInfoService;
 
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ShowClientInfoServiceTest {
-    private ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
+
+    private static Logger log = Logger.getLogger(ShowClientInfoServiceTest.class.getName());
+
     private final int USER_ID = 2;
     private final int ADMIN_ID = 1;
+    private ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
 
     @Test
-    public void getClientTest() {
+    public void getClientTest() throws TransactionException {
         try {
             /**
              * Get client with client id
@@ -28,8 +34,8 @@ public class ShowClientInfoServiceTest {
              */
             client = showClientInfoService.getClient(ADMIN_ID);
             assertNull(client);
-        }catch (SQLException | DaoException e) {
-
+        } catch (SQLException | DaoException e) {
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }
 }

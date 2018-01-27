@@ -3,9 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class UserDao {
 
     public int getUserShipId(int userId) throws SQLException, DaoException {
         int shipId = 0;
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_USER_SHIPID);
             statement.setInt(1, userId);
@@ -31,7 +31,7 @@ public class UserDao {
                 throw new DaoException("User with user id = " + userId + "does not exist");
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return shipId;
@@ -39,7 +39,7 @@ public class UserDao {
 
     public Client getClientByEmailAndPassword(String email, String password) throws SQLException, DaoException {
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
@@ -49,7 +49,7 @@ public class UserDao {
             ResultSet resultSet = statement.executeQuery();
             client = getUser(resultSet);
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
             throw new DaoException("There is no client with the specified email and password");
         }
         connection.close();
@@ -58,7 +58,7 @@ public class UserDao {
 
     public Client getUserById(int userId) throws SQLException, DaoException {
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_ID);
@@ -68,7 +68,7 @@ public class UserDao {
             client = getUser(resultSet);
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
             throw new DaoException("There is no client with the specified email and password");
         }
         connection.close();
@@ -80,10 +80,10 @@ public class UserDao {
         if (resultSet.next()) {
             client = new Client();
             client.setClientId(resultSet.getInt(1));
-            client.setFirstName(resultSet.getString(2));
-            client.setLastName(resultSet.getString(3));
-            client.setEmail(resultSet.getString(4));
-            client.setPassword(resultSet.getString(5));
+            client.setFirstName(resultSet.getString(2).replaceAll(" ", ""));
+            client.setLastName(resultSet.getString(3).replaceAll(" ", ""));
+            client.setEmail(resultSet.getString(4).replaceAll(" ", ""));
+            client.setPassword(resultSet.getString(5).replaceAll(" ", ""));
             client.setShipId(resultSet.getInt(6));
         }
         return client;
@@ -92,7 +92,7 @@ public class UserDao {
     public int addNewUser(String firstName, String lastName, String email, String password) throws SQLException {
         int result = 0;
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(ADD_USER);
             statement.setString(1, firstName);
@@ -103,7 +103,7 @@ public class UserDao {
             result = statement.executeUpdate();
 
         } catch (SQLException e) {
-            log.error(e.getStackTrace());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         connection.close();
         return result;

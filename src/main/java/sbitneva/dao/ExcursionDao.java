@@ -3,9 +3,9 @@ package sbitneva.dao;
 import org.apache.log4j.Logger;
 import sbitneva.entity.Excursion;
 import sbitneva.exception.DaoException;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +23,7 @@ public class ExcursionDao {
 
     public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DaoException {
         ArrayList<Excursion> excursions = null;
-        Connection con = ConnectionPool.getConnection();
+        ConnectionPoolWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement(GET_EXCURSIONS_BY_USER_ID);
             statement.setInt(1, userId);
@@ -38,7 +38,7 @@ public class ExcursionDao {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         con.close();
         return excursions;
@@ -47,7 +47,7 @@ public class ExcursionDao {
     public ArrayList<Excursion> getAllExcursionsForPort(int portId) throws SQLException {
         ArrayList<Excursion> excursions = new ArrayList<>();
 
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_EXCURSIONS_BY_PORT_ID);
             statement.setInt(1, portId);
@@ -62,7 +62,7 @@ public class ExcursionDao {
                 excursions.add(excursion);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
 
         }
         connection.close();

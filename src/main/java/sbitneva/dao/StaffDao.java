@@ -2,9 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Staff;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +16,7 @@ public class StaffDao {
 
     public ArrayList<Staff> getStaff(int shipId) throws SQLException {
         ArrayList<Staff> staff = new ArrayList<>();
-        Connection connection = ConnectionPool.getConnection();
+        ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_STAFF_BY_SHIP_ID);
             statement.setInt(1, shipId);
@@ -32,8 +32,9 @@ public class StaffDao {
             }
 
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
+        connection.close();
         return staff;
     }
 }

@@ -36,7 +36,6 @@ public class AddTicketToCartCommand implements Command {
     private int getPageAttribute(HttpServletRequest request) {
         int page = 1;
 
-
         if (request.getParameter(PAGE) != null) {
             try {
                 page = Integer.parseInt(request.getParameter(PAGE));

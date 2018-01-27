@@ -6,6 +6,8 @@ import sbitneva.dao.UserDao;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
 import sbitneva.exception.RegistrationException;
+import sbitneva.exception.TransactionException;
+import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -45,7 +47,9 @@ public class RegistrationService {
         if (verified) {
             UserDao userDao = DaoFactory.getUserDao();
             try {
+                TransactionManager.beginTransaction();
                 int i = userDao.addNewUser(firstName, lastName, email, password);
+                TransactionManager.endTransaction();
                 if (i != 1) {
                     log.error("New client didn't created");
                     throw new RegistrationException("New client didn't created");
@@ -53,8 +57,14 @@ public class RegistrationService {
                     client = userDao.getClientByEmailAndPassword(email, password);
                     log.debug("Registration is succeeded");
                 }
-            } catch (SQLException | DaoException e) {
-                log.error(e.getMessage());
+
+            } catch (SQLException | DaoException | TransactionException e) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+                try {
+                    TransactionManager.endTransaction();
+                } catch (SQLException | TransactionException e1) {
+                    log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
+                }
             }
         }
         return client.getClientId();

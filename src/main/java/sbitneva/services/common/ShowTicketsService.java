@@ -34,11 +34,9 @@ public class ShowTicketsService {
                 ship = shipDao.getBasicShipData(shipId);
                 if (ship != null) {
                     ArrayList<Ticket> tickets = getTickets(shipId, pageId);
-
                     if (tickets != null) {
                         ship.setTickets(tickets);
                         ship.setPorts(getShipPorts(shipId));
-
                     }
                 }
             }
@@ -125,7 +123,6 @@ public class ShowTicketsService {
 
     public void isInCart(ArrayList<Ticket> tickets, int userId) {
         CartDao cartDao = DaoFactory.getCartDao();
-
         for (Ticket ticket : tickets) {
             try {
                 ticket.setCart(cartDao.isTicketInCart(userId, ticket.getTicketId()));

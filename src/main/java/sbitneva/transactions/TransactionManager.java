@@ -2,7 +2,6 @@ package sbitneva.transactions;
 
 import org.apache.log4j.Logger;
 import sbitneva.exception.TransactionException;
-import sbitneva.services.client.ShowCruisesService;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -19,7 +18,6 @@ public class TransactionManager {
         if (Objects.nonNull(threadLocal.get()))
             throw new TransactionException("ThreadLocal for begin transaction is not empty");
         Connection connection = ConnectionPool.getConnection();
-
         connection.setAutoCommit(false);
         ConnectionPoolWrapper wrapper = new ConnectionPoolWrapper(connection, true);
         threadLocal.set(wrapper);
@@ -32,7 +30,6 @@ public class TransactionManager {
             throw new TransactionException("ThreadLocal for end transaction is not empty");
         ConnectionPoolWrapper wrapper = threadLocal.get();
         log.debug(threadLocal.get().hashCode());
-        wrapper.getConnection().setAutoCommit(false);
         wrapper.getConnection().commit();
         wrapper.getConnection().close();
         threadLocal.set(null);
@@ -60,6 +57,7 @@ public class TransactionManager {
     public static ConnectionPoolWrapper getConnection() throws SQLException {
         if (Objects.isNull(threadLocal.get())) {
             Connection connection = ConnectionPool.getConnection();
+            connection.setAutoCommit(false);
             return new ConnectionPoolWrapper(connection, false);
         } else {
             return threadLocal.get();

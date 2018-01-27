@@ -10,6 +10,15 @@ public class Excursion {
     private int price;
     private int ticketId;
 
+    public Excursion() {
+
+    }
+
+    public Excursion(int excursionId) {
+        this.excursionId = excursionId;
+    }
+
+
     public int getTicketId() {
         return ticketId;
     }

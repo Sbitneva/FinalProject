@@ -42,6 +42,7 @@ public class CommandsHelper {
     public static final String SERVICES_PAGE = "comfort-level-services.jsp";
     public static final String TICKETS_PAGE = "jsp/client/tickets.jsp";
     public static final String REGISTRATION_PAGE = "jsp/registration/registration.jsp";
+    public static final String PAGE_NOT_FOUND_PAGE = "jsp/errors/404-error.jsp";
     // ship-admin pages
     public static final String SHIP_STAFF_PAGE = "jsp/ship-administrator/staff.jsp";
     public static final String SHIP_INFO_PAGE = "jsp/ship-administrator/ship-info.jsp";

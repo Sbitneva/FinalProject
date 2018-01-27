@@ -2,9 +2,9 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Service;
-import sbitneva.transactions.ConnectionPool;
+import sbitneva.transactions.ConnectionPoolWrapper;
+import sbitneva.transactions.TransactionManager;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class ComfortLevelDao {
 
     public ArrayList<Service> getComfortLevelInfo(int comfortLevelId) throws SQLException {
         ArrayList<Service> services = new ArrayList<>();
-        Connection con = ConnectionPool.getConnection();
+        ConnectionPoolWrapper con = TransactionManager.getConnection();
         try {
             PreparedStatement statement = con.prepareStatement(GET_SERVICES_BY_COMFORT_LEVEL_ID);
             statement.setInt(1, comfortLevelId);
@@ -35,7 +35,7 @@ public class ComfortLevelDao {
                 services.add(service);
             }
         } catch (SQLException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
         con.close();
         return services;
