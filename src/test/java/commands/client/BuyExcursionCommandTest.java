@@ -25,7 +25,6 @@ import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static sbitneva.command.CommandsHelper.*;
-import static sbitneva.command.factory.FactoryCommand.ADD_TO_CART;
 import static sbitneva.command.factory.FactoryCommand.BUY_EXCURSION;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 
@@ -46,16 +45,17 @@ public class BuyExcursionCommandTest {
 
     @Test
     public void executionTestWithCorrectParameters() throws ServletException, IOException {
-        when(request.getParameter(TICKET_ID)).thenReturn("39");
+        String ticketId = "39";
+        when(request.getParameter(TICKET_ID)).thenReturn(ticketId);
         when(request.getParameter(EXCURSION_ID)).thenReturn("2");
         ServletDispatcher dispatcher = new ServletDispatcher();
 
         TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
         try {
-            int excursionsBefore = ticketsExcursionsDao.getAllExcursionsByTicketId(39).size();
+            int excursionsBefore = ticketsExcursionsDao.getAllExcursionsByTicketId(Integer.parseInt(ticketId)).size();
             dispatcher.init();
             dispatcher.processRequest(request, response);
-            int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(39).size();
+            int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(Integer.parseInt(ticketId)).size();
             assertEquals(excursionsBefore + 1, excursionsAfter);
         } catch (SQLException  e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());

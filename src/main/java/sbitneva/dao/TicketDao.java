@@ -58,7 +58,7 @@ public class TicketDao {
             log.error(e.getMessage());
             throw new DaoException();
         }
-        //connection.close();
+        connection.close();
         return tickets;
     }
 
@@ -76,9 +76,9 @@ public class TicketDao {
                 }
             }
         } catch (SQLException e) {
-            //TransactionManager.rollbackTransaction();
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
+        connection.close();
     }
 
     public int getShipByTicketId(int ticketId) throws SQLException {

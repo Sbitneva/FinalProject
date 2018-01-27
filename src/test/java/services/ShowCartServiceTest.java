@@ -57,7 +57,6 @@ public class ShowCartServiceTest {
             assertEquals(3, cart.getTickets().size());
             assertEquals(2, cart.getDeletedTickets().size());
 
-
         } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             try{
