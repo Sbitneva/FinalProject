@@ -16,8 +16,8 @@ import java.io.IOException;
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static sbitneva.command.CommandsHelper.EMAIL;
-import static sbitneva.command.CommandsHelper.PASSWORD;
+import static sbitneva.command.BasicCommand.EMAIL;
+import static sbitneva.command.BasicCommand.PASSWORD;
 import static sbitneva.command.factory.FactoryCommand.LOGIN;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 

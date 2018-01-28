@@ -12,25 +12,37 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CartDao {
+/**
+ * Customer cart DAO.
+ */
+public class CartDao extends BasicDao {
 
-    private static final String GET_TICKETS_IDs_FROM_CART =
-            "select ticket_id from carts where (user_id_carts = ?)";
-    private static final String DELETE_CART_ROW =
-            "delete  from carts where(user_id_carts = ? and ticket_id = ?);";
-    private static final String GET_TICKET_FROM_CART =
-            "select user_id_carts from carts where (user_id_carts = ? and ticket_id = ?)";
-    private static final String ADD_IF_NOT_EXISTS =
-            "INSERT INTO carts (user_id_carts, ticket_id) " +
-                    "SELECT ?, ? WHERE NOT EXISTS (SELECT user_id_carts, ticket_id " +
-                    "FROM carts WHERE(user_id_carts = ? AND ticket_id = ?))";
     private static Logger log = Logger.getLogger(CartDao.class.getName());
 
-    public Cart getUserCart(int userId) throws SQLException {
+    private static final String GET_TICKETS_IDS_FROM_CART =
+            "SELECT ticket_id FROM carts where (user_id_carts = ?)";
+    private static final String DELETE_CART_ROW =
+            "DELETE from carts WHERE (user_id_carts = ? and ticket_id = ?);";
+    private static final String GET_TICKET_FROM_CART =
+            "SELECT user_id_carts FROM carts where (user_id_carts = ? and ticket_id = ?)";
+    private static final String ADD_IF_NOT_EXISTS =
+            "INSERT INTO carts (user_id_carts, ticket_id) "
+            + "SELECT ?, ? WHERE NOT EXISTS (SELECT user_id_carts, ticket_id "
+            + "FROM carts WHERE(user_id_carts = ? AND ticket_id = ?))";
+
+    /**
+     * Get customer cart.
+     *
+     * @param userId User ID
+     * @return Cart object
+     * @throws SQLException DB access errors
+     */
+    public Cart getUserCart(final int userId)
+            throws SQLException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Cart cart = null;
         try {
-            PreparedStatement statement = connection.prepareStatement(GET_TICKETS_IDs_FROM_CART);
+            PreparedStatement statement = connection.prepareStatement(GET_TICKETS_IDS_FROM_CART);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             cart = new Cart();
@@ -44,7 +56,17 @@ public class CartDao {
         return cart;
     }
 
-    public boolean cleanCart(ArrayList<Ticket> tickets, int userId) throws SQLException, TransactionException {
+    /**
+     * Clean-up customer cart.
+     *
+     * @param tickets Tickets list
+     * @param userId User ID
+     * @return True when cart is cleaned
+     * @throws SQLException DB access errors
+     * @throws TransactionException Non-atomic transaction
+     */
+    public boolean cleanCart(final ArrayList<Ticket> tickets, final int userId)
+            throws SQLException, TransactionException {
         boolean result = true;
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
@@ -65,8 +87,16 @@ public class CartDao {
         return result;
     }
 
-    public byte isTicketInCart(int userId, int ticketId) throws SQLException {
-        byte isInCart = 0;
+    /**
+     * Check if ticket is in cart.
+     *
+     * @param userId User ID
+     * @param ticketId Ticket ID
+     * @return True if ticket in cart, false - otherwise
+     * @throws SQLException DB access errors
+     */
+    public Boolean isTicketInCart(final int userId, final int ticketId) throws SQLException {
+        Boolean isInCart = false;
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_TICKET_FROM_CART);
@@ -74,7 +104,7 @@ public class CartDao {
             statement.setInt(2, ticketId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                isInCart = 1;
+                isInCart = true;
             }
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
@@ -83,7 +113,14 @@ public class CartDao {
         return isInCart;
     }
 
-    public void addTicketToCart(int userId, int ticketId) throws SQLException {
+    /**
+     * Add ticket to cart.
+     *
+     * @param userId User ID
+     * @param ticketId Ticket ID
+     * @throws SQLException DB access errors
+     */
+    public void addTicketToCart(final int userId, final int ticketId) throws SQLException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
 
         try {
@@ -92,12 +129,11 @@ public class CartDao {
             statement.setInt(2, ticketId);
             statement.setInt(3, userId);
             statement.setInt(4, ticketId);
-            int result = statement.executeUpdate();
+            statement.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         connection.close();
     }
-
 
 }

@@ -1,15 +1,15 @@
 package sbitneva.services.common;
 
-import sbitneva.dao.BasicDao;
 import sbitneva.dao.ComfortLevelDao;
 import sbitneva.dao.DaoFactory;
 import sbitneva.entity.ComfortLevel;
 
 import java.sql.SQLException;
 
-import static sbitneva.dao.ComfortLevelDao.GET_COMFORT_LEVEL_NAME;
-
-public class ShowServicesService {
+/**
+ * Service: show services.
+ */
+public final class ShowServicesService {
 
     private static ShowServicesService showTicketsService = new ShowServicesService();
 
@@ -17,15 +17,26 @@ public class ShowServicesService {
 
     }
 
+    /**
+     * Get ShowServicesService instance.
+     *
+     * @return ShowServicesService instance
+     */
     public static ShowServicesService getShowTicketsService() {
         return showTicketsService;
     }
 
-    public ComfortLevel getServices(int comfortLevelId) {
+    /**
+     * Get services for comfort level.
+     *
+     * @param comfortLevelId Comfort level ID
+     * @return ComfortLevel
+     */
+    public ComfortLevel getServices(final int comfortLevelId) {
         ComfortLevel comfortLevel = null;
         ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
         try {
-            String clName = BasicDao.getNameById(GET_COMFORT_LEVEL_NAME, comfortLevelId);
+            String clName = comfortLevelDao.getNameById(comfortLevelId);
             if (clName != null) {
                 comfortLevel = new ComfortLevel();
                 comfortLevel.setComfortLevelId(comfortLevelId);

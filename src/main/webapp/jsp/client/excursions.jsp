@@ -15,7 +15,7 @@
     <link href="../../css/client/buy-excursion.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h2><fmt:message key="client.excursions.excursions_table.title"/> </h2>
+<h2><fmt:message key="client.excursions.excursions_table.title"/></h2>
 <table id="excursions_table">
     <tr>
         <th><fmt:message key="client.excursions.excursions_table.excursion_name"/></th>
@@ -33,7 +33,8 @@
                     <form id="buy_excursion_form"
                           action="/Cruise?command=buyExcursion&ticketId=${ticketId}&excursionId=${excursion.excursionId}"
                           method="post">
-                        <button id="buy_excursion_button" type="submit"><fmt:message key="client.excursions.excursions_table.buy_excursion_form.buy_excursion_button"/></button>
+                        <button id="buy_excursion_button" type="submit"><fmt:message
+                                key="client.excursions.excursions_table.buy_excursion_form.buy_excursion_button"/></button>
                     </form>
                 </td>
             </tr>

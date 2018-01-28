@@ -10,16 +10,33 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDao {
+/**
+ * User DAO.
+ */
+public class UserDao extends BasicDao {
 
-    private static final String GET_CLIENT_BY_ID = "SELECT * FROM users WHERE (user_id = ? AND ship_id_ships IS NULL);";
-    private static final String GET_CLIENT_BY_EMAIL_AND_PASS = "SELECT * FROM users WHERE email = ? AND password = ?";
-    private static final String ADD_USER = "INSERT INTO users VALUES ( default, ?, ?, ?, ?, default )";
-    private static final String GET_USER_SHIPID = "SELECT ship_id_ships FROM users WHERE (user_id = ?)";
     private static Logger log = Logger.getLogger(UserDao.class.getName());
 
-    public int getUserShipId(int userId) throws SQLException, DaoException {
+    private static final String GET_CLIENT_BY_ID =
+            "SELECT * FROM users WHERE (user_id = ? AND ship_id_ships IS NULL);";
+    private static final String GET_CLIENT_BY_EMAIL_AND_PASS =
+            "SELECT * FROM users WHERE email = ? AND password = ?";
+    private static final String ADD_USER =
+            "INSERT INTO users VALUES (default, ?, ?, ?, ?, default)";
+    private static final String GET_USER_SHIPID =
+            "SELECT ship_id_ships FROM users WHERE (user_id = ?)";
+
+    /**
+     * Get ship ID from user ID.
+     *
+     * @param userId User ID
+     * @return Ship ID
+     * @throws SQLException DB access errors
+     * @throws DaoException No such user exists
+     */
+    public int getUserShipId(final int userId) throws SQLException, DaoException {
         int shipId = 0;
+
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_USER_SHIPID);
@@ -37,10 +54,21 @@ public class UserDao {
         return shipId;
     }
 
-    public Client getClientByEmailAndPassword(String email, String password) throws SQLException, DaoException {
-
+    /**
+     * Get user information by email and password.
+     *  (for login page)
+     *
+     * @param email E-mail
+     * @param password Password
+     * @return User data
+     * @throws SQLException DB access errors
+     * @throws DaoException No such client exists
+     */
+    public Client getClientByEmailAndPassword(final String email, final String password)
+            throws SQLException, DaoException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
+
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_EMAIL_AND_PASS);
             statement.setString(1, email);
@@ -56,10 +84,18 @@ public class UserDao {
         return client;
     }
 
-    public Client getUserById(int userId) throws SQLException, DaoException {
-
+    /**
+     * Get user information by user ID.
+     *
+     * @param userId User ID
+     * @return User data
+     * @throws SQLException DB access errors
+     * @throws DaoException No such user exists
+     */
+    public Client getUserById(final int userId) throws SQLException, DaoException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         Client client;
+
         try {
             PreparedStatement statement = connection.prepareStatement(GET_CLIENT_BY_ID);
             statement.setInt(1, userId);
@@ -69,14 +105,15 @@ public class UserDao {
 
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
-            throw new DaoException("There is no client with the specified email and password");
+            throw new DaoException("There is no client with the specified user ID");
         }
         connection.close();
         return client;
     }
 
-    private Client getUser(ResultSet resultSet) throws SQLException {
+    private Client getUser(final ResultSet resultSet) throws SQLException {
         Client client = null;
+
         if (resultSet.next()) {
             client = new Client();
             client.setClientId(resultSet.getInt(1));
@@ -89,7 +126,18 @@ public class UserDao {
         return client;
     }
 
-    public int addNewUser(String firstName, String lastName, String email, String password) throws SQLException {
+    /**
+     * Register new user.
+     *
+     * @param firstName First name
+     * @param lastName Last name
+     * @param email E-mail
+     * @param password Password
+     * @return 1 if user was added
+     * @throws SQLException DB access errors
+     */
+    public int addNewUser(final String firstName, final String lastName, final String email, final String password)
+            throws SQLException {
         int result = 0;
 
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
@@ -101,7 +149,6 @@ public class UserDao {
             statement.setString(4, password);
 
             result = statement.executeUpdate();
-
         } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }

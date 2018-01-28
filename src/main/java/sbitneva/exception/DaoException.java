@@ -1,11 +1,22 @@
 package sbitneva.exception;
 
+/**
+ * DAO exception.
+ */
 public class DaoException extends Throwable {
-    public DaoException() {
 
+    /**
+     * Default exception constructor.
+     */
+    public DaoException() {
     }
 
-    public DaoException(String message) {
+    /**
+     * Exception with message constructor.
+     *
+     * @param message Message to pass to handler
+     */
+    public DaoException(final String message) {
         super(message);
     }
 }

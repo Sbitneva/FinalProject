@@ -1,7 +1,7 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Ship;
 import sbitneva.services.client.ShowCruisesService;
@@ -12,20 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ShowCruisesCommand implements Command {
+
+/**
+ * Command: show cruises.
+ */
+public class ShowCruisesCommand extends BasicCommand implements Command {
 
     private static Logger log = Logger.getLogger(ShowCruisesCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+
         log.debug("ShowCruisesCommand execution started");
-        try {
-            ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
-            ArrayList<Ship> ships = showCruisesService.getCruiseShips();
-            request.setAttribute(CommandsHelper.SHIPS, ships);
-            request.getRequestDispatcher(CommandsHelper.CRUISES_LIST_PAGE).forward(request, response);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
+
+        ShowCruisesService showCruisesService = ShowCruisesService.getShowCruisesService();
+        ArrayList<Ship> ships = showCruisesService.getCruiseShips();
+        request.setAttribute(SHIPS, ships);
+        request.getRequestDispatcher(CRUISES_LIST_PAGE).forward(request, response);
     }
 }

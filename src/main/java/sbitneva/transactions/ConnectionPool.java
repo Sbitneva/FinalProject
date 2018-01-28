@@ -1,6 +1,5 @@
 package sbitneva.transactions;
 
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
 
@@ -9,19 +8,29 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public class ConnectionPool {
+/**
+ * Connection pool.
+ */
+public final class ConnectionPool {
+    private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
+
     private static final String DB_DRIVER = "org.postgresql.Driver";
     private static final String DB_PATH = "jdbc:postgresql://";
     private static final String DB_LOCAL_PATH = "localhost:54321/cruise_company";
     private static final String DB_LOGIN = "postgres";
     private static final String DB_PASSWORD = "postgres";
-    private static Logger log = Logger.getLogger(ConnectionPool.class.getName());
     private static BasicDataSource connectionPool = initDataSource();
 
     private ConnectionPool() {
 
     }
 
+    /**
+     * Get connection instance from pool.
+     *
+     * @return Connection
+     * @throws SQLException DB access errors
+     */
     public static Connection getConnection() throws SQLException {
         log.debug("Active connections :" + connectionPool.getNumActive());
         return connectionPool.getConnection();
@@ -53,13 +62,16 @@ public class ConnectionPool {
             connectionPool.setUrl(dbUrl);
             connectionPool.setInitialSize(1);
             connectionPool.setDefaultAutoCommit(false);
-
         } catch (URISyntaxException e) {
-
+            log.error(e.getStackTrace());
         }
+
         return connectionPool;
     }
 
+    /**
+     * Close connection pool.
+     */
     public void close() {
         try {
             connectionPool.close();

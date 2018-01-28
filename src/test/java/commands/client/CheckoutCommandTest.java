@@ -23,10 +23,8 @@ import java.util.ArrayList;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static sbitneva.command.CommandsHelper.USER_ID_SESSION_ATTRIBUTE;
+import static org.mockito.Mockito.*;
+import static sbitneva.command.BasicCommand.USER_ID_SESSION_ATTRIBUTE;
 import static sbitneva.command.factory.FactoryCommand.CHECKOUT;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 
@@ -84,7 +82,7 @@ public class CheckoutCommandTest {
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
             TransactionManager.beginTransaction();
-            for(Ticket ticket : tickets) {
+            for (Ticket ticket : tickets) {
                 cartDao.addTicketToCart(9, ticket.getTicketId());
             }
             TransactionManager.endTransaction();

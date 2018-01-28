@@ -1,7 +1,6 @@
 package sbitneva.filters;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
 import sbitneva.configaration.SecurityConfiguration;
 
 import javax.servlet.*;
@@ -10,73 +9,64 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Authentication filter.
+ */
 @WebFilter(filterName = "AuthenticationFilter",
         urlPatterns = {"/*"}
 )
 
 public class AuthenticationFilter implements Filter {
 
-    private static final String MAIN_PAGE = "/index.jsp";
-    private static final String ERROR_404_PAGE = "jsp/errors/404-error.jsp";
-    private static final String USER_ID_SESSION_ATTR_NAME = "id";
-    private static final String ACCESS_SESSION_ATTR_NAME = "type";
-    private static final String COMMAND_PARAMETER_NAME = "command";
     private static Logger log = Logger.getLogger(AuthenticationFilter.class.getName());
+
+    public static final String MAIN_PAGE = "/index.jsp";
+    public static final String USER_ID_SESSION_ATTR_NAME = "id";
+    public static final String ACCESS_SESSION_ATTR_NAME = "type";
+    public static final String COMMAND_PARAMETER_NAME = "command";
 
     private SecurityConfiguration securityConfiguration = SecurityConfiguration.getConfig();
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(final FilterConfig filterConfig) {
 
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
-        log.debug("auth filter work");
-        boolean errorRedirect = false;
-        HttpSession session = ((HttpServletRequest) request).getSession(true);
+    public void doFilter(final ServletRequest request, final ServletResponse response, final FilterChain filterChain)
+            throws IOException, ServletException {
+
+        log.debug("auth filter starts");
+        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+
+        HttpSession session = httpServletRequest.getSession(true);
+
         String command = getCommandFromRequest(request);
-        if ((!(hasAttributes(session)))) {
-            log.debug("session has no any attributes");
-            if (securityConfiguration.isCommandForNotAuth(command) || command == null) {
-                log.debug("command goes through the filter");
-                filterChain.doFilter(request, response);
+
+        if (securityConfiguration.isCommandForNotAuth(command) || command == null) {
+            if ((request).getParameter("language") != null) {
+                httpServletRequest.getRequestDispatcher(MAIN_PAGE).forward(request, response);
             }
-        } else if (isAttributesValid(session)) {
-            log.debug("session attributes are full");
-            int accessId = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
-            if (command != null) {
-                log.debug("request has command parameter");
+            filterChain.doFilter(request, response);
+        } else {
+            if (isAttributesValid(session)) {
+                log.debug("session attributes are full");
+                int accessId = getAccessAttributeFromSession(session);
                 SecurityConfiguration securityConfiguration = SecurityConfiguration.getConfig();
+
                 if (securityConfiguration.hasCommand(command)) {
-                    log.debug("request has right command parameter");
                     if (securityConfiguration.verifyRights(accessId, command)) {
                         log.debug("current response has access rights for requested command execution");
                         filterChain.doFilter(request, response);
                         log.debug("command goes through the filter");
+                    } else {
+                        httpServletRequest.getRequestDispatcher(MAIN_PAGE).forward(request, response);
                     }
-                } else {
-                    log.debug("request has no command with requested name");
-                    filterChain.doFilter(request, response);
-                    log.debug("command goes through the filter");
                 }
             } else {
-                log.debug("request has no command parameter");
-                filterChain.doFilter(request, response);
-                log.debug("command goes through the filter");
+                httpServletRequest.getRequestDispatcher(MAIN_PAGE).forward(request, response);
             }
-
-        } else {
-            errorRedirect = true;
-            log.debug("session attributes are wrong");
         }
-        if (errorRedirect) {
-
-            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-            httpServletRequest.getRequestDispatcher(MAIN_PAGE).forward(request, response);
-
-        }
-
     }
 
     @Override
@@ -84,12 +74,11 @@ public class AuthenticationFilter implements Filter {
 
     }
 
-    private boolean isAttributesValid(HttpSession session) {
+    private boolean isAttributesValid(final HttpSession session) {
         boolean isValid = false;
 
-        if ((session.getAttribute(USER_ID_SESSION_ATTR_NAME) != null) &&
-                (session.getAttribute(ACCESS_SESSION_ATTR_NAME) != null)) {
-
+        if ((session.getAttribute(USER_ID_SESSION_ATTR_NAME) != null)
+                && (session.getAttribute(ACCESS_SESSION_ATTR_NAME) != null)) {
             try {
                 int id = Integer.parseInt(session.getAttribute(USER_ID_SESSION_ATTR_NAME).toString());
                 int access = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
@@ -99,12 +88,11 @@ public class AuthenticationFilter implements Filter {
             } catch (NumberFormatException e) {
                 log.error("session parameters has wrong data");
             }
-
         }
         return isValid;
     }
 
-    private String getCommandFromRequest(ServletRequest request) {
+    private String getCommandFromRequest(final ServletRequest request) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         if (httpRequest.getParameter(COMMAND_PARAMETER_NAME) != null) {
             return httpRequest.getParameter(COMMAND_PARAMETER_NAME);
@@ -113,18 +101,16 @@ public class AuthenticationFilter implements Filter {
         }
     }
 
-    private boolean hasAttributes(HttpSession session) {
-        boolean has = true;
-        if(session.getAttribute(CommandsHelper.LANGUAGE_SESSION_ATTRIBUTE) == null){
-            session.setAttribute(CommandsHelper.LANGUAGE_SESSION_ATTRIBUTE, "en_EN");
+    private int getAccessAttributeFromSession(final HttpSession session) {
+        int access = 0;
+        if (session.getAttribute(ACCESS_SESSION_ATTR_NAME) != null) {
+            try {
+                access = Integer.parseInt(session.getAttribute(ACCESS_SESSION_ATTR_NAME).toString());
+            } catch (NumberFormatException e) {
+                log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
+            }
         }
-
-        if ((session.getAttribute(USER_ID_SESSION_ATTR_NAME) == null) &&
-                (session.getAttribute(ACCESS_SESSION_ATTR_NAME) == null)) {
-            has = false;
-        }
-        return has;
+        return access;
     }
-
 
 }

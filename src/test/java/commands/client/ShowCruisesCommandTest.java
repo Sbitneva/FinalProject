@@ -13,11 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static sbitneva.command.CommandsHelper.PAGE;
-import static sbitneva.command.factory.FactoryCommand.CLIENT;
+import static org.mockito.Mockito.*;
 import static sbitneva.command.factory.FactoryCommand.GET_CRUISES;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 

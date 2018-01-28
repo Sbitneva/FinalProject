@@ -11,20 +11,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ShowTicketsService {
+/**
+ * Service: show tickets.
+ */
+public final class ShowTicketsService {
     private static final int ITEMS_PER_PAGE = 9;
     private static Logger log = Logger.getLogger(LoginService.class.getName());
     private static ShowTicketsService showTicketsService = new ShowTicketsService();
 
     private ShowTicketsService() {
-
     }
 
+    /**
+     * Get ShowTicketsService instance.
+     *
+     * @return ShowTicketsService instance
+     */
     public static ShowTicketsService getShowTicketsService() {
         return showTicketsService;
     }
 
-    public Ship getShip(int userId, int pageId) {
+    /**
+     * Ship tickets requested by user.
+     *
+     * @param userId User ID
+     * @param pageId Page ID
+     * @return Filled ship
+     */
+    public Ship getShip(final int userId, final int pageId) {
         Ship ship = null;
         UserDao userDao = DaoFactory.getUserDao();
         try {
@@ -46,7 +60,13 @@ public class ShowTicketsService {
         return ship;
     }
 
-    public int getTicketsPages(int shipId) {
+    /**
+     * Get tickets pages number.
+     *
+     * @param shipId Ship ID
+     * @return Tickets pages number
+     */
+    public int getTicketsPages(final int shipId) {
         int pagesNumber = 0;
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
@@ -61,7 +81,14 @@ public class ShowTicketsService {
         return pagesNumber;
     }
 
-    public ArrayList<Ticket> getTickets(int shipId, int pageId) {
+    /**
+     * Get bunch of ship tickets.
+     *
+     * @param shipId Ship ID
+     * @param pageId Page ID
+     * @return Tickets list
+     */
+    public ArrayList<Ticket> getTickets(final int shipId, final int pageId) {
         ArrayList<Ticket> tickets = null;
         int offset = (pageId - 1) * ITEMS_PER_PAGE;
         TicketDao ticketDao = DaoFactory.getTicketDao();
@@ -79,7 +106,14 @@ public class ShowTicketsService {
         return tickets;
     }
 
-    public Ship getShipForClient(int shipId, int currentPage) {
+    /**
+     * Get ship data for page.
+     *
+     * @param shipId Ship ID
+     * @param currentPage Page ID
+     * @return Ship data
+     */
+    public Ship getShipForClient(final int shipId, final int currentPage) {
         Ship ship = null;
         ShipDao shipDao = DaoFactory.getShipDao();
         try {
@@ -94,7 +128,7 @@ public class ShowTicketsService {
         return ship;
     }
 
-    private ArrayList<Port> getShipPorts(int shipId) {
+    private ArrayList<Port> getShipPorts(final int shipId) {
 
         ArrayList<Port> ports = new ArrayList<>();
         PortDao portDao = DaoFactory.getPortDao();
@@ -106,7 +140,7 @@ public class ShowTicketsService {
         return ports;
     }
 
-    private void setComfortLevelNames(ArrayList<Ticket> tickets) {
+    private void setComfortLevelNames(final ArrayList<Ticket> tickets) {
         Map<Integer, String> comfortLevels;
         ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
         try {
@@ -121,8 +155,15 @@ public class ShowTicketsService {
         }
     }
 
-    public void isInCart(ArrayList<Ticket> tickets, int userId) {
+    /**
+     * Push tickets into cart.
+     *
+     * @param tickets Tickets list
+     * @param userId User ID
+     */
+    public void setInCartProperty(final ArrayList<Ticket> tickets, final int userId) {
         CartDao cartDao = DaoFactory.getCartDao();
+
         for (Ticket ticket : tickets) {
             try {
                 ticket.setCart(cartDao.isTicketInCart(userId, ticket.getTicketId()));

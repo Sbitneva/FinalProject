@@ -2,7 +2,6 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Port;
-import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPoolWrapper;
 import sbitneva.transactions.TransactionManager;
 
@@ -10,27 +9,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
-public class PortDao {
-    private final static String GET_PORTNAME_BY_ID = "SELECT port_name FROM ports WHERE port_id = ?";
-    private final static String GET_PORT_ID_BY_EXCURSION_ID = "SELECT port_id_ports FROM excursions WHERE excursion_id=?";
-    private final static String GET_PORTS_BY_SHIP_ID =
-            " SELECT * FROM ports INNER JOIN many_ports_has_many_ships ON" +
-                    " (many_ports_has_many_ships.port_id_ports = ports.port_id" +
-                    " AND many_ports_has_many_ships.ship_id_ships = ?)";
-    private final static String GET_ALL_PORTS = "select * from ports";
+/**
+ * Port DAO.
+ */
+public class PortDao extends BasicDao {
     private static Logger log = Logger.getLogger(PortDao.class.getName());
 
-    public String getPortNameById(int id) throws SQLException, DaoException {
-        return BasicDao.getNameById(GET_PORTNAME_BY_ID, id);
+    private static final String GET_PORTNAME_BY_ID =
+            "SELECT port_name FROM ports WHERE port_id = ?";
+    private static final String GET_PORT_ID_BY_EXCURSION_ID =
+            "SELECT port_id_ports FROM excursions WHERE excursion_id=?";
+    private static final String GET_PORTS_BY_SHIP_ID =
+            " SELECT * FROM ports INNER JOIN many_ports_has_many_ships ON"
+            + " (many_ports_has_many_ships.port_id_ports = ports.port_id"
+            + " AND many_ports_has_many_ships.ship_id_ships = ?)";
+
+    /**
+     * Get port name from port ID.
+     *
+     * @param id Port ID
+     * @return Port name
+     * @throws SQLException DB access errors
+     */
+    public String getPortNameById(final int id) throws SQLException {
+        return super.getNameById(GET_PORTNAME_BY_ID, id);
     }
 
-    public int getPortIdByExcursionId(int excursionId) throws SQLException {
-        return BasicDao.getId(GET_PORT_ID_BY_EXCURSION_ID, excursionId);
+    /**
+     * Get port ID from excursion ID.
+     *
+     * @param excursionId Excursion ID
+     * @return Port ID
+     * @throws SQLException DB access errors
+     */
+    public int getPortIdByExcursionId(final int excursionId) throws SQLException {
+        return super.getId(GET_PORT_ID_BY_EXCURSION_ID, excursionId);
     }
 
-    public ArrayList<Port> getPortsByShipId(int shipId) throws SQLException {
+    /**
+     * Get ship's ports.
+     *
+     * @param shipId Ship ID
+     * @return List of ports
+     * @throws SQLException DB access errors
+     */
+    public ArrayList<Port> getPortsByShipId(final int shipId) throws SQLException {
         ArrayList<Port> ports = new ArrayList<>();
 
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
@@ -50,10 +74,6 @@ public class PortDao {
         }
         connection.close();
         return ports;
-    }
-
-    public Map<Integer, String> getPortsMap() throws SQLException {
-        return BasicDao.getIdNameDataFromTable(GET_ALL_PORTS);
     }
 
 }

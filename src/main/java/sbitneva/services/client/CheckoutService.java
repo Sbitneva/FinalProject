@@ -10,7 +10,10 @@ import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
-public class CheckoutService {
+/**
+ * Service: checkout.
+ */
+public final class CheckoutService {
 
     private static Logger log = Logger.getLogger(CheckoutService.class.getName());
 
@@ -20,11 +23,22 @@ public class CheckoutService {
 
     }
 
+    /**
+     * Get CheckoutService instance.
+     *
+     * @return CheckoutService instance
+     */
     public static CheckoutService getCheckoutService() {
         return checkoutService;
     }
 
-    public boolean doCheckout(int userId) {
+    /**
+     * Process user checkout.
+     *
+     * @param userId User ID
+     * @return True is checkout was successful, false - otherwise
+     */
+    public boolean doCheckout(final int userId) {
         boolean isSuccessful = true;
 
         CartDao cartDao = DaoFactory.getCartDao();

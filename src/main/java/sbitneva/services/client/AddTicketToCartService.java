@@ -8,7 +8,10 @@ import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
-public class AddTicketToCartService {
+/**
+ * Service: add ticket to cart.
+ */
+public final class AddTicketToCartService {
 
     private static Logger log = Logger.getLogger(AddTicketToCartService.class.getName());
 
@@ -18,11 +21,22 @@ public class AddTicketToCartService {
 
     }
 
+    /**
+     * Get service instance.
+     *
+     * @return AddTicketToCartService instance
+     */
     public static AddTicketToCartService getAddTicketToCartService() {
         return addTicketToCartService;
     }
 
-    public void add(int userId, int ticketId) {
+    /**
+     * Add ticket to user's cart.
+     *
+     * @param userId User ID
+     * @param ticketId Ticket ID
+     */
+    public void add(final int userId, final int ticketId) {
         CartDao cartDao = DaoFactory.getCartDao();
         try {
             TransactionManager.beginTransaction();

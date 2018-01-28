@@ -9,21 +9,34 @@ import sbitneva.entity.Staff;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShowStaffService {
+/**
+ * Service: show staff.
+ */
+public final class ShowStaffService {
 
     private static Logger log = Logger.getLogger(ShowStaffService.class.getName());
 
     private static ShowStaffService showStaffService = new ShowStaffService();
 
     private ShowStaffService() {
-
     }
 
+    /**
+     * Get ShowStaffService instance.
+     *
+     * @return ShowStaffService instance
+     */
     public static ShowStaffService getShowStaffService() {
         return showStaffService;
     }
 
-    public ArrayList<Staff> getStaff(int shipId) {
+    /**
+     * Get ship staff.
+     *
+     * @param shipId Ship ID
+     * @return Staff list
+     */
+    public ArrayList<Staff> getStaff(final int shipId) {
         ArrayList<Staff> staff;
         StaffDao staffDao = DaoFactory.getStaffDao();
         try {

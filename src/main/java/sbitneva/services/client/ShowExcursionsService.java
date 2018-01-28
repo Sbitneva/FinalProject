@@ -6,12 +6,14 @@ import sbitneva.dao.ExcursionDao;
 import sbitneva.dao.PortDao;
 import sbitneva.dao.TicketDao;
 import sbitneva.entity.Port;
-import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShowExcursionsService {
+/**
+ * Service: show excursions.
+ */
+public final class ShowExcursionsService {
     private static Logger log = Logger.getLogger(ShowCruisesService.class.getName());
     private static ShowExcursionsService showExcursionsService = new ShowExcursionsService();
 
@@ -19,11 +21,22 @@ public class ShowExcursionsService {
 
     }
 
+    /**
+     * Get ShowExcursionsService instance.
+     *
+     * @return ShowExcursionsService instance
+     */
     public static ShowExcursionsService getShowExcursionsService() {
         return showExcursionsService;
     }
 
-    public ArrayList<Port> getExcursions(int ticketId) {
+    /**
+     * Get ticket's excursions.
+     *
+     * @param ticketId Ticket ID
+     * @return List of ports with excursions
+     */
+    public ArrayList<Port> getExcursions(final int ticketId) {
         ArrayList<Port> ports = null;
         TicketDao ticketDao = DaoFactory.getTicketDao();
         try {
@@ -39,7 +52,7 @@ public class ShowExcursionsService {
                     }
                 }
             }
-        } catch (SQLException | DaoException e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
 

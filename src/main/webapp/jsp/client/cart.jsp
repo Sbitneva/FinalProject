@@ -15,9 +15,35 @@
     <link href="../../css/all-backgrounds.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../../css/client/client-page.css">
     <link rel="stylesheet" type="text/css" href="../../css/client/cart.css">
+    <link href="../../css/client/tickets.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1><fmt:message key="client.cart.tickets_table.title"/> </h1>
+<table id="menu-table">
+    <tr>
+        <td><h1><fmt:message key="client.cart.tickets_table.title"/></h1></td>
+        <td>
+            <form id="main_page_button" action="/Cruise?command=client" method="post">
+                <button id="continue_shopping_button" type="submit">GO TO ACCOUNT</button>
+            </form>
+        </td>
+
+        <td>
+            <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
+                <button id="buy_ticket_other_button" type="submit"><fmt:message
+                        key="client.tickets.menu-table.buy_ticket_form.buy_ticket_button"/></button>
+            </form>
+        </td>
+
+        <td id="logout_td">
+            <form id="logout" class="functions-class" action="/Cruise?command=logout" method="post">
+                <button id="logout_button" type="submit"><fmt:message
+                        key="client.tickets.menu-table.logout.logout_button"/></button>
+            </form>
+        </td>
+    </tr>
+</table>
+<h1></h1>
+
 <div class="tables-class">
     <table id="tickets_table">
         <tr>
@@ -59,7 +85,8 @@
         <tr>
             <td>
                 <form id="checkout_form" action="/Cruise?command=checkout" method="post">
-                    <button id="checkout_button" type="submit"> <fmt:message key="client.cart.checkout_form.checkout_button"/></button>
+                    <button id="checkout_button" type="submit"><fmt:message
+                            key="client.cart.checkout_form.checkout_button"/></button>
                 </form>
             </td>
         </tr>

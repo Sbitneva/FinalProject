@@ -10,11 +10,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class StaffDao {
-    private static final String GET_ALL_STAFF_BY_SHIP_ID = "select * from staff where ship_id_ships = ?";
+/**
+ * Staff DAO.
+ */
+public class StaffDao extends BasicDao {
+
     private static Logger log = Logger.getLogger(StaffDao.class.getName());
 
-    public ArrayList<Staff> getStaff(int shipId) throws SQLException {
+    private static final String GET_ALL_STAFF_BY_SHIP_ID =
+            "SELECT * FROM staff WHERE ship_id_ships = ?";
+
+    /**
+     * Get ship's staff.
+     *
+     * @param shipId Ship ID
+     * @return Staff list
+     * @throws SQLException DB access errors
+     */
+    public ArrayList<Staff> getStaff(final int shipId) throws SQLException {
         ArrayList<Staff> staff = new ArrayList<>();
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {

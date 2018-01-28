@@ -14,6 +14,7 @@
 <h1><fmt:message key="client.checkout-success.continue_shopping.title"/></h1>
 
 <form id="continue_shopping" action="/Cruise?command=client" method="post">
-    <button id="continue_shopping_button" type="submit"><fmt:message key="client.checkout-success.continue_shopping.continue_shopping_button"/></button>
+    <button id="continue_shopping_button" type="submit"><fmt:message
+            key="client.checkout-success.continue_shopping.continue_shopping_button"/></button>
 </form>
 </body>

@@ -8,21 +8,36 @@ import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
-public class ApplyDiscountService {
+/**
+ * Service: apply discount.
+ */
+public final class ApplyDiscountService {
 
     private static Logger log = Logger.getLogger(ApplyDiscountService.class.getName());
 
     private static ApplyDiscountService applyDiscountService = new ApplyDiscountService();
 
     private ApplyDiscountService() {
-
     }
 
+    /**
+     * Get ApplyDiscountService service instance.
+     *
+     * @return ApplyDiscountService service
+     */
     public static ApplyDiscountService getApplyDiscountService() {
         return applyDiscountService;
     }
 
-    public boolean setDiscount(int ticketId, int discount, int shipId) {
+    /**
+     * Set discount for ticket.
+     *
+     * @param ticketId Ticket ID
+     * @param discount Discount value
+     * @param shipId Ship ID
+     * @return True if discount applied, false - otherwise
+     */
+    public boolean setDiscount(final int ticketId, final int discount, final int shipId) {
         boolean result = false;
         if ((discount >= 0) && (discount <= 99)) {
             TicketDao ticketDao = DaoFactory.getTicketDao();

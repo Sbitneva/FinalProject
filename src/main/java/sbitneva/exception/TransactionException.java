@@ -1,7 +1,15 @@
 package sbitneva.exception;
 
+/**
+ * Transaction exception.
+ */
 public class TransactionException extends Throwable {
-    public TransactionException(String message) {
+    /**
+     * Inherited constructor.
+     *
+     * @param message Message to pass to the handler
+     */
+    public TransactionException(final String message) {
         super(message);
     }
 }

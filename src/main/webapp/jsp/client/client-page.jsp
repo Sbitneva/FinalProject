@@ -19,17 +19,19 @@
 <div class="functions-class">
     <h1 id="hello_string" class="functions-class"><fmt:message key="client.client-page.hello_string"/>${client.firstName} ${client.lastName} </h1>
     <form id="show_cart" class="functions-class" action="/Cruise?command=cart" method="post">
-        <button id="show_cart_button" type="submit"><fmt:message key="client.client-page.show_cart.show_cart_button"/></button>
+        <button id="show_cart_button" type="submit"><fmt:message
+                key="client.client-page.show_cart.show_cart_button"/></button>
     </form>
     <form id="logout" class="functions-class" action="/Cruise?command=logout" method="post">
         <button id="logout_button" type="submit"><fmt:message key="client.client-page.logout.logout_button"/></button>
     </form>
 </div>
 <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
-    <button id="buy_ticket_button" type="submit"> <fmt:message key="client.client-page.buy_ticket_form.buy_ticket_button"/></button>
+    <button id="buy_ticket_button" type="submit"><fmt:message
+            key="client.client-page.buy_ticket_form.buy_ticket_button"/></button>
 </form>
 
-<h2><fmt:message key="client.client-page.tickets_table.titile"/> </h2>
+<h2><fmt:message key="client.client-page.tickets_table.titile"/></h2>
 
 <table id="tickets_table">
     <tr>
@@ -49,14 +51,16 @@
                       action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
                         ${ticket.comfortLevelName}
-                    <button id="show" type="submit"><fmt:message key="client.client-page.tickets_table.show_services.show"/></button>
+                    <button id="show" type="submit"><fmt:message
+                            key="client.client-page.tickets_table.show_services.show"/></button>
                 </form>
             </td>
             <td>
                 <form id="buy_excursion_form"
                       action="/Cruise?command=getExcursions&ticketId=${ticket.ticketId}"
                       method="post">
-                    <button id="buy_excursion_button" type="submit"><fmt:message key="client.client-page.tickets_table.buy_excursion_form.buy_excursion_button"/></button>
+                    <button id="buy_excursion_button" type="submit"><fmt:message
+                            key="client.client-page.tickets_table.buy_excursion_form.buy_excursion_button"/></button>
                 </form>
             </td>
         </tr>

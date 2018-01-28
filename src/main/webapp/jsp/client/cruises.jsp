@@ -30,7 +30,8 @@
                 <form id="show_tickets_form"
                       action="/Cruise?command=showShip&shipId=${ship.shipId}"
                       method="post">
-                    <button id="show_tickets_button" type="submit"><fmt:message key="client.cruises.ships_table.show_tickets_form.show_tickets_button"/></button>
+                    <button id="show_tickets_button" type="submit"><fmt:message
+                            key="client.cruises.ships_table.show_tickets_form.show_tickets_button"/></button>
                 </form>
             </td>
         </tr>

@@ -2,7 +2,6 @@ package sbitneva.dao;
 
 import org.apache.log4j.Logger;
 import sbitneva.entity.Excursion;
-import sbitneva.exception.DaoException;
 import sbitneva.transactions.ConnectionPoolWrapper;
 import sbitneva.transactions.TransactionManager;
 
@@ -11,17 +10,31 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ExcursionDao {
-    public final static String GET_EXCURSION_NAME_BY_ID = "select excursion_name from excursions where excursion_id=?";
-    private final static String GET_EXCURSIONS_BY_USER_ID = "SELECT * FROM many_tickets_has_many_excursions " +
-            "INNER JOIN tickets " +
-            "ON (tickets.user_id_users=? AND tickets.ticket_id= many_tickets_has_many_excursions.ticket_id_tickets)";
-    private final static String GET_ALL_EXCURSIONS_BY_PORT_ID =
-            "SELECT * FROM  excursions INNER JOIN ports ON " +
-                    "(excursions.port_id_ports = ? AND excursions.port_id_ports = ports.port_id)";
+/**
+ * Excursion DAO.
+ */
+public class ExcursionDao extends BasicDao {
+
     private static Logger log = Logger.getLogger(ExcursionDao.class.getName());
 
-    public ArrayList<Excursion> getExcursionsByUser(int userId) throws SQLException, DaoException {
+    private static final String GET_EXCURSION_NAME_BY_ID =
+            "SELECT excursion_name FROM excursions WHERE excursion_id = ?";
+    private static final String GET_EXCURSIONS_BY_USER_ID =
+            "SELECT * FROM many_tickets_has_many_excursions "
+            + "INNER JOIN tickets ON (tickets.user_id_users = ? "
+            + "AND tickets.ticket_id = many_tickets_has_many_excursions.ticket_id_tickets)";
+    private static final String GET_ALL_EXCURSIONS_BY_PORT_ID =
+            "SELECT * FROM  excursions INNER JOIN ports ON "
+            + "(excursions.port_id_ports = ? AND excursions.port_id_ports = ports.port_id)";
+
+    /**
+     * Get excursions for user.
+     *
+     * @param userId User ID
+     * @return List of excursions
+     * @throws SQLException DB access errors
+     */
+    public ArrayList<Excursion> getExcursionsByUser(final int userId) throws SQLException {
         ArrayList<Excursion> excursions = null;
         ConnectionPoolWrapper con = TransactionManager.getConnection();
         try {
@@ -44,7 +57,14 @@ public class ExcursionDao {
         return excursions;
     }
 
-    public ArrayList<Excursion> getAllExcursionsForPort(int portId) throws SQLException {
+    /**
+     * Get excursions for port.
+     *
+     * @param portId Port ID
+     * @return List of excursions
+     * @throws SQLException DB access errors
+     */
+    public ArrayList<Excursion> getAllExcursionsForPort(final int portId) throws SQLException {
         ArrayList<Excursion> excursions = new ArrayList<>();
 
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
@@ -70,7 +90,15 @@ public class ExcursionDao {
         return excursions;
     }
 
-    public String getExcursionNameById(int id) throws SQLException {
-        return BasicDao.getNameById(GET_EXCURSION_NAME_BY_ID, id);
+    /**
+     * Get excursion name by excursion ID.
+     *
+     * @param id Excursion ID
+     * @return Excursion name
+     * @throws SQLException DB access errors
+     */
+    public String getExcursionNameById(final int id) throws SQLException {
+        return super.getNameById(GET_EXCURSION_NAME_BY_ID, id);
     }
+
 }

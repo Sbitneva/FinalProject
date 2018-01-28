@@ -8,7 +8,10 @@ import sbitneva.exception.DaoException;
 
 import java.sql.SQLException;
 
-public class LoginService {
+/**
+ * Service: user login.
+ */
+public final class LoginService {
     private static Logger log = Logger.getLogger(LoginService.class.getName());
 
     private static LoginService loginService = new LoginService();
@@ -17,11 +20,23 @@ public class LoginService {
 
     }
 
+    /**
+     * Get LoginService instance.
+     *
+     * @return LoginService instance
+     */
     public static LoginService getLoginService() {
         return loginService;
     }
 
-    public Client getUser(String email, String password) {
+    /**
+     * Get user from login email and password.
+     *
+     * @param email E-mail
+     * @param password Password
+     * @return Client
+     */
+    public Client getUser(final String email, final String password) {
         Client client = null;
         UserDao userDao = DaoFactory.getUserDao();
         try {

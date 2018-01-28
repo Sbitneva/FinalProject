@@ -7,16 +7,28 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class TransactionManager {
+/**
+ * Transaction manager.
+ */
+public final class TransactionManager {
+
     private static Logger log = Logger.getLogger(TransactionManager.class.getName());
+
     private static ThreadLocal<ConnectionPoolWrapper> threadLocal = new ThreadLocal<>();
 
     private TransactionManager() {
     }
 
+    /**
+     * Start DB transaction.
+     *
+     * @throws SQLException DB access errors
+     * @throws TransactionException ThreadLocal isn't empty
+     */
     public static void beginTransaction() throws SQLException, TransactionException {
-        if (Objects.nonNull(threadLocal.get()))
+        if (Objects.nonNull(threadLocal.get())) {
             throw new TransactionException("ThreadLocal for begin transaction is not empty");
+        }
         Connection connection = ConnectionPool.getConnection();
         connection.setAutoCommit(false);
         ConnectionPoolWrapper wrapper = new ConnectionPoolWrapper(connection, true);
@@ -25,9 +37,16 @@ public class TransactionManager {
         log.debug("Transaction start");
     }
 
+    /**
+     * Stop DB transaction.
+     *
+     * @throws SQLException DB access errors
+     * @throws TransactionException ThreadLocal isn't empty
+     */
     public static void endTransaction() throws SQLException, TransactionException {
-        if (Objects.isNull(threadLocal.get()))
+        if (Objects.isNull(threadLocal.get())) {
             throw new TransactionException("ThreadLocal for end transaction is not empty");
+        }
         ConnectionPoolWrapper wrapper = threadLocal.get();
         log.debug(threadLocal.get().hashCode());
         wrapper.getConnection().commit();
@@ -36,9 +55,15 @@ public class TransactionManager {
         log.debug("Transaction end");
     }
 
+    /**
+     * Transaction rollback.
+     *
+     * @throws TransactionException Rollback error
+     */
     public static void rollbackTransaction() throws TransactionException {
-        if (Objects.isNull(threadLocal.get()))
+        if (Objects.isNull(threadLocal.get())) {
             return;
+        }
         try {
             ConnectionPoolWrapper wrapper = threadLocal.get();
             Connection connection = wrapper.getConnection();
@@ -54,6 +79,12 @@ public class TransactionManager {
         }
     }
 
+    /**
+     * Get connection.
+     *
+     * @return Connection pool wrapper
+     * @throws SQLException DB access errors
+     */
     public static ConnectionPoolWrapper getConnection() throws SQLException {
         if (Objects.isNull(threadLocal.get())) {
             Connection connection = ConnectionPool.getConnection();

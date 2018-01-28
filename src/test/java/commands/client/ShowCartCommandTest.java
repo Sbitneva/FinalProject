@@ -3,7 +3,6 @@ package commands.client;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import sbitneva.command.CommandsHelper;
 import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
 import sbitneva.entity.Cart;
@@ -16,15 +15,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 import static sbitneva.command.factory.FactoryCommand.SHOW_CART;
 
@@ -45,7 +41,7 @@ public class ShowCartCommandTest {
     }
 
     @Test
-    public void executeTestWithCorrectParameters() throws IOException, ServletException{
+    public void executeTestWithCorrectParameters() throws IOException, ServletException {
         int userId = 5;
         when(request.getSession().getAttribute(anyString())).thenReturn(userId);
         Cart cartBefore = new Cart();
@@ -71,12 +67,12 @@ public class ShowCartCommandTest {
             dispatcher.processRequest(request, response);
 
             cartAfter = cartDao.getUserCart(userId);
-            assertEquals(4 , cartAfter.getTickets().size());
+            assertEquals(4, cartAfter.getTickets().size());
 
         } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
-            if(e.getClass() == TransactionException.class){
-                try{
+            if (e.getClass() == TransactionException.class) {
+                try {
                     TransactionManager.endTransaction();
                 } catch (TransactionException | SQLException e1) {
                     log.error(e1.getClass().getSimpleName() + ":" + e1.getMessage());
@@ -86,7 +82,7 @@ public class ShowCartCommandTest {
     }
 
     @Test
-    public void executeTestWithWrongParameters() throws IOException, ServletException{
+    public void executeTestWithWrongParameters() throws IOException, ServletException {
         when(request.getSession().getAttribute(anyString())).thenReturn("ofkfk");
 
         ServletDispatcher dispatcher = new ServletDispatcher();

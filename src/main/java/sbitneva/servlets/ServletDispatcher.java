@@ -11,21 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Cruise servlet path.
+ */
 @WebServlet("/Cruise")
 
 public class ServletDispatcher extends HttpServlet {
-    static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
+    private static Logger log = Logger.getLogger(ServletDispatcher.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
         log.debug("Get");
         processRequest(req, resp);
-
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(final HttpServletRequest req, final HttpServletResponse resp)
+            throws ServletException, IOException {
         log.debug("Post");
         processRequest(req, resp);
     }
@@ -40,7 +44,15 @@ public class ServletDispatcher extends HttpServlet {
         log.debug("Servlet initialization");
     }
 
-    public void processRequest(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Requests processor.
+     *
+     * @param request HTTP request
+     * @param response HTTP response
+     * @throws ServletException Servlet exceptions
+     * @throws IOException IO exceptions
+     */
+    public void processRequest(final HttpServletRequest request, final HttpServletResponse response)
             throws ServletException, IOException {
         FactoryCommand factoryCommand = FactoryCommand.getInstance();
         Command command = factoryCommand.getCommand(request);
