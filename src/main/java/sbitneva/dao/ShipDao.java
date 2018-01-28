@@ -10,14 +10,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ShipDao {
+/**
+ * Ship DAO.
+ */
+public class ShipDao extends BasicDao {
 
-    public final static String GET_SHIP_NAME_BY_ID = "select ship_name from ships where ship_id = ?";
-    private final static String GET_ALL_SHIPS = "SELECT * FROM ships";
-    private final static String GET_SHIP_INFO = "SELECT * FROM ships WHERE ship_id = ?";
     private static Logger log = Logger.getLogger(ShipDao.class.getName());
 
-    public Ship getBasicShipData(int shipId) throws SQLException {
+    private static final String GET_SHIP_NAME_BY_ID =
+            "SELECT ship_name FROM ships WHERE ship_id = ?";
+    private static final String GET_ALL_SHIPS =
+            "SELECT * FROM ships";
+    private static final String GET_SHIP_INFO =
+            "SELECT * FROM ships WHERE ship_id = ?";
+
+    /**
+     * Get ship information.
+     *
+     * @param shipId Ship ID
+     * @return Ship data
+     * @throws SQLException DB access errors
+     */
+    public Ship getBasicShipData(final int shipId) throws SQLException {
         Ship ship = null;
 
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
@@ -39,6 +53,12 @@ public class ShipDao {
         return ship;
     }
 
+    /**
+     * Get all the ships.
+     *
+     * @return Ships list
+     * @throws SQLException DB access errors
+     */
     public ArrayList<Ship> getAllShips() throws SQLException {
 
         ArrayList<Ship> ships = new ArrayList<>();
@@ -61,9 +81,15 @@ public class ShipDao {
         return ships;
     }
 
-    public String getShipNameById(int id) throws SQLException {
-        return BasicDao.getNameById(GET_SHIP_NAME_BY_ID, id);
+    /**
+     * Get ship name by ship ID.
+     *
+     * @param id Ship ID
+     * @return Ship name
+     * @throws SQLException DB access errors
+     */
+    public String getShipNameById(final int id) throws SQLException {
+        return super.getNameById(GET_SHIP_NAME_BY_ID, id);
     }
-
 
 }

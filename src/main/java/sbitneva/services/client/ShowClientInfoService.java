@@ -13,7 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ShowClientInfoService {
+/**
+ * Service: show client info.
+ */
+public final class ShowClientInfoService {
     private static Logger log = Logger.getLogger(ShowClientInfoService.class.getName());
     private static ShowClientInfoService showClientInfoService = new ShowClientInfoService();
 
@@ -21,11 +24,24 @@ public class ShowClientInfoService {
 
     }
 
+    /**
+     * Get ShowClientInfoService instance.
+     *
+     * @return ShowClientInfoService instance
+     */
     public static ShowClientInfoService getShowClientInfoService() {
         return showClientInfoService;
     }
 
-    public Client getClient(int userId) throws SQLException, DaoException {
+    /**
+     * Get client data by user ID.
+     *
+     * @param userId User ID
+     * @return Client
+     * @throws SQLException DB access errors
+     * @throws DaoException DAO exceptions
+     */
+    public Client getClient(final int userId) throws SQLException, DaoException {
         Client client = null;
         boolean success = false;
         try {
@@ -54,7 +70,7 @@ public class ShowClientInfoService {
         return client;
     }
 
-    private void fillClientFields(Client client) {
+    private void fillClientFields(final Client client) {
         ShipDao shipDao = DaoFactory.getShipDao();
         PortDao portDao = DaoFactory.getPortDao();
         ArrayList<Excursion> userExcursions = new ArrayList<>();
@@ -72,7 +88,7 @@ public class ShowClientInfoService {
                 excursion.setPortName(portDao.getPortNameById(portId));
             }
             client.setExcursions(userExcursions);
-        } catch (SQLException | DaoException e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
     }

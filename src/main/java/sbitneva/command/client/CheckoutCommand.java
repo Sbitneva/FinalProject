@@ -1,7 +1,7 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.services.client.CheckoutService;
 
@@ -10,14 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.*;
+/**
+ * Command: checkout.
+ */
+public class CheckoutCommand extends BasicCommand implements Command {
 
-public class CheckoutCommand implements Command {
     private static Logger log = Logger.getLogger(CheckoutCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int userId = CommandsHelper.getUserId(request);
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+        int userId = getSessionAttribute(request, USER_ID_SESSION_ATTRIBUTE);
         if (userId > 0) {
             CheckoutService checkoutService = CheckoutService.getCheckoutService();
             boolean isSuccess = checkoutService.doCheckout(userId);

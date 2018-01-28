@@ -1,7 +1,7 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Client;
 import sbitneva.exception.DaoException;
@@ -13,29 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class ShowClientInfoCommand implements Command {
+/**
+ * Command: show client info.
+ */
+public class ShowClientInfoCommand extends BasicCommand implements Command {
     private static Logger log = Logger.getLogger(ShowClientInfoCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
         boolean success = false;
 
         ShowClientInfoService showClientInfoService = ShowClientInfoService.getShowClientInfoService();
-        int clientId = Integer.parseInt(request.getSession().getAttribute(
-                CommandsHelper.USER_ID_SESSION_ATTRIBUTE).toString());
+        int clientId = getSessionAttribute(request, USER_ID_SESSION_ATTRIBUTE);
         try {
             Client client = showClientInfoService.getClient(clientId);
             if (client != null) {
                 success = true;
-                request.setAttribute(CommandsHelper.CLIENT, client);
-                request.getRequestDispatcher(CommandsHelper.CLIENT_INFO_PAGE).forward(request, response);
+                request.setAttribute(CLIENT, client);
+                request.getRequestDispatcher(CLIENT_INFO_PAGE).forward(request, response);
             }
         } catch (SQLException | DaoException e) {
-            log.error(e.getMessage());
+            log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
         }
         if (!success) {
-            request.setAttribute(CommandsHelper.ERRORS, "No user with given email and password");
-            request.getRequestDispatcher(CommandsHelper.MAIN_PAGE).forward(request, response);
+            request.setAttribute(ERRORS, "No user with given email and password");
+            request.getRequestDispatcher(MAIN_PAGE).forward(request, response);
         }
     }
 }

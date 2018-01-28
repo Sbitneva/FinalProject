@@ -8,8 +8,10 @@ import sbitneva.entity.Ship;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
-public class ShowCruisesService {
+/**
+ * Service: show cruises.
+ */
+public final class ShowCruisesService {
 
     private static Logger log = Logger.getLogger(ShowCruisesService.class.getName());
     private static ShowCruisesService showCruisesService = new ShowCruisesService();
@@ -18,10 +20,20 @@ public class ShowCruisesService {
 
     }
 
+    /**
+     * Get ShowCruisesService instance.
+     *
+     * @return ShowCruisesService instance
+     */
     public static ShowCruisesService getShowCruisesService() {
         return showCruisesService;
     }
 
+    /**
+     * Get cruise ships list.
+     *
+     * @return Ships list
+     */
     public ArrayList<Ship> getCruiseShips() {
         ArrayList<Ship> ships = new ArrayList<>();
         ShipDao shipDao = DaoFactory.getShipDao();

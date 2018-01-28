@@ -1,8 +1,16 @@
 package sbitneva.exception;
 
+/**
+ * Login exception.
+ */
 public class LoginException extends RuntimeException {
 
-    public LoginException(String message) {
+    /**
+     * Exception with message constructor.
+     *
+     * @param message Message to pass to the handler
+     */
+    public LoginException(final String message) {
         super(message);
     }
 }

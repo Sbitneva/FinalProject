@@ -14,7 +14,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class ShowCartService {
+/**
+ * Service: show cart.
+ */
+public final class ShowCartService {
 
     private static Logger log = Logger.getLogger(ShowCartService.class.getName());
 
@@ -24,14 +27,18 @@ public class ShowCartService {
 
     }
 
+    /**
+     * Get ShowCartService instance.
+     *
+     * @return ShowCartService instance
+     */
     public static ShowCartService getShowCartService() {
         return showCartService;
     }
 
-    static void setTicketsInfo(Cart cart) {
+    private void setTicketsInfo(final Cart cart) {
 
         try {
-
             ArrayList<Ticket> tickets = cart.getTickets();
             if (tickets.size() > 0) {
                 ComfortLevelDao comfortLevelDao = DaoFactory.getComfortLevelDao();
@@ -40,7 +47,7 @@ public class ShowCartService {
                     TicketDao ticketDao = DaoFactory.getTicketDao();
                     ticketDao.setTicketProperties(ticket);
                     ticket.setComfortLevelName(comfortLevels.get(ticket.getComfortLevel()));
-                    ticket.setDiscountedPrice();
+                    ticket.applyDiscountToPrice();
                 }
             }
         } catch (SQLException e) {
@@ -48,7 +55,13 @@ public class ShowCartService {
         }
     }
 
-    public Cart getCart(int userId) {
+    /**
+     * Get user cart.
+     *
+     * @param userId User ID
+     * @return Cart
+     */
+    public Cart getCart(final int userId) {
         Cart cart = null;
         CartDao cartDao = DaoFactory.getCartDao();
         try {
@@ -74,7 +87,7 @@ public class ShowCartService {
         return cart;
     }
 
-    private void setDiscountedCheckout(Cart cart) {
+    private void setDiscountedCheckout(final Cart cart) {
         ArrayList<Ticket> tickets = cart.getTickets();
         if (tickets.size() > 0) {
             int sum = 0;
@@ -85,7 +98,7 @@ public class ShowCartService {
         }
     }
 
-    private void setCheckout(Cart cart) {
+    private void setCheckout(final Cart cart) {
         ArrayList<Ticket> tickets = cart.getTickets();
         if (tickets.size() > 0) {
             int sum = 0;
@@ -96,7 +109,7 @@ public class ShowCartService {
         }
     }
 
-    private boolean verifyCart(Cart cart, int userId) {
+    private boolean verifyCart(final Cart cart, final int userId) {
 
         for (Ticket ticket : cart.getTickets()) {
             if (ticket.getOwnerId() > 0) {
@@ -121,14 +134,12 @@ public class ShowCartService {
         CartDao cartDao = DaoFactory.getCartDao();
         boolean result = false;
         try {
-            //TransactionManager.beginTransaction();
             result = cartDao.cleanCart(cart.getDeletedTickets(), userId);
-            //TransactionManager.endTransaction();
         } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             try {
-                //TransactionManager.rollbackTransaction();
-            } catch (Exception e1) {
+                TransactionManager.rollbackTransaction();
+            } catch (TransactionException e1) {
                 log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
             }
         }

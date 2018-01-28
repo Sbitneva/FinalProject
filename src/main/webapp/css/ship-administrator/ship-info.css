@@ -37,6 +37,11 @@
     color: #4f5957;
     border-radius: 4px;
 }
+#logout_button {
+    font-size: 14px;
+    color: #4f5957;
+    border-radius: 4px;
+}
 
 #show {
     font-size: 14px;
@@ -48,6 +53,10 @@
     font-size: 14px;
     color: #4f5957;
     border-radius: 4px;
+}
+
+#menu-class{
+    display: inline-block;
 }
 
 

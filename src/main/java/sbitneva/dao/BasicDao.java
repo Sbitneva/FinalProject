@@ -11,13 +11,17 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Base DAO to derive from.
+ */
 public class BasicDao {
 
     private static Logger log = Logger.getLogger(BasicDao.class.getName());
 
-    public static Map<Integer, String> getIdNameDataFromTable(String sql) throws SQLException {
+    Map<Integer, String> getIdNameDataFromTable(final String sql) throws SQLException {
         Map<Integer, String> comfortLevels = new HashMap<>();
         ConnectionPoolWrapper con = TransactionManager.getConnection();
+
         try {
             PreparedStatement statement = con.prepareStatement(sql);
             ResultSet resultSet = statement.executeQuery();
@@ -31,9 +35,10 @@ public class BasicDao {
         return comfortLevels;
     }
 
-    public static String getNameById(String sql, int id) throws SQLException {
+    String getNameById(final String sql, final int id) throws SQLException {
         String name = null;
         ConnectionPoolWrapper con = TransactionManager.getConnection();
+
         try {
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, id);
@@ -49,9 +54,10 @@ public class BasicDao {
         return name;
     }
 
-    public static int getId(String sql, int parameter) throws SQLException {
+    int getId(final String sql, final int parameter) throws SQLException {
         int id = 0;
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
+
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, parameter);
@@ -66,10 +72,11 @@ public class BasicDao {
         return id;
     }
 
-    public static int updateCell(String sql, int parameter1, int parameter2) throws SQLException, DaoException {
+    int updateCell(final String sql, final int parameter1, final int parameter2)
+            throws SQLException, DaoException {
         int result = 0;
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
-        //connection.getConnection().setAutoCommit(false);
+
         log.debug(connection.getConnection().toString());
         try {
             PreparedStatement statement = connection.prepareStatement(sql);

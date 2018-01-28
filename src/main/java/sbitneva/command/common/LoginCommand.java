@@ -1,7 +1,7 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
-import sbitneva.command.CommandsHelper;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.entity.Client;
@@ -13,21 +13,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.*;
-
-public class LoginCommand implements Command {
+/**
+ * Command: user login.
+ */
+public class LoginCommand extends BasicCommand implements Command {
 
     private static Logger log = Logger.getLogger(LoginCommand.class.getName());
 
     public static boolean isFullRequest = false;
 
-    private StringBuffer errors = new StringBuffer();
+    private StringBuffer errors = null;
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response) {
         log.debug("Login command starts execution");
-        String email = request.getParameter(CommandsHelper.EMAIL);
-        String password = request.getParameter(CommandsHelper.PASSWORD);
+
+        isFullRequest = false;
+
+        errors = new StringBuffer();
+
+        String email = getStringParameter(request, EMAIL);
+        String password = getStringParameter(request, PASSWORD);
 
         if (responseDataVerification(email, password)) {
             LoginService loginService = LoginService.getLoginService();
@@ -70,7 +76,7 @@ public class LoginCommand implements Command {
         }
     }
 
-    private boolean responseDataVerification(String email, String password) {
+    private boolean responseDataVerification(final String email, final String password) {
         boolean result = false;
         if ((email != null) && (password != null)) {
             if (email.isEmpty()) {
@@ -90,7 +96,7 @@ public class LoginCommand implements Command {
         return result;
     }
 
-    private int getUserType(Client user) {
+    private int getUserType(final Client user) {
         int typeId = 0;
         if (user != null) {
             if (user.getShipId() > 0) {

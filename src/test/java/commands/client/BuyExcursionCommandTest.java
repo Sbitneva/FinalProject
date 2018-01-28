@@ -3,13 +3,9 @@ package commands.client;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import sbitneva.dao.CartDao;
 import sbitneva.dao.DaoFactory;
-import sbitneva.dao.ExcursionDao;
 import sbitneva.dao.TicketsExcursionsDao;
-import sbitneva.exception.TransactionException;
 import sbitneva.servlets.ServletDispatcher;
-import sbitneva.transactions.TransactionManager;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,10 +17,9 @@ import java.sql.SQLException;
 
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static sbitneva.command.CommandsHelper.*;
+import static org.mockito.Mockito.*;
+import static sbitneva.command.BasicCommand.EXCURSION_ID;
+import static sbitneva.command.BasicCommand.TICKET_ID;
 import static sbitneva.command.factory.FactoryCommand.BUY_EXCURSION;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 
@@ -57,7 +52,7 @@ public class BuyExcursionCommandTest {
             dispatcher.processRequest(request, response);
             int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(Integer.parseInt(ticketId)).size();
             assertEquals(excursionsBefore + 1, excursionsAfter);
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
     }
@@ -75,7 +70,7 @@ public class BuyExcursionCommandTest {
             dispatcher.processRequest(request, response);
             int excursionsAfter = ticketsExcursionsDao.getAllExcursionsByTicketId(90).size();
             assertEquals(excursionsBefore, excursionsAfter);
-        } catch (SQLException  e) {
+        } catch (SQLException e) {
             log.error(e.getClass().getSimpleName() + ":" + e.getMessage());
         }
     }

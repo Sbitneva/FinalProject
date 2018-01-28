@@ -21,7 +21,7 @@
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <log4j.version>1.2.17</log4j.version>
         <junit.version>4.12</junit.version>
-        <mockito.version>2.12.0</mockito.version>
+        <mockito.version>2.13.0</mockito.version>
         <servlet-api.version>4.0.0</servlet-api.version>
         <exec-maven.version>1.6.0</exec-maven.version>
     </properties>
@@ -215,10 +215,21 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle-plugin.version}</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <outputFile>checkstyle-report.xml</outputFile>
-                </configuration>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <configuration>
+                            <configLocation>src/main/resources/checkstyle.xml</configLocation>
+                            <violationSeverity>warning</violationSeverity>
+                            <logViolationsToConsole>true</logViolationsToConsole>
+                            <failOnViolation>false</failOnViolation>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

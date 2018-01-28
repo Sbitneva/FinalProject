@@ -1,6 +1,7 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.ComfortLevel;
 import sbitneva.services.common.ShowServicesService;
@@ -10,16 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.*;
-
-public class ShowServicesCommand implements Command {
+/**
+ * Command: show services.
+ */
+public class ShowServicesCommand extends BasicCommand implements Command {
     private static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
         log.debug("ShowServicesCommand execution started");
         boolean success = false;
-        int comfortLevelId = getComfortLevelId(request);
+        int comfortLevelId = getIntParameter(request, COMFORT_ID);
         if (comfortLevelId > 0) {
             ShowServicesService showServicesService = ShowServicesService.getShowTicketsService();
             ComfortLevel comfortLevel = showServicesService.getServices(comfortLevelId);
@@ -33,17 +36,5 @@ public class ShowServicesCommand implements Command {
         if (!success) {
             request.getRequestDispatcher(PAGE_NOT_FOUND_PAGE).forward(request, response);
         }
-    }
-
-    private int getComfortLevelId(HttpServletRequest request) {
-        int id = 0;
-        if (request.getParameter(COMFORT_ID) != null) {
-            try {
-                id = Integer.parseInt(request.getParameter(COMFORT_ID));
-            } catch (NumberFormatException e) {
-                log.error(e.getClass().getSimpleName() + e.getMessage());
-            }
-        }
-        return id;
     }
 }

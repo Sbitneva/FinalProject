@@ -1,6 +1,7 @@
 package sbitneva.command.client;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.entity.Port;
 import sbitneva.services.client.ShowExcursionsService;
@@ -11,15 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static sbitneva.command.CommandsHelper.*;
-
-public class ShowExcursionsCommand implements Command {
+/**
+ * Command: show excursions.
+ */
+public class ShowExcursionsCommand extends BasicCommand implements Command {
     private static Logger log = Logger.getLogger(ShowExcursionsCommand.class.getName());
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+
         log.debug("ShowExcursionsCommand execution started");
-        int ticketId = getTicketId(request);
+
+        int ticketId = getIntParameter(request, TICKET_ID);
         if (ticketId > 0) {
             ShowExcursionsService showExcursionsService = ShowExcursionsService.getShowExcursionsService();
             ArrayList<Port> ports = showExcursionsService.getExcursions(ticketId);
@@ -29,14 +34,5 @@ public class ShowExcursionsCommand implements Command {
                 request.getRequestDispatcher(EXCURSIONS_PAGE).forward(request, response);
             }
         }
-    }
-
-    private int getTicketId(HttpServletRequest request) {
-        int ticketId = 0;
-        if (request.getParameter(TICKET_ID) != null) {
-            ticketId = Integer.parseInt(request.getParameter(TICKET_ID));
-        }
-        log.debug(ticketId);
-        return ticketId;
     }
 }

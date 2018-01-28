@@ -4,14 +4,20 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class CommandsHelper {
+/**
+ * Command: Basic class.
+ */
+public class BasicCommand {
+
+    private static Logger log = Logger.getLogger(BasicCommand.class.getName());
+
     public static final String SERVLET_NAME = "/Cruise";
-    //session attributes names
+
+    // Session attributes names
     public static final String USER_ID_SESSION_ATTRIBUTE = "id";
     public static final String USER_TYPE_SESSION_ATTRIBUTE = "type";
-    public static final String LANGUAGE_SESSION_ATTRIBUTE = "language";
-    //request parameters names
 
+    // Request parameters names
     public static final String SHIP_ID = "shipId";
     public static final String CART = "cart";
     public static final String TICKET_ID = "ticketId";
@@ -31,6 +37,7 @@ public class CommandsHelper {
     public static final String STAFF = "staff";
     public static final String DISCOUNT = "discount";
     public static final String EXCURSION_ID = "excursionId";
+
     // client pages
     public static final String CLIENT_INFO_PAGE = "jsp/client/client-page.jsp";
     public static final String CRUISES_LIST_PAGE = "jsp/client/cruises.jsp";
@@ -44,36 +51,60 @@ public class CommandsHelper {
     public static final String TICKETS_PAGE = "jsp/client/tickets.jsp";
     public static final String REGISTRATION_PAGE = "jsp/registration/registration.jsp";
     public static final String PAGE_NOT_FOUND_PAGE = "jsp/errors/404-error.jsp";
+
     // ship-admin pages
     public static final String SHIP_STAFF_PAGE = "jsp/ship-administrator/staff.jsp";
     public static final String SHIP_INFO_PAGE = "jsp/ship-administrator/ship-info.jsp";
-    // client commands
-
     public static final String CLIENT_COMMAND = "?command=client";
-    public static final String CART_COMMAND = "?command=cart";
-    // common commands
 
+    // client commands
+    public static final String CART_COMMAND = "?command=cart";
     public static final String SHOW_SHIP_COMMAND = "?command=showShip";
 
-    private static Logger log = Logger.getLogger(CommandsHelper.class.getName());
-    // ship-admin commands
-    private static CommandsHelper commandsHelper = new CommandsHelper();
-
-    private CommandsHelper() {
-
+    protected BasicCommand() {
     }
 
-    public static int getUserId(HttpServletRequest request) {
-        int userId = 0;
-        if (request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE) != null) {
+    protected int getIntParameter(final HttpServletRequest request, final String parameter) {
+        int id = 0;
+        if (request.getParameter(parameter) != null) {
             try {
-                userId = Integer.parseInt(request.getSession().getAttribute(USER_ID_SESSION_ATTRIBUTE).toString());
+                id = Integer.parseInt(request.getParameter(parameter));
+            } catch (NumberFormatException e) {
+                log.error(e.getClass().getSimpleName() + e.getMessage());
+            }
+        }
+        return id;
+    }
+
+    protected String getStringParameter(final HttpServletRequest request, final String parameter) {
+        String value = "";
+        if (request.getParameter(parameter) != null) {
+            value = request.getParameter(parameter);
+        }
+        return value;
+    }
+
+    protected int getSessionAttribute(final HttpServletRequest request, final String attribute) {
+        int value = 0;
+        if (request.getSession().getAttribute(attribute) != null) {
+            try {
+                value = Integer.parseInt(request.getSession().getAttribute(attribute).toString());
             } catch (NumberFormatException e) {
                 log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
             }
         }
-        return userId;
+        return value;
     }
 
-
+    protected int getPage(final HttpServletRequest request) {
+        int currentPage = 1;
+        if (request.getParameter(PAGE) != null) {
+            try {
+                currentPage = Integer.parseInt(request.getParameter(PAGE));
+            } catch (NumberFormatException e) {
+                log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
+            }
+        }
+        return currentPage;
+    }
 }

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static sbitneva.command.CommandsHelper.COMFORT_ID;
+import static sbitneva.command.BasicCommand.COMFORT_ID;
 import static sbitneva.command.factory.FactoryCommand.GET_SERVICES;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 

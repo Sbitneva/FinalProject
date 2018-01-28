@@ -1,6 +1,10 @@
 package sbitneva.entity;
 
+/**
+ * Staff entity.
+ */
 public class Staff {
+
     private int staffId;
     private String firstName;
     private String lastName;
@@ -8,63 +12,128 @@ public class Staff {
     private int shipId;
     private int shipName;
 
+    /**
+     * Get staff ID.
+     *
+     * @return Staff ID
+     */
     public int getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(int staffId) {
+    /**
+     * Set staff ID.
+     *
+     * @param staffId Staff ID
+     */
+    public void setStaffId(final int staffId) {
         this.staffId = staffId;
     }
 
+    /**
+     * Get staff first name.
+     *
+     * @return First name
+     */
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
+    /**
+     * Set staff first name.
+     *
+     * @param firstName First name
+     */
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     * Get staff last name.
+     *
+     * @return Last name
+     */
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
+    /**
+     * Set staff last name.
+     *
+     * @param lastName Last name
+     */
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Get staff position.
+     *
+     * @return Position
+     */
     public String getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    /**
+     * Set staff position.
+     *
+     * @param position Position
+     */
+    public void setPosition(final String position) {
         this.position = position;
     }
 
+    /**
+     * Get staff's ship ID.
+     *
+     * @return Ship ID
+     */
     public int getShipId() {
         return shipId;
     }
 
-    public void setShipId(int shipId) {
+    /**
+     * Set staff's ship ID.
+     *
+     * @param shipId Ship ID
+     */
+    public void setShipId(final int shipId) {
         this.shipId = shipId;
     }
 
+    /**
+     * Get staff's ship name.
+     *
+     * @return Ship name
+     */
     public int getShipName() {
         return shipName;
     }
 
-    public void setShipName(int shipName) {
+    /**
+     * Set staff's ship name.
+     *
+     * @param shipName Ship name
+     */
+    public void setShipName(final int shipName) {
         this.shipName = shipName;
     }
 
+    /**
+     * Staff representation.
+     *
+     * @return Staff's string description
+     */
     @Override
     public String toString() {
-        return "Staff{" +
-                "staffId=" + staffId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", position='" + position + '\'' +
-                ", shipId=" + shipId +
-                ", shipName=" + shipName +
-                '}';
+        return "Staff{"
+                + "staffId=" + staffId
+                + ", firstName='" + firstName + '\''
+                + ", lastName='" + lastName + '\''
+                + ", position='" + position + '\''
+                + ", shipId=" + shipId
+                + ", shipName=" + shipName
+                + '}';
     }
 }

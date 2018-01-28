@@ -13,28 +13,45 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TicketDao {
+/**
+ * Ticket DAO.
+ */
+public class TicketDao extends BasicDao {
 
-    private final static String BUY_TICKET = "UPDATE tickets SET user_id_users=? WHERE " +
-            "(ticket_id = ? and user_id_users is null)";
-    private final static String GET_SHIP_ID_BY_TICKET_ID = "select ship_id_ships from tickets where ticket_id = ?";
-    private final static String UPDATE_TICKET_DISCOUNT = "UPDATE tickets SET discount = ?" +
-            " WHERE (ticket_id = ? and ship_id_ships = ?)";
-    private static final String GET_ALL_CLIENT_TICKETS =
-            "SELECT * FROM tickets INNER JOIN ships ON (tickets.user_id_users=? " +
-                    "AND tickets.ship_id_ships = ships.ship_id)";
-    private static final String GET_AVAILABLE_TICKETS_NUMBER =
-            "SELECT count (*) FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL)";
-    ;
-    private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
-            "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) ORDER BY ticket_id OFFSET ? LIMIT ?";
-    private static final String GET_TICKET_PROPERTIES = "select * from tickets inner join ships on " +
-            "(tickets.ship_id_ships = ships.ship_id and ticket_id = ?)";
     private static Logger log = Logger.getLogger(TicketDao.class.getName());
 
-    public ArrayList<Ticket> getUserTickets(int userId) throws SQLException, DaoException {
+    private static final String BUY_TICKET =
+            "UPDATE tickets SET user_id_users=? WHERE "
+            + "(ticket_id = ? and user_id_users is null)";
+    private static final String GET_SHIP_ID_BY_TICKET_ID =
+            "SELECT ship_id_ships FROM tickets WHERE ticket_id = ?";
+    private static final String UPDATE_TICKET_DISCOUNT =
+            "UPDATE tickets SET discount = ?"
+            + " WHERE (ticket_id = ? AND ship_id_ships = ?)";
+    private static final String GET_ALL_CLIENT_TICKETS =
+            "SELECT * FROM tickets INNER JOIN ships ON (tickets.user_id_users=? "
+            + "AND tickets.ship_id_ships = ships.ship_id)";
+    private static final String GET_AVAILABLE_TICKETS_NUMBER =
+            "SELECT COUNT (*) FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL)";
+    private static final String GET_LIMITED_NUMBER_AVAILABLE_TICKETS =
+            "SELECT * FROM tickets WHERE (ship_id_ships = ? AND user_id_users IS NULL) "
+            + "ORDER BY ticket_id OFFSET ? LIMIT ?";
+    private static final String GET_TICKET_PROPERTIES =
+            "SELECT * FROM tickets INNER JOIN ships ON "
+            + "(tickets.ship_id_ships = ships.ship_id and ticket_id = ?)";
+
+    /**
+     * Get user tickets.
+     *
+     * @param userId User ID
+     * @return List of tickets
+     * @throws SQLException DB access errors
+     * @throws DaoException No such user exists
+     */
+    public ArrayList<Ticket> getUserTickets(final int userId) throws SQLException, DaoException {
         ArrayList<Ticket> tickets = new ArrayList<>();
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
+
         connection.getConnection().setAutoCommit(false);
         try {
             PreparedStatement statement = connection.prepareStatement(GET_ALL_CLIENT_TICKETS);
@@ -56,15 +73,24 @@ public class TicketDao {
 
         } catch (SQLException e) {
             log.error(e.getMessage());
-            throw new DaoException();
+            throw new DaoException("User " + userId + " not exists");
         }
         connection.close();
         return tickets;
     }
 
-    public void buyTickets(int userId, Cart cart) throws SQLException, TransactionException {
+    /**
+     * Buy tickets.
+     *
+     * @param userId User ID
+     * @param cart Cart object
+     * @throws SQLException DB access errors
+     * @throws TransactionException Transaction cannot be completed
+     */
+    public void buyTickets(final int userId, final Cart cart) throws SQLException, TransactionException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         connection.getConnection().setAutoCommit(false);
+
         try {
             for (Ticket ticket : cart.getTickets()) {
                 PreparedStatement statement = connection.prepareStatement(BUY_TICKET);
@@ -81,11 +107,27 @@ public class TicketDao {
         connection.close();
     }
 
-    public int getShipByTicketId(int ticketId) throws SQLException {
-        return BasicDao.getId(GET_SHIP_ID_BY_TICKET_ID, ticketId);
+    /**
+     * Get ship by ticket.
+     *
+     * @param ticketId Ticket ID
+     * @return Ship ID
+     * @throws SQLException DB access errors
+     */
+    public int getShipByTicketId(final int ticketId) throws SQLException {
+        return super.getId(GET_SHIP_ID_BY_TICKET_ID, ticketId);
     }
 
-    public int updateDiscount(int ticketId, int discount, int shipId) throws SQLException {
+    /**
+     * Update ticket's discount.
+     *
+     * @param ticketId Ticket ID
+     * @param discount Discount value
+     * @param shipId Ship ID
+     * @return 1 if successfully updated
+     * @throws SQLException DB access errors
+     */
+    public int updateDiscount(final int ticketId, final int discount, final int shipId) throws SQLException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         int result = 0;
         try {
@@ -101,7 +143,14 @@ public class TicketDao {
         return result;
     }
 
-    public int getAvailableTicketsNumber(int shipId) throws SQLException {
+    /**
+     * Get available tickets number for a ship.
+     *
+     * @param shipId Ship ID
+     * @return Number of available tickets
+     * @throws SQLException DB access errors
+     */
+    public int getAvailableTicketsNumber(final int shipId) throws SQLException {
         int result = 0;
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
@@ -121,7 +170,17 @@ public class TicketDao {
         return result;
     }
 
-    public ArrayList<Ticket> getTicketsForPage(int shipId, int offset, int itemsNumber) throws SQLException {
+    /**
+     * Get a bunch of tickets for a ship.
+     *
+     * @param shipId Ship ID
+     * @param offset Offset (starting ticket)
+     * @param itemsNumber Number of tickets to read
+     * @return Tickets list
+     * @throws SQLException DB access errors
+     */
+    public ArrayList<Ticket> getTicketsForPage(final int shipId, final int offset, final int itemsNumber)
+            throws SQLException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         ArrayList<Ticket> tickets = new ArrayList<>();
         try {
@@ -147,7 +206,13 @@ public class TicketDao {
         return tickets;
     }
 
-    public void setTicketProperties(Ticket ticket) throws SQLException {
+    /**
+     * Set ticket properties.
+     *
+     * @param ticket Ticket data
+     * @throws SQLException DB access errors
+     */
+    public void setTicketProperties(final Ticket ticket) throws SQLException {
         ConnectionPoolWrapper connection = TransactionManager.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(GET_TICKET_PROPERTIES);
@@ -170,6 +235,4 @@ public class TicketDao {
         }
         connection.close();
     }
-
-
 }

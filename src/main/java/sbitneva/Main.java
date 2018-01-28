@@ -8,9 +8,18 @@ import org.apache.catalina.webresources.StandardRoot;
 
 import java.io.File;
 
+/**
+ * Main class.
+ */
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    /**
+     * Entry point.
+     *
+     * @param args command line arguments
+     * @throws Exception Unhandled exceptions
+     */
+    public static void main(final String[] args) throws Exception {
 
         String webappDirLocation = "src/main/webapp";
         Tomcat tomcat = new Tomcat();

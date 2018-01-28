@@ -59,9 +59,9 @@ public class ShowCartServiceTest {
 
         } catch (SQLException | TransactionException e) {
             log.error(e.getClass().getSimpleName() + " : " + e.getMessage());
-            try{
+            try {
                 TransactionManager.endTransaction();
-            }catch(SQLException | TransactionException e1) {
+            } catch (SQLException | TransactionException e1) {
                 log.error(e1.getClass().getSimpleName() + " : " + e1.getMessage());
             }
         }

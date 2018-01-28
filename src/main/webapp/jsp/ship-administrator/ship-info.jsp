@@ -14,15 +14,28 @@
     <link href="../../css/ship-administrator/ship-info.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>${ship.shipName}</h1>
+    <table>
+        <tr>
+            <td><h1>${ship.shipName}</h1></td>
+            <td>
+                <form id="staff_button" action="/Cruise?command=getStaff&shipId=${ship.shipId}" type="submit"
+                      method="post">
+                    <button id="staff" type="submit">
+                        <fmt:message key="ship-administrator.ship-info.staff_button.staff"/>
+                    </button>
 
-<form id="staff_button" action="/Cruise?command=getStaff&shipId=${ship.shipId}" type="submit"
-      method="post">
-    <button id="staff" type="submit">
-        <fmt:message key="ship-administrator.ship-info.staff_button.staff"/>
-    </button>
-</form>
+                </form>
+            </td>
+            <td width="70%">
 
+            </td>
+            <td>
+                <form id="logout" class="functions-class" action="/Cruise?command=logout" method="post">
+                    <button id="logout_button" type="submit"><fmt:message key="client.client-page.logout.logout_button"/></button>
+                </form>
+            </td>
+        </tr>
+    </table>
 
 <table id="tickets_table">
     <tr>
@@ -39,7 +52,8 @@
                 <form id="show_services"
                       action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
-                    <button id="show" type="submit"><fmt:message key="ship-administrator.ship-info.tickets_table.show_services.show"/></button>
+                    <button id="show" type="submit"><fmt:message
+                            key="ship-administrator.ship-info.tickets_table.show_services.show"/></button>
                 </form>
             </td>
             <td>
@@ -47,7 +61,8 @@
                       action="/Cruise?command=setDiscount&ticketId=${ticket.ticketId}&page=${page}"
                       method="post">
                     <input type="text" name="discount" contenteditable="true" value="${ticket.discount}">
-                    <button id="apply" type="submit"><fmt:message key="ship-administrator.ship-info.tickets_table.apply_discount.submit"/></button>
+                    <button id="apply" type="submit"><fmt:message
+                            key="ship-administrator.ship-info.tickets_table.apply_discount.submit"/></button>
                 </form>
             </td>
             <td>

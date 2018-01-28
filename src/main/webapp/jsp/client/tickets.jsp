@@ -20,19 +20,22 @@
         <td id="ship_name_td"><h2>${ship.shipName}</h2></td>
         <td id="cart_td">
             <form id="show_cart" class="functions-class" action="/Cruise?command=cart" method="post">
-                <button id="show_cart_button" type="submit"><fmt:message key="client.tickets.menu-table.show_cart.show_cart_button"/></button>
+                <button id="show_cart_button" type="submit"><fmt:message
+                        key="client.tickets.menu-table.show_cart.show_cart_button"/></button>
             </form>
         </td>
 
         <td id="buy_td">
             <form id="buy_ticket_form" action="/Cruise?command=getCruises" method="post">
-                <button id="buy_ticket_button" type="submit"> <fmt:message key="client.tickets.menu-table.buy_ticket_form.buy_ticket_button"/></button>
+                <button id="buy_ticket_button" type="submit"><fmt:message
+                        key="client.tickets.menu-table.buy_ticket_form.buy_ticket_button"/></button>
             </form>
         </td>
 
         <td id="logout_td">
             <form id="logout" class="functions-class" action="/Cruise?command=logout" method="post">
-                <button id="logout_button" type="submit"><fmt:message key="client.tickets.menu-table.logout.logout_button"/></button>
+                <button id="logout_button" type="submit"><fmt:message
+                        key="client.tickets.menu-table.logout.logout_button"/></button>
             </form>
         </td>
     </tr>
@@ -64,21 +67,24 @@
                       action="/Cruise?command=getServices&comfortId=${ticket.comfortLevel}"
                       method="post">
                         ${ticket.comfortLevelName}
-                    <button id="show" type="submit"><fmt:message key="client.tickets.ship_table.show_services.show"/></button>
+                    <button id="show" type="submit"><fmt:message
+                            key="client.tickets.ship_table.show_services.show"/></button>
                 </form>
             </td>
             <td style="width:20%;">${ticket.discount}</td>
             <td>${ticket.price}</td>
             <td>
                 <c:choose>
-                    <c:when test="${ticket.cart == 0}">
+                    <c:when test="${ticket.cart == false}">
                         <form id="add_to_cart_form"
                               action="/Cruise?command=add&ticketId=${ticket.ticketId}&page=${page}&shipId=${ship.shipId}"
                               method="post">
-                            <button id="add_to_cart_button" type="submit"><fmt:message key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button"/></button>
+                            <button id="add_to_cart_button" type="submit"><fmt:message
+                                    key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button"/></button>
                         </form>
                     </c:when>
-                    <c:otherwise><fmt:message key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button.in_cart"/></c:otherwise>
+                    <c:otherwise><fmt:message
+                            key="client.tickets.ship_table.add_to_cart_form.add_to_cart_button.in_cart"/></c:otherwise>
                 </c:choose>
             </td>
         </tr>

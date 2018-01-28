@@ -4,7 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
-<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
+<c:set var="language"
+       value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}"
+       scope="session"/>
 
 <fmt:setLocale value="${language}"/>
 
@@ -55,7 +57,7 @@ ${language}
                             </form>
                         </td>
                     </tr>
-                    <tr id="languages_buttons" >
+                    <tr id="languages_buttons">
                         <form>
                             <select id="language" name="language" onchange="submit()">
                                 <option value="en_EN" ${language == 'en_EN' ? 'selected' : ''}>English</option>

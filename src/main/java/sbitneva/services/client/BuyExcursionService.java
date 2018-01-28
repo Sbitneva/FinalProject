@@ -9,7 +9,10 @@ import sbitneva.transactions.TransactionManager;
 
 import java.sql.SQLException;
 
-public class BuyExcursionService {
+/**
+ * Service: buy excursion.
+ */
+public final class BuyExcursionService {
 
     private static Logger log = Logger.getLogger(BuyExcursionService.class.getName());
 
@@ -19,16 +22,26 @@ public class BuyExcursionService {
 
     }
 
+    /**
+     * Get BuyExcursionService instance.
+     *
+     * @return BuyExcursionService instance
+     */
     public static BuyExcursionService getBuyTicketService() {
         return buyExcursionService;
     }
 
-
-    public void buyExcursionForTicket(int ticketId, int excursionId) {
+    /**
+     * Buy excursion for ticket.
+     *
+     * @param ticketId Ticket ID
+     * @param excursionId Excursion ID
+     */
+    public void buyExcursionForTicket(final int ticketId, final int excursionId) {
         TicketsExcursionsDao ticketsExcursionsDao = DaoFactory.getTicketsExcursionsDao();
         try {
             TransactionManager.beginTransaction();
-            int result = ticketsExcursionsDao.addExcursionToTicket(ticketId, excursionId);
+            int result = ticketsExcursionsDao.updateCell(ticketId, excursionId);
             TransactionManager.endTransaction();
             if (result == 1) {
                 log.debug("Buy excursion query executed");

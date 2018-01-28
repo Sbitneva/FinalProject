@@ -1,6 +1,7 @@
 package sbitneva.command.common;
 
 import org.apache.log4j.Logger;
+import sbitneva.command.BasicCommand;
 import sbitneva.command.factory.Command;
 import sbitneva.configaration.SecurityConfiguration;
 import sbitneva.exception.RegistrationException;
@@ -11,23 +12,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static sbitneva.command.CommandsHelper.*;
+/**
+ * Command: registration.
+ */
+public class RegistrationCommand extends BasicCommand implements Command {
 
-public class RegistrationCommand implements Command {
-
-    static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
+    private static Logger log = Logger.getLogger(RegistrationCommand.class.getName());
 
     private StringBuffer errors = new StringBuffer();
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void execute(final HttpServletRequest request, final HttpServletResponse response)
+            throws ServletException, IOException {
+
         log.debug("RegistrationCommand execution started");
-        String firstName = getParameter(request, FIRST_NAME);
-        String lastName = getParameter(request, LAST_NAME);
-        String email = getParameter(request, EMAIL);
-        String password = getParameter(request, PASSWORD);
+
+        String firstName = getStringParameter(request, FIRST_NAME);
+        String lastName = getStringParameter(request, LAST_NAME);
+        String email = getStringParameter(request, EMAIL);
+        String password = getStringParameter(request, PASSWORD);
 
         boolean isValid = validateParameters(firstName, lastName, email, password);
+
         boolean success = false;
         if (isValid) {
 
@@ -47,28 +53,19 @@ public class RegistrationCommand implements Command {
             }
         }
         if (!success) {
+            errors.append("Please, fill all requirements fields");
             request.setAttribute(ERRORS, errors.toString());
             request.getRequestDispatcher(REGISTRATION_PAGE).forward(request, response);
         }
 
     }
 
-    private String getParameter(HttpServletRequest request, String parameter) {
-        String value = new String();
-        if (request.getParameter(parameter) != null) {
-            value = request.getParameter(parameter);
-            if (value.isEmpty()) {
-                errors.append(parameter + " field must contain a value\n");
-            }
-        }
-        return value;
-    }
-
-    private boolean validateParameters(String... params) {
+    private boolean validateParameters(final String... params) {
         boolean isValid = true;
-        for (int i = 0; i < params.length; i++) {
-            if (params[i].isEmpty()) {
+        for (String param : params) {
+            if (param.isEmpty()) {
                 isValid = false;
+                break;
             }
         }
         return isValid;

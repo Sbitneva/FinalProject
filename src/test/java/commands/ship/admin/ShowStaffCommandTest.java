@@ -14,7 +14,7 @@ import java.io.IOException;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static sbitneva.command.CommandsHelper.SHIP_ID;
+import static sbitneva.command.BasicCommand.SHIP_ID;
 import static sbitneva.command.factory.FactoryCommand.GET_STAFF;
 import static sbitneva.command.factory.FactoryCommand.PARAM_NAME_COMMAND;
 
