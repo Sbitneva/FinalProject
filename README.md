@@ -8,7 +8,9 @@
 Company can have several ships.
 Ship have a passenger capacity, a cruise route, a number of ports to visit, a cruise duration and staff. The client chooses cruise and pays for it. Also chooses excursions upon arrival at the port for additional payment. The cruise ship administrator is responsible for passengers bonuses, including ticket class (pool, gym, cinema room, beauty salons, etc.)
 
-## Requirements
+## [Presentation](presentation)
+
+## Requirements and installation
 
 - Linux Ubuntu (Server) LTS 16.04
 - [docker-ce](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-docker-ce)
@@ -41,6 +43,10 @@ DATABASE_URL=postgresql://localhost:5432/cruise_company \
 java -jar cruise-company-1.0-SNAPSHOT.jar
 ```
 
-- `DATABASE_URL` for full remote or local database path, in case of nothing provided the fallback value is `postgresql://localhost:54321/cruise_company`, which is used as immutable DB path at the test phase
+_webapp_ service will be accessible at `http://localhost/`
 
-_webapp_ service will be accessible at `http://localhost:8080/`
+## Stop project services
+
+```bash
+docker-compose down
+```
