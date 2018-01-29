@@ -1,4 +1,4 @@
-| **dev** | [![Travis CI Build Status](https://img.shields.io/travis/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://travis-ci.org/Sbitneva/FinalProject) [![Codecov.io Coverage Status](https://img.shields.io/codecov/c/github/Sbitneva/FinalProject/dev.svg?style=flat-square)](https://codecov.io/gh/Sbitneva/FinalProject) [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e) |
+| **dev** | [![Build Status](https://travis-ci.org/Sbitneva/FinalProject.svg?branch=dev)](https://travis-ci.org/Sbitneva/FinalProject) [![codecov](https://codecov.io/gh/Sbitneva/FinalProject/branch/dev/graph/badge.svg)](https://codecov.io/gh/Sbitneva/FinalProject) [![VersionEye Dependency Status](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e/badge.svg)](https://www.versioneye.com/user/projects/5a57df910fb24f3b4514c58e) |
 |---|---|
 
 # Final Project
@@ -36,17 +36,21 @@ Ship have a passenger capacity, a cruise route, a number of ports to visit, a cr
     mvn clean install
     ```
 
-## Run
+## Run with remote database
 
 ```bash
 DATABASE_URL=postgresql://localhost:5432/cruise_company \
-java -jar cruise-company-1.0-SNAPSHOT.jar
+java -jar target/cruise-company-1.0-SNAPSHOT.jar
 ```
 
-_webapp_ service will be accessible at `http://localhost/`
+_webapp_ service will be accessible at `http://localhost:8080/`
 
-## Stop project services
+## Local demo deploy with local database
 
 ```bash
-docker-compose down
+./deploy-local.sh
 ```
+
+_webapp_ service will be accessible at `http://localhost:8080/` 
+
+[![asciicast](https://asciinema.org/a/llWJl6VSDLkD5J6ZwpratRxHk.png)](https://asciinema.org/a/llWJl6VSDLkD5J6ZwpratRxHk)
